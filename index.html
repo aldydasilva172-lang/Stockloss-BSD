@@ -1,12 +1,8 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>STOCKLOSS BSD</title>
 
@@ -32,7 +28,35 @@ linear-gradient(135deg,#0f172a,#111827,#1e293b);
 overflow:hidden;
 }
 
+body::before{
+content:'';
+position:absolute;
+width:350px;
+height:350px;
+background:#00f5ff;
+border-radius:50%;
+top:-120px;
+left:-120px;
+filter:blur(120px);
+opacity:.25;
+}
+
+body::after{
+content:'';
+position:absolute;
+width:300px;
+height:300px;
+background:#7c3aed;
+border-radius:50%;
+bottom:-120px;
+right:-120px;
+filter:blur(120px);
+opacity:.25;
+}
+
 .container{
+position:relative;
+z-index:2;
 width:100%;
 max-width:430px;
 padding:35px;
@@ -40,6 +64,8 @@ border-radius:28px;
 background:rgba(255,255,255,.08);
 backdrop-filter:blur(18px);
 border:1px solid rgba(255,255,255,.1);
+box-shadow:
+0 10px 40px rgba(0,0,0,.35);
 }
 
 .logo{
@@ -61,6 +87,7 @@ h1{
 text-align:center;
 color:white;
 font-size:30px;
+font-weight:700;
 margin-bottom:8px;
 }
 
@@ -92,6 +119,17 @@ border-radius:16px;
 background:rgba(255,255,255,.08);
 color:white;
 font-size:15px;
+border:1px solid transparent;
+transition:.3s;
+}
+
+.input-box input:focus{
+border:1px solid #00f5ff;
+box-shadow:0 0 15px rgba(0,245,255,.25);
+}
+
+input::placeholder{
+color:#94a3b8;
 }
 
 button{
@@ -104,15 +142,20 @@ color:white;
 font-size:16px;
 font-weight:600;
 cursor:pointer;
-margin-top:10px;
+transition:.3s;
+}
+
+button:hover{
+transform:translateY(-2px);
+}
+
+button:disabled{
+opacity:.7;
 }
 
 .reset-btn{
+margin-top:12px;
 background:linear-gradient(135deg,#ef4444,#dc2626);
-}
-
-.hasil-btn{
-background:linear-gradient(135deg,#22c55e,#16a34a);
 }
 
 #status{
@@ -134,12 +177,14 @@ background:#0f172a;
 border-radius:14px;
 margin-top:6px;
 z-index:99;
+box-shadow:0 10px 25px rgba(0,0,0,.4);
 }
 
 .suggest-item{
 padding:12px;
 border-bottom:1px solid rgba(255,255,255,.05);
 cursor:pointer;
+transition:.2s;
 }
 
 .suggest-item:hover{
@@ -158,10 +203,20 @@ color:#cbd5e1;
 margin-top:2px;
 }
 
+@media(max-width:500px){
+
+.container{
+padding:28px;
+}
+
+h1{
+font-size:24px;
+}
+
+}
+
 </style>
-
 </head>
-
 <body>
 
 <div class="container">
@@ -178,9 +233,9 @@ Input barcode dan qty stockloss
 
 <label>Barcode</label>
 
-<input
-type="text"
-id="barcode"
+<input 
+type="text" 
+id="barcode" 
 placeholder="Scan / input barcode"
 autocomplete="off"
 >
@@ -193,26 +248,21 @@ autocomplete="off"
 
 <label>Qty</label>
 
-<input
-type="number"
-step="0.01"
-min="0"
-id="qty"
+<input 
+type="text"
+inputmode="decimal"
+id="qty" 
 placeholder="Masukkan Qty"
 >
 
 </div>
 
-<button id="btnKirim">
+<button id="btnKirim" onclick="kirimData()">
 Kirim Data
 </button>
 
 <button onclick="resetData()" class="reset-btn">
 Reset Sheet SLT
-</button>
-
-<button onclick="bukaHasil()" class="hasil-btn">
-📊 Hasil
 </button>
 
 <div id="status"></div>
@@ -221,49 +271,27 @@ Reset Sheet SLT
 
 <script>
 
-let barcodeCache = [];
-
 const URL_SCRIPT =
-window.location.href;
+"https://script.google.com/macros/s/AKfycbyYp-CRc2wUKF-OQ8VFb3NApejjOSpIDbdlVxcsvgDtY8YHEwGdysxaHU1ruQATXOIS-w/exec";
 
-/* ================================================= */
-/* LOAD */
-/* ================================================= */
+const ADMIN_PASSWORD = "00";
 
+let barcodeCache = [];
+let debounceTimer;
+
+/* AUTO FOCUS */
 window.onload = async () => {
 
-document.getElementById("barcode")
-.focus();
+document.getElementById("barcode").focus();
 
 await loadBarcodeData();
 
 };
 
-function setStatus(msg){
-
-document.getElementById("status")
-.innerHTML = msg;
-
-setTimeout(()=>{
-
-document.getElementById("status")
-.innerHTML = "";
-
-},2000);
-
-}
-
-/* ================================================= */
-/* LOAD BARCODE */
-/* ================================================= */
-
+/* LOAD DATA BARCODE */
 async function loadBarcodeData(){
 
 try{
-
-setStatus(
-"⏳ Memuat database barcode..."
-);
 
 const res = await fetch(URL_SCRIPT,{
 
@@ -281,32 +309,31 @@ action:"getAllBarcode"
 
 });
 
-barcodeCache =
-await res.json();
+barcodeCache = await res.json();
 
-setStatus(
-"✅ Database barcode siap"
+console.log(
+"Loaded:",
+barcodeCache.length
 );
 
 }catch(err){
 
-setStatus(
-"❌ Gagal memuat barcode"
-);
+console.log(err);
 
 }
 
 }
 
-/* ================================================= */
 /* AUTOCOMPLETE */
-/* ================================================= */
-
 document
 .getElementById("barcode")
-.addEventListener("input",function(){
+.addEventListener("input", function(){
 
-const keyword =
+clearTimeout(debounceTimer);
+
+debounceTimer = setTimeout(() => {
+
+let keyword =
 this.value.trim().toLowerCase();
 
 const suggestions =
@@ -319,35 +346,59 @@ return;
 
 }
 
-let filtered = [];
+let filtered = barcodeCache.filter(item => {
 
-for(let item of barcodeCache){
+let barcode =
+String(item.barcode).toLowerCase();
 
-const barcode =
-String(item.barcode)
-.toLowerCase();
+let nama =
+String(item.nama).toLowerCase();
 
-const nama =
-String(item.nama)
-.toLowerCase();
+return (
 
-if(
+barcode.startsWith(keyword) ||
+
 barcode.includes(keyword) ||
+
 nama.includes(keyword)
-){
 
-filtered.push(item);
+);
 
-if(filtered.length >= 8)
-break;
+});
+
+filtered.sort((a,b)=>{
+
+let aBarcode =
+String(a.barcode).toLowerCase();
+
+let bBarcode =
+String(b.barcode).toLowerCase();
+
+if(aBarcode === keyword) return -1;
+if(bBarcode === keyword) return 1;
+
+if(aBarcode.startsWith(keyword) &&
+!bBarcode.startsWith(keyword)) return -1;
+
+if(bBarcode.startsWith(keyword) &&
+!aBarcode.startsWith(keyword)) return 1;
+
+return aBarcode.length - bBarcode.length;
+
+});
+
+if(filtered.length === 0){
+
+suggestions.innerHTML = "";
+return;
 
 }
 
-}
+filtered = filtered.slice(0,8);
 
 let html = "";
 
-filtered.forEach(item=>{
+filtered.forEach(item => {
 
 html += `
 
@@ -370,46 +421,50 @@ ${item.nama}
 
 suggestions.innerHTML = html;
 
+},120);
+
 });
 
-/* ================================================= */
-/* PILIH BARCODE */
-/* ================================================= */
+/* HIDE */
+document.addEventListener("click",function(e){
 
-function pilihBarcode(barcode){
+if(!e.target.closest(".input-box")){
 
-document.getElementById("barcode")
-.value = barcode;
-
-document.getElementById("suggestions")
-.innerHTML = "";
-
-document.getElementById("qty")
-.focus();
+document.getElementById("suggestions").innerHTML =
+"";
 
 }
 
-/* ================================================= */
-/* ENTER */
-/* ================================================= */
+});
 
-document
-.getElementById("barcode")
+/* PILIH */
+function pilihBarcode(barcode){
+
+document.getElementById("barcode").value =
+barcode;
+
+document.getElementById("suggestions").innerHTML =
+"";
+
+document.getElementById("qty").focus();
+
+}
+
+/* ENTER */
+document.getElementById("barcode")
 .addEventListener("keypress",function(e){
 
 if(e.key === "Enter"){
 
 e.preventDefault();
 
-document.getElementById("qty")
-.focus();
+document.getElementById("qty").focus();
 
 }
 
 });
 
-document
-.getElementById("qty")
+document.getElementById("qty")
 .addEventListener("keypress",function(e){
 
 if(e.key === "Enter"){
@@ -422,37 +477,42 @@ kirimData();
 
 });
 
-/* ================================================= */
 /* KIRIM */
-/* ================================================= */
-
-document
-.getElementById("btnKirim")
-.addEventListener("click", kirimData);
-
 async function kirimData(){
 
-const barcode =
-document.getElementById("barcode")
-.value.trim();
+let barcode =
+document.getElementById("barcode").value.trim();
 
-const qty =
-document.getElementById("qty")
-.value.trim();
+let qty =
+document.getElementById("qty").value.trim();
+
+let btn =
+document.getElementById("btnKirim");
 
 if(barcode === "" || qty === ""){
 
-setStatus(
-"⚠️ Barcode dan Qty wajib diisi"
-);
+document.getElementById("status").innerHTML =
+"⚠️ Barcode dan Qty wajib diisi";
 
 return;
 
 }
 
+btn.disabled = true;
+btn.innerHTML = "⏳ Mengirim...";
+
+document.getElementById("barcode").value = "";
+document.getElementById("qty").value = "";
+document.getElementById("suggestions").innerHTML = "";
+
+document.getElementById("barcode").focus();
+
+document.getElementById("status").innerHTML =
+"⏳ Mengirim data...";
+
 try{
 
-const res = await fetch(URL_SCRIPT,{
+await fetch(URL_SCRIPT,{
 
 method:"POST",
 
@@ -462,72 +522,58 @@ headers:{
 
 body:JSON.stringify({
 
-barcode: barcode,
-qty: qty
+barcode:barcode,
+qty:qty
 
 })
 
 });
 
-const result =
-await res.text();
-
-if(result !== "success"){
-
-throw new Error();
-
-}
-
-setStatus(
-"✅ Data berhasil dikirim"
-);
-
-document.getElementById("barcode")
-.value = "";
-
-document.getElementById("qty")
-.value = "";
-
-document.getElementById("barcode")
-.focus();
+document.getElementById("status").innerHTML =
+"✅ Data berhasil dikirim";
 
 }catch(err){
 
-setStatus(
-"❌ Gagal mengirim data"
-);
+document.getElementById("status").innerHTML =
+"❌ Gagal mengirim data";
+
+console.log(err);
+
+}finally{
+
+btn.disabled = false;
+btn.innerHTML = "Kirim Data";
 
 }
 
 }
 
-/* ================================================= */
 /* RESET */
-/* ================================================= */
-
 function resetData(){
 
-const password =
-prompt("Masukkan password admin");
+let password = prompt(
+"Masukkan password admin"
+);
 
 if(password === null) return;
 
-if(password !== "00"){
+if(password !== ADMIN_PASSWORD){
 
-setStatus(
-"❌ Password salah"
-);
+document.getElementById("status").innerHTML =
+"❌ Password admin salah";
 
 return;
 
 }
 
-const konfirmasi =
-confirm(
-"Yakin ingin reset data?"
+let konfirmasi = confirm(
+"Yakin ingin menghapus semua data sheet SLT?"
 );
 
 if(!konfirmasi) return;
+
+document.getElementById("status").innerHTML =
+"⏳ Menghapus data...";
 
 fetch(URL_SCRIPT,{
 
@@ -546,38 +592,25 @@ password:password
 
 })
 
-.then(()=>{
+.then(res => res.text())
 
-setStatus(
-"✅ Data berhasil direset"
-);
+.then(data => {
+
+document.getElementById("status").innerHTML =
+"✅ Semua data sheet SLT berhasil dihapus";
+
+document.getElementById("barcode").focus();
 
 })
 
-.catch(()=>{
+.catch(err => {
 
-setStatus(
-"❌ Gagal reset data"
-);
+document.getElementById("status").innerHTML =
+"❌ Gagal reset data";
+
+console.log(err);
 
 });
-
-}
-
-/* ================================================= */
-/* BUKA HASIL */
-/* ================================================= */
-
-function bukaHasil(){
-
-window.open(
-
-window.location.href +
-"?page=hasil",
-
-"_blank"
-
-);
 
 }
 
