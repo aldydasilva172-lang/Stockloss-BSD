@@ -25,7 +25,7 @@ align-items:center;
 padding:20px;
 background:
 linear-gradient(135deg,#0f172a,#111827,#1e293b);
-overflow:hidden;
+overflow-x:hidden;
 }
 
 /* BACKGROUND */
@@ -162,11 +162,11 @@ font-size:16px;
 font-weight:600;
 cursor:pointer;
 transition:.3s;
+margin-top:10px;
 }
 
 button:hover{
 transform:translateY(-2px);
-box-shadow:0 10px 25px rgba(124,58,237,.35);
 }
 
 button:active{
@@ -180,12 +180,12 @@ cursor:not-allowed;
 
 /* RESET BUTTON */
 .reset-btn{
-margin-top:12px;
 background:linear-gradient(135deg,#ef4444,#dc2626);
 }
 
-.reset-btn:hover{
-box-shadow:0 10px 25px rgba(239,68,68,.35);
+/* HASIL BUTTON */
+.hasil-btn{
+background:linear-gradient(135deg,#22c55e,#16a34a);
 }
 
 /* STATUS */
@@ -233,6 +233,51 @@ color:#00f5ff;
 font-size:12px;
 color:#cbd5e1;
 margin-top:2px;
+}
+
+/* HASIL */
+#hasilContainer{
+margin-top:20px;
+max-height:500px;
+overflow:auto;
+border-radius:18px;
+background:rgba(255,255,255,.05);
+padding:15px;
+}
+
+.hasil-table{
+width:100%;
+border-collapse:collapse;
+font-size:12px;
+color:white;
+}
+
+.hasil-table th,
+.hasil-table td{
+padding:8px;
+border-bottom:1px solid rgba(255,255,255,.08);
+text-align:left;
+}
+
+.hasil-table th{
+background:rgba(255,255,255,.08);
+position:sticky;
+top:0;
+}
+
+.total-box{
+margin-top:18px;
+padding:12px;
+border-radius:14px;
+background:rgba(255,255,255,.06);
+}
+
+.total-item{
+display:flex;
+justify-content:space-between;
+padding:5px 0;
+font-size:13px;
+color:#f1f5f9;
 }
 
 /* MOBILE */
@@ -283,15 +328,16 @@ autocomplete="off"
 <label>Qty</label>
 
 <input 
-type="text"
-inputmode="decimal"
+type="number"
+step="0.01"
+min="0"
 id="qty" 
 placeholder="Masukkan Qty"
 >
 
 </div>
 
-<button id="btnKirim" onclick="kirimData()">
+<button id="btnKirim">
 Kirim Data
 </button>
 
@@ -299,7 +345,13 @@ Kirim Data
 Reset Sheet SLT
 </button>
 
+<button onclick="lihatHasil()" class="hasil-btn">
+📊 Hasil
+</button>
+
 <div id="status"></div>
+
+<div id="hasilContainer"></div>
 
 </div>
 
@@ -327,13 +379,27 @@ await loadBarcodeData();
 
 };
 
-/* LOAD DATA SEKALI */
+/* STATUS */
+function setStatus(msg){
+
+document.getElementById("status").innerHTML =
+msg;
+
+setTimeout(()=>{
+
+document.getElementById("status").innerHTML =
+"";
+
+},2000);
+
+}
+
+/* LOAD BARCODE */
 async function loadBarcodeData(){
 
 try{
 
-document.getElementById("status").innerHTML =
-"⏳ Memuat database barcode...";
+setStatus("⏳ Memuat database barcode...");
 
 const res = await fetch(URL_SCRIPT,{
 
@@ -353,27 +419,19 @@ action:"getAllBarcode"
 
 barcodeCache = await res.json();
 
-document.getElementById("status").innerHTML =
-"✅ Database barcode siap";
-
-setTimeout(()=>{
-
-document.getElementById("status").innerHTML = "";
-
-},1500);
+setStatus("✅ Database barcode siap");
 
 }catch(err){
 
 console.log(err);
 
-document.getElementById("status").innerHTML =
-"❌ Gagal memuat barcode";
+setStatus("❌ Gagal memuat barcode");
 
 }
 
 }
 
-/* AUTOCOMPLETE SUPER CEPAT */
+/* AUTOCOMPLETE */
 document
 .getElementById("barcode")
 .addEventListener("input", function(){
@@ -388,7 +446,6 @@ this.value.trim().toLowerCase();
 const suggestions =
 document.getElementById("suggestions");
 
-/* MINIMAL 3 KARAKTER */
 if(keyword.length < 3){
 
 suggestions.innerHTML = "";
@@ -396,66 +453,36 @@ return;
 
 }
 
-/* FILTER */
-let filtered = barcodeCache.filter(item => {
+let filtered = [];
+
+for(let item of barcodeCache){
 
 let barcode =
-String(item.barcode)
-.toLowerCase();
+String(item.barcode).toLowerCase();
 
 let nama =
-String(item.nama)
-.toLowerCase();
+String(item.nama).toLowerCase();
 
-return (
-
+if(
 barcode.startsWith(keyword) ||
-
 barcode.includes(keyword) ||
-
 nama.includes(keyword)
+){
 
-);
+filtered.push(item);
 
-});
+if(filtered.length >= 8) break;
 
-/* SORT */
-filtered.sort((a,b)=>{
+}
 
-let aBarcode =
-String(a.barcode)
-.toLowerCase();
+}
 
-let bBarcode =
-String(b.barcode)
-.toLowerCase();
-
-/* EXACT */
-if(aBarcode === keyword) return -1;
-if(bBarcode === keyword) return 1;
-
-/* STARTS WITH */
-if(aBarcode.startsWith(keyword) &&
-!bBarcode.startsWith(keyword)) return -1;
-
-if(bBarcode.startsWith(keyword) &&
-!aBarcode.startsWith(keyword)) return 1;
-
-/* PANJANG */
-return aBarcode.length - bBarcode.length;
-
-});
-
-/* TIDAK ADA */
 if(filtered.length === 0){
 
 suggestions.innerHTML = "";
 return;
 
 }
-
-/* LIMIT */
-filtered = filtered.slice(0,8);
 
 let html = "";
 
@@ -511,7 +538,7 @@ document.getElementById("qty").focus();
 
 }
 
-/* ENTER PINDAH */
+/* ENTER */
 document.getElementById("barcode")
 .addEventListener("keypress",function(e){
 
@@ -525,7 +552,6 @@ document.getElementById("qty").focus();
 
 });
 
-/* ENTER KIRIM */
 document.getElementById("qty")
 .addEventListener("keypress",function(e){
 
@@ -539,7 +565,12 @@ kirimData();
 
 });
 
-/* KIRIM DATA */
+/* BUTTON */
+document
+.getElementById("btnKirim")
+.addEventListener("click", kirimData);
+
+/* KIRIM */
 async function kirimData(){
 
 let barcode =
@@ -553,8 +584,15 @@ document.getElementById("btnKirim");
 
 if(barcode === "" || qty === ""){
 
-document.getElementById("status").innerHTML =
-"⚠️ Barcode dan Qty wajib diisi";
+setStatus("⚠️ Barcode dan Qty wajib diisi");
+
+return;
+
+}
+
+if(isNaN(qty) || Number(qty) <= 0){
+
+setStatus("⚠️ Qty harus lebih dari 0");
 
 return;
 
@@ -563,7 +601,6 @@ return;
 btn.disabled = true;
 btn.innerHTML = "⏳ Mengirim...";
 
-/* CLEAR CEPAT */
 document.getElementById("barcode").value = "";
 document.getElementById("qty").value = "";
 document.getElementById("suggestions").innerHTML =
@@ -571,12 +608,9 @@ document.getElementById("suggestions").innerHTML =
 
 document.getElementById("barcode").focus();
 
-document.getElementById("status").innerHTML =
-"⏳ Mengirim data...";
-
 try{
 
-await fetch(URL_SCRIPT,{
+const res = await fetch(URL_SCRIPT,{
 
 method:"POST",
 
@@ -593,15 +627,21 @@ qty:qty
 
 });
 
-document.getElementById("status").innerHTML =
-"✅ Data berhasil dikirim";
+const result = await res.text();
+
+if(result !== "success"){
+
+throw new Error();
+
+}
+
+setStatus("✅ Data berhasil dikirim");
 
 }catch(err){
 
 console.log(err);
 
-document.getElementById("status").innerHTML =
-"❌ Gagal mengirim data";
+setStatus("❌ Gagal mengirim data");
 
 }finally{
 
@@ -612,7 +652,7 @@ btn.innerHTML = "Kirim Data";
 
 }
 
-/* RESET DATA */
+/* RESET */
 function resetData(){
 
 let password = prompt(
@@ -623,8 +663,7 @@ if(password === null) return;
 
 if(password !== ADMIN_PASSWORD){
 
-document.getElementById("status").innerHTML =
-"❌ Password admin salah";
+setStatus("❌ Password admin salah");
 
 return;
 
@@ -636,8 +675,7 @@ let konfirmasi = confirm(
 
 if(!konfirmasi) return;
 
-document.getElementById("status").innerHTML =
-"⏳ Menghapus data...";
+setStatus("⏳ Menghapus data...");
 
 fetch(URL_SCRIPT,{
 
@@ -660,14 +698,9 @@ password:password
 
 .then(data => {
 
-document.getElementById("status").innerHTML =
-"✅ Semua data sheet SLT berhasil dihapus";
-
-document.getElementById("barcode").value = "";
-document.getElementById("qty").value = "";
-
-document.getElementById("suggestions").innerHTML =
-"";
+setStatus(
+"✅ Semua data sheet SLT berhasil dihapus"
+);
 
 document.getElementById("barcode").focus();
 
@@ -677,10 +710,113 @@ document.getElementById("barcode").focus();
 
 console.log(err);
 
-document.getElementById("status").innerHTML =
-"❌ Gagal reset data";
+setStatus("❌ Gagal reset data");
 
 });
+
+}
+
+/* LIHAT HASIL */
+async function lihatHasil(){
+
+const container =
+document.getElementById("hasilContainer");
+
+container.innerHTML =
+"⏳ Memuat hasil...";
+
+try{
+
+const res = await fetch(URL_SCRIPT,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"text/plain;charset=utf-8"
+},
+
+body:JSON.stringify({
+
+action:"getHasil"
+
+})
+
+});
+
+const result = await res.json();
+
+let html = `
+
+<table class="hasil-table">
+
+<thead>
+<tr>
+<th>B</th>
+<th>C</th>
+<th>D</th>
+<th>F</th>
+<th>I</th>
+<th>J</th>
+</tr>
+</thead>
+
+<tbody>
+
+`;
+
+result.data.forEach(row => {
+
+html += `
+
+<tr>
+<td>${row.B || ""}</td>
+<td>${row.C || ""}</td>
+<td>${row.D || ""}</td>
+<td>${row.F || ""}</td>
+<td>${row.I || ""}</td>
+<td>${row.J || ""}</td>
+</tr>
+
+`;
+
+});
+
+html += `
+</tbody>
+</table>
+`;
+
+html += `
+<div class="total-box">
+`;
+
+result.total.forEach(item => {
+
+html += `
+
+<div class="total-item">
+<span>${item.label}</span>
+<span>${item.value}</span>
+</div>
+
+`;
+
+});
+
+html += `
+</div>
+`;
+
+container.innerHTML = html;
+
+}catch(err){
+
+console.log(err);
+
+container.innerHTML =
+"❌ Gagal mengambil hasil";
+
+}
 
 }
 
