@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>STOCKLOSS BSD</title>
 
@@ -25,40 +29,10 @@ align-items:center;
 padding:20px;
 background:
 linear-gradient(135deg,#0f172a,#111827,#1e293b);
-overflow-x:hidden;
+overflow:hidden;
 }
 
-/* BACKGROUND */
-body::before{
-content:'';
-position:absolute;
-width:350px;
-height:350px;
-background:#00f5ff;
-border-radius:50%;
-top:-120px;
-left:-120px;
-filter:blur(120px);
-opacity:.25;
-}
-
-body::after{
-content:'';
-position:absolute;
-width:300px;
-height:300px;
-background:#7c3aed;
-border-radius:50%;
-bottom:-120px;
-right:-120px;
-filter:blur(120px);
-opacity:.25;
-}
-
-/* CARD */
 .container{
-position:relative;
-z-index:2;
 width:100%;
 max-width:430px;
 padding:35px;
@@ -66,23 +40,8 @@ border-radius:28px;
 background:rgba(255,255,255,.08);
 backdrop-filter:blur(18px);
 border:1px solid rgba(255,255,255,.1);
-box-shadow:
-0 10px 40px rgba(0,0,0,.35);
-animation:fade .7s ease;
 }
 
-@keyframes fade{
-from{
-opacity:0;
-transform:translateY(20px);
-}
-to{
-opacity:1;
-transform:translateY(0);
-}
-}
-
-/* LOGO */
 .logo{
 width:85px;
 height:85px;
@@ -96,15 +55,12 @@ font-size:38px;
 background:linear-gradient(135deg,#00f5ff,#7c3aed);
 color:white;
 font-weight:700;
-box-shadow:0 10px 30px rgba(0,245,255,.25);
 }
 
-/* TITLE */
 h1{
 text-align:center;
 color:white;
 font-size:30px;
-font-weight:700;
 margin-bottom:8px;
 }
 
@@ -115,7 +71,6 @@ color:#cbd5e1;
 margin-bottom:30px;
 }
 
-/* INPUT */
 .input-box{
 margin-bottom:20px;
 position:relative;
@@ -137,20 +92,8 @@ border-radius:16px;
 background:rgba(255,255,255,.08);
 color:white;
 font-size:15px;
-border:1px solid transparent;
-transition:.3s;
 }
 
-.input-box input:focus{
-border:1px solid #00f5ff;
-box-shadow:0 0 15px rgba(0,245,255,.25);
-}
-
-input::placeholder{
-color:#94a3b8;
-}
-
-/* BUTTON */
 button{
 width:100%;
 padding:16px;
@@ -161,34 +104,17 @@ color:white;
 font-size:16px;
 font-weight:600;
 cursor:pointer;
-transition:.3s;
 margin-top:10px;
 }
 
-button:hover{
-transform:translateY(-2px);
-}
-
-button:active{
-transform:scale(.98);
-}
-
-button:disabled{
-opacity:.7;
-cursor:not-allowed;
-}
-
-/* RESET BUTTON */
 .reset-btn{
 background:linear-gradient(135deg,#ef4444,#dc2626);
 }
 
-/* HASIL BUTTON */
 .hasil-btn{
 background:linear-gradient(135deg,#22c55e,#16a34a);
 }
 
-/* STATUS */
 #status{
 margin-top:18px;
 text-align:center;
@@ -197,7 +123,6 @@ color:#cbd5e1;
 min-height:20px;
 }
 
-/* SUGGESTIONS */
 #suggestions{
 position:absolute;
 top:100%;
@@ -209,14 +134,12 @@ background:#0f172a;
 border-radius:14px;
 margin-top:6px;
 z-index:99;
-box-shadow:0 10px 25px rgba(0,0,0,.4);
 }
 
 .suggest-item{
 padding:12px;
 border-bottom:1px solid rgba(255,255,255,.05);
 cursor:pointer;
-transition:.2s;
 }
 
 .suggest-item:hover{
@@ -235,67 +158,10 @@ color:#cbd5e1;
 margin-top:2px;
 }
 
-/* HASIL */
-#hasilContainer{
-margin-top:20px;
-max-height:500px;
-overflow:auto;
-border-radius:18px;
-background:rgba(255,255,255,.05);
-padding:15px;
-}
-
-.hasil-table{
-width:100%;
-border-collapse:collapse;
-font-size:12px;
-color:white;
-}
-
-.hasil-table th,
-.hasil-table td{
-padding:8px;
-border-bottom:1px solid rgba(255,255,255,.08);
-text-align:left;
-}
-
-.hasil-table th{
-background:rgba(255,255,255,.08);
-position:sticky;
-top:0;
-}
-
-.total-box{
-margin-top:18px;
-padding:12px;
-border-radius:14px;
-background:rgba(255,255,255,.06);
-}
-
-.total-item{
-display:flex;
-justify-content:space-between;
-padding:5px 0;
-font-size:13px;
-color:#f1f5f9;
-}
-
-/* MOBILE */
-@media(max-width:500px){
-
-.container{
-padding:28px;
-border-radius:24px;
-}
-
-h1{
-font-size:24px;
-}
-
-}
-
 </style>
+
 </head>
+
 <body>
 
 <div class="container">
@@ -312,9 +178,9 @@ Input barcode dan qty stockloss
 
 <label>Barcode</label>
 
-<input 
-type="text" 
-id="barcode" 
+<input
+type="text"
+id="barcode"
 placeholder="Scan / input barcode"
 autocomplete="off"
 >
@@ -327,11 +193,11 @@ autocomplete="off"
 
 <label>Qty</label>
 
-<input 
+<input
 type="number"
 step="0.01"
 min="0"
-id="qty" 
+id="qty"
 placeholder="Masukkan Qty"
 >
 
@@ -345,61 +211,59 @@ Kirim Data
 Reset Sheet SLT
 </button>
 
-<button onclick="lihatHasil()" class="hasil-btn">
+<button onclick="bukaHasil()" class="hasil-btn">
 📊 Hasil
 </button>
 
 <div id="status"></div>
 
-<div id="hasilContainer"></div>
-
 </div>
 
 <script>
 
-/* URL APPS SCRIPT */
-const URL_SCRIPT =
-"https://script.google.com/macros/s/AKfycbyYp-CRc2wUKF-OQ8VFb3NApejjOSpIDbdlVxcsvgDtY8YHEwGdysxaHU1ruQATXOIS-w/exec";
-
-/* PASSWORD ADMIN */
-const ADMIN_PASSWORD = "00";
-
-/* CACHE BARCODE */
 let barcodeCache = [];
 
-/* DEBOUNCE */
-let debounceTimer;
+const URL_SCRIPT =
+window.location.href;
 
-/* AUTO FOCUS */
+/* ================================================= */
+/* LOAD */
+/* ================================================= */
+
 window.onload = async () => {
 
-document.getElementById("barcode").focus();
+document.getElementById("barcode")
+.focus();
 
 await loadBarcodeData();
 
 };
 
-/* STATUS */
 function setStatus(msg){
 
-document.getElementById("status").innerHTML =
-msg;
+document.getElementById("status")
+.innerHTML = msg;
 
 setTimeout(()=>{
 
-document.getElementById("status").innerHTML =
-"";
+document.getElementById("status")
+.innerHTML = "";
 
 },2000);
 
 }
 
+/* ================================================= */
 /* LOAD BARCODE */
+/* ================================================= */
+
 async function loadBarcodeData(){
 
 try{
 
-setStatus("⏳ Memuat database barcode...");
+setStatus(
+"⏳ Memuat database barcode..."
+);
 
 const res = await fetch(URL_SCRIPT,{
 
@@ -417,30 +281,32 @@ action:"getAllBarcode"
 
 });
 
-barcodeCache = await res.json();
+barcodeCache =
+await res.json();
 
-setStatus("✅ Database barcode siap");
+setStatus(
+"✅ Database barcode siap"
+);
 
 }catch(err){
 
-console.log(err);
-
-setStatus("❌ Gagal memuat barcode");
-
-}
+setStatus(
+"❌ Gagal memuat barcode"
+);
 
 }
 
+}
+
+/* ================================================= */
 /* AUTOCOMPLETE */
+/* ================================================= */
+
 document
 .getElementById("barcode")
-.addEventListener("input", function(){
+.addEventListener("input",function(){
 
-clearTimeout(debounceTimer);
-
-debounceTimer = setTimeout(() => {
-
-let keyword =
+const keyword =
 this.value.trim().toLowerCase();
 
 const suggestions =
@@ -457,36 +323,31 @@ let filtered = [];
 
 for(let item of barcodeCache){
 
-let barcode =
-String(item.barcode).toLowerCase();
+const barcode =
+String(item.barcode)
+.toLowerCase();
 
-let nama =
-String(item.nama).toLowerCase();
+const nama =
+String(item.nama)
+.toLowerCase();
 
 if(
-barcode.startsWith(keyword) ||
 barcode.includes(keyword) ||
 nama.includes(keyword)
 ){
 
 filtered.push(item);
 
-if(filtered.length >= 8) break;
+if(filtered.length >= 8)
+break;
 
 }
-
-}
-
-if(filtered.length === 0){
-
-suggestions.innerHTML = "";
-return;
 
 }
 
 let html = "";
 
-filtered.forEach(item => {
+filtered.forEach(item=>{
 
 html += `
 
@@ -509,50 +370,46 @@ ${item.nama}
 
 suggestions.innerHTML = html;
 
-},120);
-
 });
 
-/* KLIK LUAR */
-document.addEventListener("click",function(e){
-
-if(!e.target.closest(".input-box")){
-
-document.getElementById("suggestions").innerHTML =
-"";
-
-}
-
-});
-
+/* ================================================= */
 /* PILIH BARCODE */
+/* ================================================= */
+
 function pilihBarcode(barcode){
 
-document.getElementById("barcode").value =
-barcode;
+document.getElementById("barcode")
+.value = barcode;
 
-document.getElementById("suggestions").innerHTML =
-"";
+document.getElementById("suggestions")
+.innerHTML = "";
 
-document.getElementById("qty").focus();
+document.getElementById("qty")
+.focus();
 
 }
 
+/* ================================================= */
 /* ENTER */
-document.getElementById("barcode")
+/* ================================================= */
+
+document
+.getElementById("barcode")
 .addEventListener("keypress",function(e){
 
 if(e.key === "Enter"){
 
 e.preventDefault();
 
-document.getElementById("qty").focus();
+document.getElementById("qty")
+.focus();
 
 }
 
 });
 
-document.getElementById("qty")
+document
+.getElementById("qty")
 .addEventListener("keypress",function(e){
 
 if(e.key === "Enter"){
@@ -565,48 +422,33 @@ kirimData();
 
 });
 
-/* BUTTON */
+/* ================================================= */
+/* KIRIM */
+/* ================================================= */
+
 document
 .getElementById("btnKirim")
 .addEventListener("click", kirimData);
 
-/* KIRIM */
 async function kirimData(){
 
-let barcode =
-document.getElementById("barcode").value.trim();
+const barcode =
+document.getElementById("barcode")
+.value.trim();
 
-let qty =
-document.getElementById("qty").value.trim();
-
-let btn =
-document.getElementById("btnKirim");
+const qty =
+document.getElementById("qty")
+.value.trim();
 
 if(barcode === "" || qty === ""){
 
-setStatus("⚠️ Barcode dan Qty wajib diisi");
+setStatus(
+"⚠️ Barcode dan Qty wajib diisi"
+);
 
 return;
 
 }
-
-if(isNaN(qty) || Number(qty) <= 0){
-
-setStatus("⚠️ Qty harus lebih dari 0");
-
-return;
-
-}
-
-btn.disabled = true;
-btn.innerHTML = "⏳ Mengirim...";
-
-document.getElementById("barcode").value = "";
-document.getElementById("qty").value = "";
-document.getElementById("suggestions").innerHTML =
-"";
-
-document.getElementById("barcode").focus();
 
 try{
 
@@ -620,14 +462,15 @@ headers:{
 
 body:JSON.stringify({
 
-barcode:barcode,
-qty:qty
+barcode: barcode,
+qty: qty
 
 })
 
 });
 
-const result = await res.text();
+const result =
+await res.text();
 
 if(result !== "success"){
 
@@ -635,47 +478,56 @@ throw new Error();
 
 }
 
-setStatus("✅ Data berhasil dikirim");
+setStatus(
+"✅ Data berhasil dikirim"
+);
+
+document.getElementById("barcode")
+.value = "";
+
+document.getElementById("qty")
+.value = "";
+
+document.getElementById("barcode")
+.focus();
 
 }catch(err){
 
-console.log(err);
-
-setStatus("❌ Gagal mengirim data");
-
-}finally{
-
-btn.disabled = false;
-btn.innerHTML = "Kirim Data";
+setStatus(
+"❌ Gagal mengirim data"
+);
 
 }
 
 }
 
+/* ================================================= */
 /* RESET */
+/* ================================================= */
+
 function resetData(){
 
-let password = prompt(
-"Masukkan password admin"
-);
+const password =
+prompt("Masukkan password admin");
 
 if(password === null) return;
 
-if(password !== ADMIN_PASSWORD){
+if(password !== "00"){
 
-setStatus("❌ Password admin salah");
+setStatus(
+"❌ Password salah"
+);
 
 return;
 
 }
 
-let konfirmasi = confirm(
-"Yakin ingin menghapus semua data sheet SLT?"
+const konfirmasi =
+confirm(
+"Yakin ingin reset data?"
 );
 
 if(!konfirmasi) return;
-
-setStatus("⏳ Menghapus data...");
 
 fetch(URL_SCRIPT,{
 
@@ -694,129 +546,38 @@ password:password
 
 })
 
-.then(res => res.text())
-
-.then(data => {
+.then(()=>{
 
 setStatus(
-"✅ Semua data sheet SLT berhasil dihapus"
+"✅ Data berhasil direset"
 );
 
-document.getElementById("barcode").focus();
-
 })
 
-.catch(err => {
+.catch(()=>{
 
-console.log(err);
-
-setStatus("❌ Gagal reset data");
+setStatus(
+"❌ Gagal reset data"
+);
 
 });
 
 }
 
-/* LIHAT HASIL */
-async function lihatHasil(){
+/* ================================================= */
+/* BUKA HASIL */
+/* ================================================= */
 
-const container =
-document.getElementById("hasilContainer");
+function bukaHasil(){
 
-container.innerHTML =
-"⏳ Memuat hasil...";
+window.open(
 
-try{
+window.location.href +
+"?page=hasil",
 
-const res = await fetch(URL_SCRIPT,{
+"_blank"
 
-method:"POST",
-
-headers:{
-"Content-Type":"text/plain;charset=utf-8"
-},
-
-body:JSON.stringify({
-
-action:"getHasil"
-
-})
-
-});
-
-const result = await res.json();
-
-let html = `
-
-<table class="hasil-table">
-
-<thead>
-<tr>
-<th>B</th>
-<th>C</th>
-<th>D</th>
-<th>F</th>
-<th>I</th>
-<th>J</th>
-</tr>
-</thead>
-
-<tbody>
-
-`;
-
-result.data.forEach(row => {
-
-html += `
-
-<tr>
-<td>${row.B || ""}</td>
-<td>${row.C || ""}</td>
-<td>${row.D || ""}</td>
-<td>${row.F || ""}</td>
-<td>${row.I || ""}</td>
-<td>${row.J || ""}</td>
-</tr>
-
-`;
-
-});
-
-html += `
-</tbody>
-</table>
-`;
-
-html += `
-<div class="total-box">
-`;
-
-result.total.forEach(item => {
-
-html += `
-
-<div class="total-item">
-<span>${item.label}</span>
-<span>${item.value}</span>
-</div>
-
-`;
-
-});
-
-html += `
-</div>
-`;
-
-container.innerHTML = html;
-
-}catch(err){
-
-console.log(err);
-
-container.innerHTML =
-"❌ Gagal mengambil hasil";
-
-}
+);
 
 }
 
