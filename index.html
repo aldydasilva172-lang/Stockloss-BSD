@@ -320,20 +320,30 @@ document.getElementById("barcode").focus();
 /* AUTOCOMPLETE BARCODE */
 document
 .getElementById("barcode")
-.addEventListener("input", function(){
+.addEventListener("input", async function(){
 
 let keyword = this.value.trim();
 
+const suggestions =
+document.getElementById("suggestions");
+
+/* KOSONG */
 if(keyword.length < 3){
 
-document.getElementById("suggestions").innerHTML = "";
+suggestions.innerHTML = "";
 return;
 
 }
 
-fetch(URL_SCRIPT,{
+try{
+
+const res = await fetch(URL_SCRIPT,{
 
 method:"POST",
+
+headers:{
+"Content-Type":"text/plain;charset=utf-8"
+},
 
 body:JSON.stringify({
 
@@ -342,17 +352,76 @@ keyword:keyword
 
 })
 
-})
+});
 
-.then(res => res.json())
+const data = await res.json();
 
-.then(data => {
+/* FILTER MIRIP */
+let filtered = data.filter(item => {
+
+let barcode =
+String(item.barcode).toLowerCase();
+
+let nama =
+String(item.nama).toLowerCase();
+
+let key =
+keyword.toLowerCase();
+
+return (
+
+barcode.startsWith(key) ||
+
+barcode.includes(key) ||
+
+nama.includes(key)
+
+);
+
+});
+
+/* SORT PALING MIRIP */
+filtered.sort((a,b)=>{
+
+let aBarcode =
+String(a.barcode).toLowerCase();
+
+let bBarcode =
+String(b.barcode).toLowerCase();
+
+let key =
+keyword.toLowerCase();
+
+if(aBarcode === key) return -1;
+if(bBarcode === key) return 1;
+
+if(aBarcode.startsWith(key) &&
+!bBarcode.startsWith(key)) return -1;
+
+if(bBarcode.startsWith(key) &&
+!aBarcode.startsWith(key)) return 1;
+
+return aBarcode.length - bBarcode.length;
+
+});
+
+/* TIDAK ADA */
+if(filtered.length === 0){
+
+suggestions.innerHTML = "";
+return;
+
+}
+
+/* LIMIT */
+filtered = filtered.slice(0,8);
 
 let html = "";
 
-data.forEach(item => {
+filtered.forEach(item => {
 
 html += `
+
 <div class="suggest-item"
 onclick="pilihBarcode('${item.barcode}')">
 
@@ -365,20 +434,32 @@ ${item.nama}
 </div>
 
 </div>
+
 `;
 
 });
 
-document.getElementById("suggestions").innerHTML =
-html;
+suggestions.innerHTML = html;
 
-})
+}catch(err){
 
-.catch(err => {
+suggestions.innerHTML = "";
 
-document.getElementById("suggestions").innerHTML = "";
+console.log(err);
+
+}
 
 });
+
+/* KLIK LUAR HIDE */
+document.addEventListener("click",function(e){
+
+if(!e.target.closest(".input-box")){
+
+document.getElementById("suggestions").innerHTML =
+"";
+
+}
 
 });
 
@@ -418,7 +499,7 @@ kirimData();
 });
 
 /* KIRIM DATA */
-function kirimData(){
+async function kirimData(){
 
 let barcode =
 document.getElementById("barcode").value.trim();
@@ -438,16 +519,29 @@ return;
 
 }
 
-/* LOADING */
+/* DISABLE BUTTON */
 btn.disabled = true;
 btn.innerHTML = "⏳ Mengirim...";
 
-document.getElementById("status").innerHTML =
-"";
+/* CLEAR CEPAT */
+document.getElementById("barcode").value = "";
+document.getElementById("qty").value = "";
+document.getElementById("suggestions").innerHTML = "";
 
-fetch(URL_SCRIPT,{
+document.getElementById("barcode").focus();
+
+document.getElementById("status").innerHTML =
+"⏳ Mengirim data...";
+
+try{
+
+await fetch(URL_SCRIPT,{
 
 method:"POST",
+
+headers:{
+"Content-Type":"text/plain;charset=utf-8"
+},
 
 body:JSON.stringify({
 
@@ -456,40 +550,25 @@ qty:qty
 
 })
 
-})
-
-.then(res => res.text())
-
-.then(data => {
+});
 
 /* SUCCESS */
 document.getElementById("status").innerHTML =
 "✅ Data berhasil dikirim";
 
-document.getElementById("barcode").value = "";
-document.getElementById("qty").value = "";
-
-document.getElementById("suggestions").innerHTML =
-"";
-
-document.getElementById("barcode").focus();
-
-})
-
-.catch(err => {
+}catch(err){
 
 document.getElementById("status").innerHTML =
 "❌ Gagal mengirim data";
 
-})
+console.log(err);
 
-.finally(() => {
+}finally{
 
-/* NORMAL BUTTON */
 btn.disabled = false;
 btn.innerHTML = "Kirim Data";
 
-});
+}
 
 }
 
@@ -524,6 +603,10 @@ fetch(URL_SCRIPT,{
 
 method:"POST",
 
+headers:{
+"Content-Type":"text/plain;charset=utf-8"
+},
+
 body:JSON.stringify({
 
 action:"reset",
@@ -554,6 +637,8 @@ document.getElementById("barcode").focus();
 
 document.getElementById("status").innerHTML =
 "❌ Gagal reset data";
+
+console.log(err);
 
 });
 
