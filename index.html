@@ -173,6 +173,11 @@ button:active{
 transform:scale(.98);
 }
 
+button:disabled{
+opacity:.7;
+cursor:not-allowed;
+}
+
 /* RESET BUTTON */
 .reset-btn{
 margin-top:12px;
@@ -189,6 +194,7 @@ margin-top:18px;
 text-align:center;
 font-size:14px;
 color:#cbd5e1;
+min-height:20px;
 }
 
 /* SUGGESTION */
@@ -285,7 +291,7 @@ placeholder="Masukkan Qty"
 
 </div>
 
-<button onclick="kirimData()">
+<button id="btnKirim" onclick="kirimData()">
 Kirim Data
 </button>
 
@@ -420,6 +426,9 @@ document.getElementById("barcode").value.trim();
 let qty =
 document.getElementById("qty").value.trim();
 
+let btn =
+document.getElementById("btnKirim");
+
 if(barcode === "" || qty === ""){
 
 document.getElementById("status").innerHTML =
@@ -429,8 +438,12 @@ return;
 
 }
 
+/* LOADING */
+btn.disabled = true;
+btn.innerHTML = "⏳ Mengirim...";
+
 document.getElementById("status").innerHTML =
-"⏳ Mengirim data...";
+"";
 
 fetch(URL_SCRIPT,{
 
@@ -449,6 +462,7 @@ qty:qty
 
 .then(data => {
 
+/* SUCCESS */
 document.getElementById("status").innerHTML =
 "✅ Data berhasil dikirim";
 
@@ -466,6 +480,14 @@ document.getElementById("barcode").focus();
 
 document.getElementById("status").innerHTML =
 "❌ Gagal mengirim data";
+
+})
+
+.finally(() => {
+
+/* NORMAL BUTTON */
+btn.disabled = false;
+btn.innerHTML = "Kirim Data";
 
 });
 
@@ -520,6 +542,9 @@ document.getElementById("status").innerHTML =
 
 document.getElementById("barcode").value = "";
 document.getElementById("qty").value = "";
+
+document.getElementById("suggestions").innerHTML =
+"";
 
 document.getElementById("barcode").focus();
 
