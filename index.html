@@ -172,6 +172,16 @@ button:active{
 transform:scale(.98);
 }
 
+/* RESET BUTTON */
+.reset-btn{
+margin-top:12px;
+background:linear-gradient(135deg,#ef4444,#dc2626);
+}
+
+.reset-btn:hover{
+box-shadow:0 10px 25px rgba(239,68,68,.35);
+}
+
 /* STATUS */
 #status{
 margin-top:18px;
@@ -231,6 +241,10 @@ placeholder="Masukkan qty"
 Kirim Data
 </button>
 
+<button onclick="resetData()" class="reset-btn">
+Reset Sheet SLT
+</button>
+
 <div id="status"></div>
 
 </div>
@@ -240,6 +254,9 @@ Kirim Data
 /* URL APPS SCRIPT */
 const URL_SCRIPT =
 "https://script.google.com/macros/s/AKfycbyYp-CRc2wUKF-OQ8VFb3NApejjOSpIDbdlVxcsvgDtY8YHEwGdysxaHU1ruQATXOIS-w/exec";
+
+/* PASSWORD ADMIN */
+const ADMIN_PASSWORD = "00";
 
 /* AUTO FOCUS */
 window.onload = () => {
@@ -268,6 +285,7 @@ kirimData();
 
 });
 
+/* KIRIM DATA */
 function kirimData(){
 
 let barcode =
@@ -319,6 +337,69 @@ document.getElementById("barcode").focus();
 
 document.getElementById("status").innerHTML =
 "❌ Gagal mengirim data";
+
+});
+
+}
+
+/* RESET DATA */
+function resetData(){
+
+let password = prompt(
+"Masukkan password admin"
+);
+
+if(password === null) return;
+
+if(password !== ADMIN_PASSWORD){
+
+document.getElementById("status").innerHTML =
+"❌ Password admin salah";
+
+return;
+
+}
+
+let konfirmasi = confirm(
+"Yakin ingin menghapus semua data sheet SLT?"
+);
+
+if(!konfirmasi) return;
+
+document.getElementById("status").innerHTML =
+"⏳ Menghapus data...";
+
+fetch(URL_SCRIPT,{
+
+method:"POST",
+
+body:JSON.stringify({
+
+action:"reset",
+password:password
+
+})
+
+})
+
+.then(res => res.text())
+
+.then(data => {
+
+document.getElementById("status").innerHTML =
+"✅ Semua data sheet SLT berhasil dihapus";
+
+document.getElementById("barcode").value = "";
+document.getElementById("qty").value = "";
+
+document.getElementById("barcode").focus();
+
+})
+
+.catch(err => {
+
+document.getElementById("status").innerHTML =
+"❌ Gagal reset data";
 
 });
 
