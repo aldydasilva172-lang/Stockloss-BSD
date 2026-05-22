@@ -28,7 +28,7 @@ linear-gradient(135deg,#0f172a,#111827,#1e293b);
 overflow:hidden;
 }
 
-/* BACKGROUND EFFECT */
+/* BACKGROUND */
 body::before{
 content:'';
 position:absolute;
@@ -197,7 +197,7 @@ color:#cbd5e1;
 min-height:20px;
 }
 
-/* SUGGESTION */
+/* SUGGESTIONS */
 #suggestions{
 position:absolute;
 top:100%;
@@ -312,30 +312,28 @@ const URL_SCRIPT =
 /* PASSWORD ADMIN */
 const ADMIN_PASSWORD = "00";
 
+/* CACHE BARCODE */
+let barcodeCache = [];
+
+/* DEBOUNCE */
+let debounceTimer;
+
 /* AUTO FOCUS */
-window.onload = () => {
+window.onload = async () => {
+
 document.getElementById("barcode").focus();
+
+await loadBarcodeData();
+
 };
 
-/* AUTOCOMPLETE BARCODE */
-document
-.getElementById("barcode")
-.addEventListener("input", async function(){
-
-let keyword = this.value.trim();
-
-const suggestions =
-document.getElementById("suggestions");
-
-/* KOSONG */
-if(keyword.length < 3){
-
-suggestions.innerHTML = "";
-return;
-
-}
+/* LOAD DATA SEKALI */
+async function loadBarcodeData(){
 
 try{
+
+document.getElementById("status").innerHTML =
+"⏳ Memuat database barcode...";
 
 const res = await fetch(URL_SCRIPT,{
 
@@ -347,60 +345,103 @@ headers:{
 
 body:JSON.stringify({
 
-action:"search",
-keyword:keyword
+action:"getAllBarcode"
 
 })
 
 });
 
-const data = await res.json();
+barcodeCache = await res.json();
 
-/* FILTER MIRIP */
-let filtered = data.filter(item => {
+document.getElementById("status").innerHTML =
+"✅ Database barcode siap";
+
+setTimeout(()=>{
+
+document.getElementById("status").innerHTML = "";
+
+},1500);
+
+}catch(err){
+
+console.log(err);
+
+document.getElementById("status").innerHTML =
+"❌ Gagal memuat barcode";
+
+}
+
+}
+
+/* AUTOCOMPLETE SUPER CEPAT */
+document
+.getElementById("barcode")
+.addEventListener("input", function(){
+
+clearTimeout(debounceTimer);
+
+debounceTimer = setTimeout(() => {
+
+let keyword =
+this.value.trim().toLowerCase();
+
+const suggestions =
+document.getElementById("suggestions");
+
+/* MINIMAL 3 KARAKTER */
+if(keyword.length < 3){
+
+suggestions.innerHTML = "";
+return;
+
+}
+
+/* FILTER */
+let filtered = barcodeCache.filter(item => {
 
 let barcode =
-String(item.barcode).toLowerCase();
+String(item.barcode)
+.toLowerCase();
 
 let nama =
-String(item.nama).toLowerCase();
-
-let key =
-keyword.toLowerCase();
+String(item.nama)
+.toLowerCase();
 
 return (
 
-barcode.startsWith(key) ||
+barcode.startsWith(keyword) ||
 
-barcode.includes(key) ||
+barcode.includes(keyword) ||
 
-nama.includes(key)
+nama.includes(keyword)
 
 );
 
 });
 
-/* SORT PALING MIRIP */
+/* SORT */
 filtered.sort((a,b)=>{
 
 let aBarcode =
-String(a.barcode).toLowerCase();
+String(a.barcode)
+.toLowerCase();
 
 let bBarcode =
-String(b.barcode).toLowerCase();
+String(b.barcode)
+.toLowerCase();
 
-let key =
-keyword.toLowerCase();
+/* EXACT */
+if(aBarcode === keyword) return -1;
+if(bBarcode === keyword) return 1;
 
-if(aBarcode === key) return -1;
-if(bBarcode === key) return 1;
+/* STARTS WITH */
+if(aBarcode.startsWith(keyword) &&
+!bBarcode.startsWith(keyword)) return -1;
 
-if(aBarcode.startsWith(key) &&
-!bBarcode.startsWith(key)) return -1;
+if(bBarcode.startsWith(keyword) &&
+!aBarcode.startsWith(keyword)) return 1;
 
-if(bBarcode.startsWith(key) &&
-!aBarcode.startsWith(key)) return 1;
-
+/* PANJANG */
 return aBarcode.length - bBarcode.length;
 
 });
@@ -441,17 +482,11 @@ ${item.nama}
 
 suggestions.innerHTML = html;
 
-}catch(err){
-
-suggestions.innerHTML = "";
-
-console.log(err);
-
-}
+},120);
 
 });
 
-/* KLIK LUAR HIDE */
+/* KLIK LUAR */
 document.addEventListener("click",function(e){
 
 if(!e.target.closest(".input-box")){
@@ -476,13 +511,16 @@ document.getElementById("qty").focus();
 
 }
 
-/* ENTER PINDAH INPUT */
+/* ENTER PINDAH */
 document.getElementById("barcode")
 .addEventListener("keypress",function(e){
 
 if(e.key === "Enter"){
+
 e.preventDefault();
+
 document.getElementById("qty").focus();
+
 }
 
 });
@@ -492,8 +530,11 @@ document.getElementById("qty")
 .addEventListener("keypress",function(e){
 
 if(e.key === "Enter"){
+
 e.preventDefault();
+
 kirimData();
+
 }
 
 });
@@ -519,14 +560,14 @@ return;
 
 }
 
-/* DISABLE BUTTON */
 btn.disabled = true;
 btn.innerHTML = "⏳ Mengirim...";
 
 /* CLEAR CEPAT */
 document.getElementById("barcode").value = "";
 document.getElementById("qty").value = "";
-document.getElementById("suggestions").innerHTML = "";
+document.getElementById("suggestions").innerHTML =
+"";
 
 document.getElementById("barcode").focus();
 
@@ -552,16 +593,15 @@ qty:qty
 
 });
 
-/* SUCCESS */
 document.getElementById("status").innerHTML =
 "✅ Data berhasil dikirim";
 
 }catch(err){
 
+console.log(err);
+
 document.getElementById("status").innerHTML =
 "❌ Gagal mengirim data";
-
-console.log(err);
 
 }finally{
 
@@ -635,10 +675,10 @@ document.getElementById("barcode").focus();
 
 .catch(err => {
 
+console.log(err);
+
 document.getElementById("status").innerHTML =
 "❌ Gagal reset data";
-
-console.log(err);
 
 });
 
