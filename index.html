@@ -118,6 +118,7 @@ margin-bottom:30px;
 /* INPUT */
 .input-box{
 margin-bottom:20px;
+position:relative;
 }
 
 .input-box label{
@@ -190,6 +191,44 @@ font-size:14px;
 color:#cbd5e1;
 }
 
+/* SUGGESTION */
+#suggestions{
+position:absolute;
+top:100%;
+left:0;
+width:100%;
+max-height:220px;
+overflow-y:auto;
+background:#0f172a;
+border-radius:14px;
+margin-top:6px;
+z-index:99;
+box-shadow:0 10px 25px rgba(0,0,0,.4);
+}
+
+.suggest-item{
+padding:12px;
+border-bottom:1px solid rgba(255,255,255,.05);
+cursor:pointer;
+transition:.2s;
+}
+
+.suggest-item:hover{
+background:rgba(255,255,255,.08);
+}
+
+.suggest-barcode{
+font-size:14px;
+font-weight:600;
+color:#00f5ff;
+}
+
+.suggest-name{
+font-size:12px;
+color:#cbd5e1;
+margin-top:2px;
+}
+
 /* MOBILE */
 @media(max-width:500px){
 
@@ -219,22 +258,30 @@ Input barcode dan qty stockloss
 </p>
 
 <div class="input-box">
+
 <label>Barcode</label>
+
 <input 
 type="text" 
 id="barcode" 
 placeholder="Scan / input barcode"
 autocomplete="off"
 >
+
+<div id="suggestions"></div>
+
 </div>
 
 <div class="input-box">
+
 <label>Qty</label>
+
 <input 
 type="number" 
 id="qty" 
 placeholder="Masukkan qty"
 >
+
 </div>
 
 <button onclick="kirimData()">
@@ -262,6 +309,84 @@ const ADMIN_PASSWORD = "00";
 window.onload = () => {
 document.getElementById("barcode").focus();
 };
+
+/* AUTOCOMPLETE BARCODE */
+document
+.getElementById("barcode")
+.addEventListener("input", function(){
+
+let keyword = this.value.trim();
+
+if(keyword.length < 3){
+
+document.getElementById("suggestions").innerHTML = "";
+return;
+
+}
+
+fetch(URL_SCRIPT,{
+
+method:"POST",
+
+body:JSON.stringify({
+
+action:"search",
+keyword:keyword
+
+})
+
+})
+
+.then(res => res.json())
+
+.then(data => {
+
+let html = "";
+
+data.forEach(item => {
+
+html += `
+<div class="suggest-item"
+onclick="pilihBarcode('${item.barcode}')">
+
+<div class="suggest-barcode">
+${item.barcode}
+</div>
+
+<div class="suggest-name">
+${item.nama}
+</div>
+
+</div>
+`;
+
+});
+
+document.getElementById("suggestions").innerHTML =
+html;
+
+})
+
+.catch(err => {
+
+document.getElementById("suggestions").innerHTML = "";
+
+});
+
+});
+
+/* PILIH BARCODE */
+function pilihBarcode(barcode){
+
+document.getElementById("barcode").value =
+barcode;
+
+document.getElementById("suggestions").innerHTML =
+"";
+
+document.getElementById("qty").focus();
+
+}
 
 /* ENTER PINDAH INPUT */
 document.getElementById("barcode")
@@ -328,6 +453,9 @@ document.getElementById("status").innerHTML =
 
 document.getElementById("barcode").value = "";
 document.getElementById("qty").value = "";
+
+document.getElementById("suggestions").innerHTML =
+"";
 
 document.getElementById("barcode").focus();
 
