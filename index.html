@@ -121,6 +121,8 @@ letter-spacing:.5px;
 margin-bottom:20px;
 position:relative;
 
+z-index:1;
+
 background:rgba(0,0,0,.18);
 
 border:1px solid rgba(255,255,255,.08);
@@ -133,6 +135,11 @@ backdrop-filter:blur(8px);
 
 box-shadow:
 0 4px 15px rgba(0,0,0,.25);
+}
+
+/* INPUT BARCODE PALING ATAS */
+.input-box:first-of-type{
+z-index:999;
 }
 
 .input-box label{
