@@ -155,11 +155,25 @@ left:0;
 width:100%;
 max-height:320px;
 overflow-y:auto;
-background:#0f172a;
+
+background:
+linear-gradient(
+rgba(0,0,0,.55),
+rgba(0,0,0,.55)
+),
+url('8E3DEEF4-4D88-4CEE-8D4F-6C350C979398.png')
+center center / cover no-repeat;
+
+backdrop-filter:blur(8px);
+
 border-radius:18px;
 margin-top:8px;
 z-index:999;
-box-shadow:0 10px 25px rgba(0,0,0,.4);
+
+border:1px solid rgba(255,255,255,.08);
+
+box-shadow:
+0 10px 25px rgba(0,0,0,.35);
 
 -webkit-overflow-scrolling:touch;
 touch-action:pan-y;
