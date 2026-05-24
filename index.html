@@ -772,7 +772,7 @@ btn.innerHTML = "Kirim Data";
 function resetData(){
 
 let password = prompt(
-"Masukkan password admin"
+"Masukkan password"
 );
 
 if(password === null) return;
@@ -780,7 +780,7 @@ if(password === null) return;
 if(password !== ADMIN_PASSWORD){
 
 document.getElementById("status").innerHTML =
-"❌ Password admin salah";
+"❌ Password salah";
 
 return;
 
@@ -817,7 +817,7 @@ password:password
 .then(data => {
 
 document.getElementById("status").innerHTML =
-"✅ Semua data sheet SLT berhasil dihapus";
+"✅ Semua data stockloss sebelumnya berhasil dihapus";
 
 document.getElementById("barcode").focus();
 
