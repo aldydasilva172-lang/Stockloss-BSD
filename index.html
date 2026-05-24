@@ -35,6 +35,7 @@ center center / cover no-repeat fixed;
 overflow:hidden;
 }
 
+/* CONTAINER */
 .container{
 position:relative;
 z-index:1;
@@ -49,6 +50,7 @@ border-radius:28px;
 background:transparent;
 }
 
+/* LOGO */
 .logo{
 width:85px;
 height:85px;
@@ -143,12 +145,10 @@ transform:translateZ(0);
 will-change:transform;
 }
 
-/* BARCODE PALING DEPAN */
 .input-box:first-of-type{
 z-index:999999;
 }
 
-/* QTY DIBAWAH */
 .input-box:nth-of-type(2){
 z-index:1;
 }
@@ -219,6 +219,7 @@ text-shadow:
 letter-spacing:.4px;
 }
 
+/* BUTTON */
 button{
 width:100%;
 padding:16px;
@@ -285,14 +286,6 @@ filter:grayscale(.2);
 
 margin-top:12px;
 
-background:
-linear-gradient(
-rgba(0,0,0,.25),
-rgba(0,0,0,.25)
-),
-url('8E3DEEF4-4D88-4CEE-8D4F-6C350C979398.png')
-center center / cover no-repeat;
-
 border:1px solid rgba(255,80,80,.25);
 
 box-shadow:
@@ -301,6 +294,7 @@ box-shadow:
 
 }
 
+/* STATUS */
 #status{
 
 margin-top:18px;
@@ -358,7 +352,6 @@ box-shadow:
 transform:translateZ(999px);
 }
 
-/* ITEM */
 .suggest-item{
 padding:16px 20px;
 border-bottom:1px solid rgba(255,255,255,.05);
@@ -385,15 +378,147 @@ background:rgba(255,255,255,.08);
 font-size:14px;
 font-weight:700;
 color:#00f5ff;
-text-align:center;
 }
 
 .suggest-name{
 font-size:13px;
 color:#cbd5e1;
 margin-top:4px;
-text-align:center;
 line-height:1.4;
+}
+
+/* MODAL */
+.modal{
+position:fixed;
+inset:0;
+
+display:none;
+align-items:center;
+justify-content:center;
+
+background:rgba(0,0,0,.72);
+
+backdrop-filter:blur(10px);
+-webkit-backdrop-filter:blur(10px);
+
+z-index:999999999;
+}
+
+/* MODAL BOX */
+.modal-box{
+width:90%;
+max-width:360px;
+
+padding:28px;
+
+border-radius:28px;
+
+background:
+linear-gradient(
+rgba(0,0,0,.45),
+rgba(0,0,0,.45)
+),
+url('8E3DEEF4-4D88-4CEE-8D4F-6C350C979398.png')
+center center / cover no-repeat;
+
+border:1px solid rgba(255,255,255,.08);
+
+backdrop-filter:blur(10px);
+-webkit-backdrop-filter:blur(10px);
+
+box-shadow:
+0 0 15px rgba(0,245,255,.25),
+0 0 35px rgba(124,58,237,.20),
+0 15px 35px rgba(0,0,0,.45);
+
+animation:popup .25s ease;
+
+overflow:hidden;
+
+position:relative;
+}
+
+@keyframes popup{
+from{
+transform:scale(.85);
+opacity:0;
+}
+to{
+transform:scale(1);
+opacity:1;
+}
+}
+
+.modal-title{
+text-align:center;
+font-size:22px;
+font-weight:700;
+
+color:white;
+
+margin-bottom:20px;
+
+text-shadow:
+0 0 10px rgba(0,245,255,.45),
+0 2px 8px rgba(0,0,0,.8);
+}
+
+.modal-input{
+width:100%;
+padding:16px;
+
+border:none;
+outline:none;
+
+border-radius:18px;
+
+background:rgba(0,0,0,.35);
+
+color:white;
+
+font-size:16px;
+
+border:1px solid rgba(255,255,255,.08);
+
+margin-bottom:18px;
+
+transition:.3s;
+}
+
+.modal-input:focus{
+
+border:1px solid rgba(0,245,255,.7);
+
+box-shadow:
+0 0 12px rgba(0,245,255,.35),
+0 0 25px rgba(124,58,237,.20);
+
+background:rgba(0,0,0,.45);
+
+}
+
+.modal-actions{
+display:flex;
+gap:12px;
+}
+
+.modal-actions button{
+flex:1;
+padding:14px;
+border-radius:16px;
+}
+
+.cancel-btn{
+background:rgba(255,255,255,.08);
+}
+
+.confirm-btn{
+background:
+linear-gradient(
+135deg,
+#00f5ff,
+#7c3aed
+);
 }
 
 @media(max-width:500px){
@@ -463,6 +588,42 @@ Reset Data Stockloss
 </button>
 
 <div id="status"></div>
+
+</div>
+
+<!-- MODAL PASSWORD -->
+<div class="modal" id="passwordModal">
+
+<div class="modal-box">
+
+<div class="modal-title">
+🔐 Password Admin
+</div>
+
+<input
+type="password"
+id="adminPassword"
+class="modal-input"
+placeholder="Masukkan password"
+>
+
+<div class="modal-actions">
+
+<button
+class="cancel-btn"
+onclick="closePasswordModal()">
+Batal
+</button>
+
+<button
+class="confirm-btn"
+onclick="submitReset()">
+Masuk
+</button>
+
+</div>
+
+</div>
 
 </div>
 
@@ -768,14 +929,66 @@ btn.innerHTML = "Kirim Data";
 
 }
 
+/* BUKA MODAL */
+function openPasswordModal(){
+
+document.getElementById("passwordModal").style.display =
+"flex";
+
+setTimeout(()=>{
+
+document.getElementById("adminPassword").focus();
+
+},100);
+
+}
+
+/* TUTUP MODAL */
+function closePasswordModal(){
+
+document.getElementById("passwordModal").style.display =
+"none";
+
+document.getElementById("adminPassword").value = "";
+
+}
+
+/* ENTER PASSWORD */
+document.addEventListener("keydown",function(e){
+
+const modal =
+document.getElementById("passwordModal");
+
+if(modal.style.display === "flex"){
+
+if(e.key === "Enter"){
+
+submitReset();
+
+}
+
+if(e.key === "Escape"){
+
+closePasswordModal();
+
+}
+
+}
+
+});
+
 /* RESET */
 function resetData(){
 
-let password = prompt(
-"Masukkan password"
-);
+openPasswordModal();
 
-if(password === null) return;
+}
+
+/* SUBMIT RESET */
+function submitReset(){
+
+let password =
+document.getElementById("adminPassword").value;
 
 if(password !== ADMIN_PASSWORD){
 
@@ -785,6 +998,8 @@ document.getElementById("status").innerHTML =
 return;
 
 }
+
+closePasswordModal();
 
 let konfirmasi = confirm(
 "Yakin ingin menghapus semua data sheet SLT?"
@@ -818,6 +1033,9 @@ password:password
 
 document.getElementById("status").innerHTML =
 "✅ Semua data stockloss sebelumnya berhasil dihapus";
+
+document.getElementById("barcode").value = "";
+document.getElementById("qty").value = "";
 
 document.getElementById("barcode").focus();
 
