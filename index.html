@@ -37,7 +37,7 @@ overflow:hidden;
 
 .container{
 position:relative;
-z-index:2;
+z-index:1;
 
 overflow:visible;
 
@@ -47,9 +47,6 @@ padding:35px;
 border-radius:28px;
 
 background:transparent;
-backdrop-filter:none;
-border:none;
-box-shadow:none;
 }
 
 .logo{
@@ -120,11 +117,10 @@ text-shadow:
 letter-spacing:.5px;
 }
 
+/* INPUT BOX */
 .input-box{
 margin-bottom:20px;
 position:relative;
-
-z-index:1;
 
 background:rgba(0,0,0,.18);
 
@@ -140,11 +136,19 @@ box-shadow:
 0 4px 15px rgba(0,0,0,.25);
 
 overflow:visible;
+
+/* FIX SAFARI */
+isolation:isolate;
 }
 
-/* BOX BARCODE PALING ATAS */
+/* BARCODE PALING DEPAN */
 .input-box:first-of-type{
-z-index:9999;
+z-index:999999;
+}
+
+/* QTY DIBAWAH */
+.input-box:nth-of-type(2){
+z-index:1;
 }
 
 .input-box label{
@@ -275,7 +279,6 @@ filter:grayscale(.2);
 
 }
 
-/* RESET BUTTON */
 .reset-btn{
 
 margin-top:12px;
@@ -296,7 +299,6 @@ box-shadow:
 
 }
 
-/* STATUS */
 #status{
 
 margin-top:18px;
@@ -319,17 +321,18 @@ letter-spacing:.3px;
 
 }
 
-/* DROPDOWN FIX */
+/* DROPDOWN FIX IPHONE */
 #suggestions{
 position:absolute;
-top:100%;
+
+top:calc(100% + 8px);
 left:0;
 right:0;
 
 max-height:320px;
 overflow-y:auto;
 
-z-index:99999;
+z-index:9999999;
 
 background:
 linear-gradient(
@@ -342,7 +345,6 @@ center center / cover no-repeat;
 backdrop-filter:blur(8px);
 
 border-radius:18px;
-margin-top:8px;
 
 border:1px solid rgba(255,255,255,.08);
 
@@ -350,8 +352,8 @@ box-shadow:
 0 10px 25px rgba(0,0,0,.35);
 
 -webkit-overflow-scrolling:touch;
-touch-action:pan-y;
-overscroll-behavior:contain;
+
+transform:translateZ(999px);
 }
 
 /* ITEM */
@@ -502,11 +504,6 @@ action:"getAllBarcode"
 
 barcodeCache = await res.json();
 
-console.log(
-"Loaded:",
-barcodeCache.length
-);
-
 }catch(err){
 
 console.log(err);
@@ -515,7 +512,7 @@ console.log(err);
 
 }
 
-/* AUTO QTY DARI BARCODE TIMBANGAN */
+/* AUTO QTY */
 document
 .getElementById("barcode")
 .addEventListener("input", function(){
@@ -592,34 +589,6 @@ nama.includes(keyword)
 
 });
 
-filtered.sort((a,b)=>{
-
-let aBarcode =
-String(a.barcode).toLowerCase();
-
-let bBarcode =
-String(b.barcode).toLowerCase();
-
-if(aBarcode === keyword) return -1;
-if(bBarcode === keyword) return 1;
-
-if(aBarcode.startsWith(keyword) &&
-!bBarcode.startsWith(keyword)) return -1;
-
-if(bBarcode.startsWith(keyword) &&
-!aBarcode.startsWith(keyword)) return 1;
-
-return aBarcode.length - bBarcode.length;
-
-});
-
-if(filtered.length === 0){
-
-suggestions.innerHTML = "";
-return;
-
-}
-
 filtered = filtered.slice(0,20);
 
 let html = "";
@@ -663,7 +632,7 @@ document.getElementById("suggestions").innerHTML =
 
 });
 
-/* PILIH BARCODE */
+/* PILIH */
 function pilihBarcode(barcode){
 
 document.getElementById("barcode").value =
