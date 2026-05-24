@@ -17,6 +17,10 @@ box-sizing:border-box;
 font-family:'Poppins',sans-serif;
 }
 
+html,body{
+overscroll-behavior:none;
+}
+
 body{
 min-height:100vh;
 display:flex;
@@ -26,13 +30,6 @@ padding:20px;
 background:
 linear-gradient(135deg,#0f172a,#111827,#1e293b);
 overflow:hidden;
-}
-/* TAMBAHKAN DI SINI */
-
-html,body{
-
-overscroll-behavior:none;
-
 }
 
 body::before{
@@ -173,35 +170,42 @@ color:#cbd5e1;
 min-height:20px;
 }
 
+/* DROPDOWN */
 #suggestions{
 position:absolute;
 top:100%;
-left:0px;
+left:0;
 width:100%;
-max-height:220px;
+max-height:320px;
 overflow-y:auto;
 background:#0f172a;
-border-radius:14px;
-margin-top:6px;
-z-index:99;
+border-radius:18px;
+margin-top:8px;
+z-index:999;
 box-shadow:0 10px 25px rgba(0,0,0,.4);
-}
-/* TAMBAHAN */
 
--webkit-overflow-scrolling: touch;
-
-touch-action: pan-y;
-
-overscroll-behavior: contain;
-
+-webkit-overflow-scrolling:touch;
+touch-action:pan-y;
+overscroll-behavior:contain;
 }
 
+/* ITEM */
 .suggest-item{
 padding:16px 20px;
 border-bottom:1px solid rgba(255,255,255,.05);
 cursor:pointer;
 transition:.2s;
+
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+
 text-align:center;
+}
+
+.suggest-item:last-child{
+border-bottom:none;
 }
 
 .suggest-item:hover{
@@ -210,14 +214,17 @@ background:rgba(255,255,255,.08);
 
 .suggest-barcode{
 font-size:14px;
-font-weight:600;
+font-weight:700;
 color:#00f5ff;
+text-align:center;
 }
 
 .suggest-name{
-font-size:12px;
+font-size:13px;
 color:#cbd5e1;
-margin-top:2px;
+margin-top:4px;
+text-align:center;
+line-height:1.4;
 }
 
 @media(max-width:500px){
@@ -228,6 +235,10 @@ padding:28px;
 
 h1{
 font-size:24px;
+}
+
+#suggestions{
+max-height:280px;
 }
 
 }
@@ -305,7 +316,7 @@ await loadBarcodeData();
 
 };
 
-/* LOAD DATA BARCODE */
+/* LOAD BARCODE */
 async function loadBarcodeData(){
 
 try{
@@ -319,9 +330,7 @@ headers:{
 },
 
 body:JSON.stringify({
-
 action:"getAllBarcode"
-
 })
 
 });
@@ -358,7 +367,7 @@ this.value.trim().toLowerCase();
 const suggestions =
 document.getElementById("suggestions");
 
-if(keyword.length < 3){
+if(keyword.length < 2){
 
 suggestions.innerHTML = "";
 return;
@@ -413,6 +422,7 @@ return;
 
 }
 
+/* LIMIT */
 filtered = filtered.slice(0,20);
 
 let html = "";
@@ -456,7 +466,7 @@ document.getElementById("suggestions").innerHTML =
 
 });
 
-/* PILIH */
+/* PILIH BARCODE */
 function pilihBarcode(barcode){
 
 document.getElementById("barcode").value =
