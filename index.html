@@ -350,6 +350,43 @@ console.log(err);
 
 }
 
+/* AUTO QTY DARI BARCODE TIMBANGAN */
+document
+.getElementById("barcode")
+.addEventListener("input", function(){
+
+let barcode = this.value.trim();
+
+if(
+barcode.startsWith("20") &&
+barcode.length === 13 &&
+/^\d+$/.test(barcode)
+){
+
+/* AMBIL 5 DIGIT MULAI DARI POSISI KE-8 */
+let qtyRaw = barcode.substring(7,12);
+
+/* CONVERT */
+let qtyNumber =
+parseInt(qtyRaw,10) / 1000;
+
+/* FORMAT */
+let qtyFormatted =
+qtyNumber
+.toFixed(3)
+.replace(/\.?0+$/,'');
+
+/* TITIK KE KOMA */
+qtyFormatted =
+qtyFormatted.replace(".",",");
+
+document.getElementById("qty").value =
+qtyFormatted;
+
+}
+
+});
+
 /* AUTOCOMPLETE */
 document
 .getElementById("barcode")
@@ -514,6 +551,9 @@ document.getElementById("barcode").value.trim();
 
 let qty =
 document.getElementById("qty").value.trim();
+
+/* KOMA KE TITIK */
+qty = qty.replace(",", ".");
 
 let btn =
 document.getElementById("btnKirim");
