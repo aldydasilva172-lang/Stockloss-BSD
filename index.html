@@ -27,6 +27,13 @@ background:
 linear-gradient(135deg,#0f172a,#111827,#1e293b);
 overflow:hidden;
 }
+/* TAMBAHKAN DI SINI */
+
+html,body{
+
+overscroll-behavior:none;
+
+}
 
 body::before{
 content:'';
@@ -179,6 +186,15 @@ margin-top:6px;
 z-index:99;
 box-shadow:0 10px 25px rgba(0,0,0,.4);
 }
+/* TAMBAHAN */
+
+-webkit-overflow-scrolling: touch;
+
+touch-action: pan-y;
+
+overscroll-behavior: contain;
+
+}
 
 .suggest-item{
 padding:12px;
@@ -327,7 +343,9 @@ console.log(err);
 /* AUTOCOMPLETE */
 document
 .getElementById("barcode")
-.addEventListener("input", function(){
+.addEventListener("input", function(e){
+
+e.stopPropagation();
 
 clearTimeout(debounceTimer);
 
@@ -394,7 +412,7 @@ return;
 
 }
 
-filtered = filtered.slice(0,8);
+filtered = filtered.slice(0,20);
 
 let html = "";
 
