@@ -137,7 +137,6 @@ box-shadow:
 
 overflow:visible;
 
-/* FIX SAFARI */
 isolation:isolate;
 }
 
@@ -321,7 +320,7 @@ letter-spacing:.3px;
 
 }
 
-/* DROPDOWN FIX IPHONE */
+/* DROPDOWN */
 #suggestions{
 position:absolute;
 
@@ -512,6 +511,13 @@ console.log(err);
 
 }
 
+/* HIDE DROPDOWN */
+function hideSuggestions(){
+
+document.getElementById("suggestions").innerHTML = "";
+
+}
+
 /* AUTO QTY */
 document
 .getElementById("barcode")
@@ -524,6 +530,8 @@ barcode.startsWith("20") &&
 barcode.length === 13 &&
 /^\d+$/.test(barcode)
 ){
+
+hideSuggestions();
 
 let qtyRaw = barcode.substring(7,12);
 
@@ -620,32 +628,38 @@ suggestions.innerHTML = html;
 
 });
 
-/* HIDE */
+/* HIDE SAAT FOCUS QTY */
+document.getElementById("qty")
+.addEventListener("focus",function(){
+
+hideSuggestions();
+
+});
+
+/* HIDE CLICK LUAR */
 document.addEventListener("click",function(e){
 
 if(!e.target.closest(".input-box")){
 
-document.getElementById("suggestions").innerHTML =
-"";
+hideSuggestions();
 
 }
 
 });
 
-/* PILIH */
+/* PILIH BARCODE */
 function pilihBarcode(barcode){
 
 document.getElementById("barcode").value =
 barcode;
 
-document.getElementById("suggestions").innerHTML =
-"";
+hideSuggestions();
 
 document.getElementById("qty").focus();
 
 }
 
-/* ENTER */
+/* ENTER BARCODE */
 document.getElementById("barcode")
 .addEventListener("keypress",function(e){
 
@@ -653,18 +667,23 @@ if(e.key === "Enter"){
 
 e.preventDefault();
 
+hideSuggestions();
+
 document.getElementById("qty").focus();
 
 }
 
 });
 
+/* ENTER QTY */
 document.getElementById("qty")
 .addEventListener("keypress",function(e){
 
 if(e.key === "Enter"){
 
 e.preventDefault();
+
+hideSuggestions();
 
 kirimData();
 
@@ -700,7 +719,8 @@ btn.innerHTML = "⏳ Mengirim...";
 
 document.getElementById("barcode").value = "";
 document.getElementById("qty").value = "";
-document.getElementById("suggestions").innerHTML = "";
+
+hideSuggestions();
 
 document.getElementById("barcode").focus();
 
