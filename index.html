@@ -1,37 +1,59 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 
 <title>STOCKLOSS BSD</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
+
+:root{
+--glass:rgba(255,255,255,.12);
+--glass-border:rgba(255,255,255,.16);
+--white:#ffffff;
+--soft:#dbe4ff;
+--cyan:#25e8ff;
+--purple:#7c3aed;
+--shadow:0 20px 50px rgba(0,0,0,.35);
+}
 
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:'Poppins',sans-serif;
+-webkit-tap-highlight-color:transparent;
 }
 
-html,body{
+html,
+body{
+width:100%;
+min-height:100%;
 overscroll-behavior:none;
 }
 
 body{
-min-height:100vh;
+
+min-height:100dvh;
 display:flex;
 justify-content:center;
 align-items:center;
-padding:20px;
+
+padding:
+max(20px,env(safe-area-inset-top))
+20px
+max(20px,env(safe-area-inset-bottom));
+
+position:relative;
+overflow:hidden;
 
 background:
 linear-gradient(
-rgba(255,255,255,.74),
-rgba(255,255,255,.82)
+rgba(8,12,20,.68),
+rgba(8,12,20,.74)
 ),
 url('8E3DEEF4-4D88-4CEE-8D4F-6C350C979398.png');
 
@@ -40,223 +62,504 @@ background-position:center;
 background-repeat:no-repeat;
 background-attachment:fixed;
 
-overflow:hidden;
-position:relative;
 }
+
+/* GLOW */
 
 body::before{
 content:'';
 position:absolute;
-width:350px;
-height:350px;
-background:#00f5ff;
+width:420px;
+height:420px;
+top:-140px;
+left:-140px;
 border-radius:50%;
-top:-120px;
-left:-120px;
+background:#00f5ff;
 filter:blur(120px);
-opacity:.25;
+opacity:.18;
+animation:float1 8s ease-in-out infinite;
 }
 
 body::after{
 content:'';
 position:absolute;
-width:300px;
-height:300px;
-background:#7c3aed;
+width:380px;
+height:380px;
+bottom:-140px;
+right:-140px;
 border-radius:50%;
-bottom:-120px;
-right:-120px;
+background:#7c3aed;
 filter:blur(120px);
-opacity:.25;
+opacity:.20;
+animation:float2 9s ease-in-out infinite;
 }
 
+@keyframes float1{
+0%,100%{
+transform:translateY(0);
+}
+50%{
+transform:translateY(18px);
+}
+}
+
+@keyframes float2{
+0%,100%{
+transform:translateY(0);
+}
+50%{
+transform:translateY(-20px);
+}
+}
+
+/* CONTAINER */
+
 .container{
+
 position:relative;
-z-index:2;
+z-index:10;
+
 width:100%;
-max-width:430px;
-padding:35px;
-border-radius:28px;
+max-width:470px;
+
+padding:38px 28px;
+
+border-radius:34px;
+
 background:rgba(255,255,255,.08);
-backdrop-filter:blur(18px);
-border:1px solid rgba(255,255,255,.1);
+
+backdrop-filter:blur(24px);
+-webkit-backdrop-filter:blur(24px);
+
+border:1px solid rgba(255,255,255,.12);
+
 box-shadow:
-0 10px 40px rgba(0,0,0,.35);
+0 10px 30px rgba(0,0,0,.25),
+0 0 0 1px rgba(255,255,255,.04) inset;
+
+overflow:hidden;
+
+}
+
+/* GLASS EFFECT */
+
+.container::before{
+content:'';
+position:absolute;
+inset:0;
+background:
+linear-gradient(
+135deg,
+rgba(255,255,255,.16),
+rgba(255,255,255,.03)
+);
+pointer-events:none;
 }
 
 .logo{
-width:85px;
-height:85px;
+
+position:relative;
+z-index:2;
+
+width:92px;
+height:92px;
+
 margin:auto;
-margin-bottom:22px;
-border-radius:24px;
+margin-bottom:24px;
+
+border-radius:28px;
+
 display:flex;
 justify-content:center;
 align-items:center;
-font-size:38px;
-background:linear-gradient(135deg,#00f5ff,#7c3aed);
+
+font-size:42px;
+
+background:
+linear-gradient(
+135deg,
+#00f5ff,
+#3b82f6,
+#7c3aed
+);
+
+box-shadow:
+0 10px 25px rgba(0,245,255,.25);
+
 color:white;
-font-weight:700;
+
+animation:logoFloat 4s ease-in-out infinite;
+
+}
+
+@keyframes logoFloat{
+0%,100%{
+transform:translateY(0);
+}
+50%{
+transform:translateY(-6px);
+}
 }
 
 h1{
+
+position:relative;
+z-index:2;
+
 text-align:center;
-color:white;
-font-size:30px;
-font-weight:700;
+font-size:32px;
+font-weight:800;
+
+background:
+linear-gradient(
+90deg,
+#ffffff,
+#dbeafe,
+#ffffff
+);
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+
 margin-bottom:8px;
+letter-spacing:.5px;
+
 }
 
 .desc{
+
+position:relative;
+z-index:2;
+
 text-align:center;
 font-size:14px;
-color:#cbd5e1;
-margin-bottom:30px;
+line-height:1.6;
+
+color:rgba(255,255,255,.72);
+
+margin-bottom:34px;
+
 }
 
+/* INPUT */
+
 .input-box{
-margin-bottom:20px;
 position:relative;
+margin-bottom:22px;
+z-index:5;
 }
 
 .input-box label{
 display:block;
-margin-bottom:8px;
+margin-bottom:10px;
 font-size:14px;
-color:#f1f5f9;
+font-weight:500;
+color:rgba(255,255,255,.88);
 }
 
 .input-box input{
+
 width:100%;
-padding:16px;
-border:none;
-outline:none;
-border-radius:16px;
-background:rgba(255,255,255,.08);
+
+height:62px;
+
+padding:0 20px;
+
+border-radius:20px;
+
+border:1px solid rgba(255,255,255,.08);
+
+background:
+linear-gradient(
+135deg,
+rgba(255,255,255,.09),
+rgba(255,255,255,.04)
+);
+
 color:white;
-font-size:15px;
-border:1px solid transparent;
-transition:.3s;
+
+font-size:16px;
+font-weight:500;
+
+outline:none;
+
+transition:.25s;
+
+backdrop-filter:blur(10px);
+
 }
 
 .input-box input:focus{
-border:1px solid #00f5ff;
-box-shadow:0 0 15px rgba(0,245,255,.25);
+
+border:1px solid rgba(0,245,255,.55);
+
+box-shadow:
+0 0 0 4px rgba(0,245,255,.10),
+0 0 20px rgba(0,245,255,.18);
+
+transform:translateY(-1px);
+
 }
 
-input::placeholder{
-color:#94a3b8;
+.input-box input::placeholder{
+color:rgba(255,255,255,.38);
 }
+
+/* BUTTON */
 
 button{
+
 width:100%;
-padding:16px;
+height:60px;
+
 border:none;
-border-radius:18px;
-background:linear-gradient(135deg,#00f5ff,#7c3aed);
-color:white;
-font-size:16px;
-font-weight:600;
+border-radius:20px;
+
+font-size:17px;
+font-weight:700;
+
 cursor:pointer;
-transition:.3s;
+
+transition:.25s;
+
+color:white;
+
+position:relative;
+overflow:hidden;
+
 }
 
-button:hover{
-transform:translateY(-2px);
+button::before{
+content:'';
+position:absolute;
+top:0;
+left:-100%;
+width:100%;
+height:100%;
+background:
+linear-gradient(
+90deg,
+transparent,
+rgba(255,255,255,.25),
+transparent
+);
+transition:.7s;
 }
 
-button:disabled{
-opacity:.7;
+button:hover::before{
+left:100%;
+}
+
+button:active{
+transform:scale(.98);
+}
+
+#btnKirim{
+
+background:
+linear-gradient(
+135deg,
+#00eaff,
+#4f7cff,
+#7c3aed
+);
+
+box-shadow:
+0 10px 25px rgba(59,130,246,.35);
+
 }
 
 .reset-btn{
-margin-top:12px;
-background:linear-gradient(135deg,#ef4444,#dc2626);
+
+margin-top:14px;
+
+background:
+linear-gradient(
+135deg,
+#ff4d4d,
+#ef4444,
+#dc2626
+);
+
+box-shadow:
+0 10px 25px rgba(239,68,68,.28);
+
 }
 
+/* STATUS */
+
 #status{
-margin-top:18px;
+
+margin-top:22px;
+
 text-align:center;
+
 font-size:14px;
-color:#cbd5e1;
-min-height:20px;
+font-weight:500;
+
+color:#ffffff;
+
+min-height:22px;
+
 }
 
 /* DROPDOWN */
-#suggestions{
-position:absolute;
-top:100%;
-left:0;
-width:100%;
-max-height:320px;
-overflow-y:auto;
-background:#0f172a;
-border-radius:18px;
-margin-top:8px;
-z-index:999;
-box-shadow:0 10px 25px rgba(0,0,0,.4);
 
--webkit-overflow-scrolling:touch;
-touch-action:pan-y;
-overscroll-behavior:contain;
+#suggestions{
+
+position:absolute;
+
+top:105%;
+left:0;
+
+width:100%;
+
+max-height:320px;
+
+overflow-y:auto;
+
+background:rgba(10,15,25,.95);
+
+backdrop-filter:blur(20px);
+
+border-radius:20px;
+
+border:1px solid rgba(255,255,255,.08);
+
+box-shadow:
+0 20px 40px rgba(0,0,0,.45);
+
+z-index:999;
+
+padding:8px;
+
 }
 
 /* ITEM */
+
 .suggest-item{
-padding:16px 20px;
-border-bottom:1px solid rgba(255,255,255,.05);
+
+padding:16px;
+
+border-radius:16px;
+
 cursor:pointer;
+
 transition:.2s;
 
 display:flex;
 flex-direction:column;
-align-items:center;
 justify-content:center;
+align-items:center;
 
 text-align:center;
+
+margin-bottom:6px;
+
 }
 
 .suggest-item:last-child{
-border-bottom:none;
+margin-bottom:0;
 }
 
 .suggest-item:hover{
-background:rgba(255,255,255,.08);
+
+background:
+linear-gradient(
+135deg,
+rgba(0,245,255,.12),
+rgba(124,58,237,.12)
+);
+
 }
 
 .suggest-barcode{
+
 font-size:14px;
 font-weight:700;
-color:#00f5ff;
-text-align:center;
+
+color:#25e8ff;
+
 }
 
 .suggest-name{
+
+margin-top:6px;
+
 font-size:13px;
-color:#cbd5e1;
-margin-top:4px;
-text-align:center;
-line-height:1.4;
+line-height:1.5;
+
+color:rgba(255,255,255,.78);
+
 }
 
-@media(max-width:500px){
+/* SCROLL */
+
+#suggestions::-webkit-scrollbar{
+width:6px;
+}
+
+#suggestions::-webkit-scrollbar-thumb{
+background:rgba(255,255,255,.18);
+border-radius:20px;
+}
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+body{
+align-items:flex-start;
+}
 
 .container{
-padding:28px;
+
+margin-top:20px;
+
+max-width:100%;
+
+padding:34px 22px;
+
+border-radius:28px;
+
 }
 
 h1{
-font-size:24px;
+font-size:28px;
 }
 
-#suggestions{
-max-height:280px;
+.logo{
+width:84px;
+height:84px;
+font-size:38px;
+}
+
+.input-box input{
+height:58px;
+font-size:15px;
+}
+
+button{
+height:58px;
+font-size:16px;
+}
+
+}
+
+/* DESKTOP */
+
+@media(min-width:1200px){
+
+.container{
+max-width:500px;
+padding:42px 34px;
 }
 
 }
 
 </style>
 </head>
+
 <body>
 
 <div class="container">
@@ -267,18 +570,19 @@ max-height:280px;
 
 <p class="desc">
 Input Barcode dan Qty Stockloss
+dengan tampilan modern glassmorphism
 </p>
 
 <div class="input-box">
 
 <label>Barcode</label>
 
-<input 
-type="text" 
-id="barcode" 
+<input
+type="text"
+id="barcode"
 placeholder="Scan / Input Barcode"
 autocomplete="off"
->
+/>
 
 <div id="suggestions"></div>
 
@@ -288,12 +592,12 @@ autocomplete="off"
 
 <label>Qty</label>
 
-<input 
+<input
 type="text"
 inputmode="decimal"
-id="qty" 
+id="qty"
 placeholder="Masukkan Qty"
->
+/>
 
 </div>
 
@@ -318,6 +622,23 @@ const ADMIN_PASSWORD = "00";
 
 let barcodeCache = [];
 let debounceTimer;
+
+/* FULL HEIGHT FIX IOS */
+function setRealHeight(){
+
+document.documentElement.style.setProperty(
+'--vh',
+window.innerHeight * 0.01 + 'px'
+);
+
+}
+
+setRealHeight();
+
+window.addEventListener(
+'resize',
+setRealHeight
+);
 
 /* AUTO FOCUS */
 window.onload = async () => {
@@ -362,7 +683,7 @@ console.log(err);
 
 }
 
-/* AUTO QTY DARI BARCODE TIMBANGAN */
+/* AUTO QTY */
 document
 .getElementById("barcode")
 .addEventListener("input", function(){
@@ -375,20 +696,17 @@ barcode.length === 13 &&
 /^\d+$/.test(barcode)
 ){
 
-/* AMBIL 5 DIGIT MULAI DARI POSISI KE-8 */
-let qtyRaw = barcode.substring(7,12);
+let qtyRaw =
+barcode.substring(7,12);
 
-/* CONVERT */
 let qtyNumber =
 parseInt(qtyRaw,10) / 1000;
 
-/* FORMAT */
 let qtyFormatted =
 qtyNumber
 .toFixed(3)
 .replace(/\.?0+$/,'');
 
-/* TITIK KE KOMA */
 qtyFormatted =
 qtyFormatted.replace(".",",");
 
@@ -471,7 +789,6 @@ return;
 
 }
 
-/* LIMIT */
 filtered = filtered.slice(0,20);
 
 let html = "";
@@ -515,7 +832,7 @@ document.getElementById("suggestions").innerHTML =
 
 });
 
-/* PILIH BARCODE */
+/* PILIH */
 function pilihBarcode(barcode){
 
 document.getElementById("barcode").value =
@@ -529,6 +846,7 @@ document.getElementById("qty").focus();
 }
 
 /* ENTER */
+
 document.getElementById("barcode")
 .addEventListener("keypress",function(e){
 
@@ -556,6 +874,7 @@ kirimData();
 });
 
 /* KIRIM */
+
 async function kirimData(){
 
 let barcode =
@@ -564,7 +883,6 @@ document.getElementById("barcode").value.trim();
 let qty =
 document.getElementById("qty").value.trim();
 
-/* KOMA KE TITIK */
 qty = qty.replace(",", ".");
 
 let btn =
@@ -630,6 +948,7 @@ btn.innerHTML = "Kirim Data";
 }
 
 /* RESET */
+
 function resetData(){
 
 let password = prompt(
