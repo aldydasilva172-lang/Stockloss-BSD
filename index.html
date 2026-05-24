@@ -52,16 +52,39 @@ box-shadow:none;
 .logo{
 width:85px;
 height:85px;
+
 margin:auto;
 margin-bottom:22px;
-border-radius:24px;
+
+border-radius:26px;
+
 display:flex;
 justify-content:center;
 align-items:center;
+
 font-size:38px;
-background:linear-gradient(135deg,#00f5ff,#7c3aed);
-color:white;
 font-weight:700;
+
+color:white;
+
+background:
+linear-gradient(
+rgba(0,0,0,.25),
+rgba(0,0,0,.25)
+),
+url('8E3DEEF4-4D88-4CEE-8D4F-6C350C979398.png')
+center center / cover no-repeat;
+
+border:1px solid rgba(255,255,255,.10);
+
+backdrop-filter:blur(8px);
+
+box-shadow:
+0 0 20px rgba(0,245,255,.20),
+0 8px 20px rgba(0,0,0,.35);
+
+text-shadow:
+0 2px 8px rgba(0,0,0,.8);
 }
 
 h1{
@@ -181,35 +204,107 @@ letter-spacing:.4px;
 button{
 width:100%;
 padding:16px;
+
 border:none;
 border-radius:18px;
-background:linear-gradient(135deg,#00f5ff,#7c3aed);
+
+background:
+linear-gradient(
+rgba(0,0,0,.20),
+rgba(0,0,0,.20)
+),
+url('8E3DEEF4-4D88-4CEE-8D4F-6C350C979398.png')
+center center / cover no-repeat;
+
 color:white;
+
 font-size:16px;
 font-weight:600;
+
 cursor:pointer;
+
 transition:.3s;
+
+border:1px solid rgba(255,255,255,.10);
+
+backdrop-filter:blur(6px);
+
+box-shadow:
+0 6px 18px rgba(0,0,0,.35),
+0 0 15px rgba(0,245,255,.12);
+
+text-shadow:
+0 2px 8px rgba(0,0,0,.8);
+
+letter-spacing:.5px;
 }
 
 button:hover{
-transform:translateY(-2px);
+
+transform:
+translateY(-2px)
+scale(1.01);
+
+box-shadow:
+0 10px 25px rgba(0,0,0,.45),
+0 0 20px rgba(0,245,255,.20);
+
+filter:brightness(1.05);
+
 }
 
 button:disabled{
-opacity:.7;
+
+opacity:.6;
+
+cursor:not-allowed;
+
+filter:grayscale(.2);
+
 }
 
+/* RESET BUTTON */
 .reset-btn{
+
 margin-top:12px;
-background:linear-gradient(135deg,#ef4444,#dc2626);
+
+background:
+linear-gradient(
+rgba(0,0,0,.25),
+rgba(0,0,0,.25)
+),
+url('8E3DEEF4-4D88-4CEE-8D4F-6C350C979398.png')
+center center / cover no-repeat;
+
+border:1px solid rgba(255,80,80,.25);
+
+box-shadow:
+0 6px 18px rgba(0,0,0,.35),
+0 0 15px rgba(255,80,80,.15);
+
 }
 
+/* STATUS */
 #status{
+
 margin-top:18px;
+
 text-align:center;
+
 font-size:14px;
-color:#cbd5e1;
+
+font-weight:500;
+
+color:rgba(255,255,255,.88);
+
 min-height:20px;
+
+text-shadow:
+0 2px 8px rgba(0,0,0,.75),
+0 0 10px rgba(0,245,255,.15);
+
+letter-spacing:.3px;
+
 }
 
 /* DROPDOWN */
