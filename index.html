@@ -340,102 +340,6 @@ text-shadow:
 letter-spacing:.4px;
 }
 
-/* STATUS */
-#status{
-
-margin-top:18px;
-
-text-align:center;
-
-font-size:14px;
-
-font-weight:500;
-
-color:rgba(255,255,255,.88);
-
-min-height:20px;
-
-text-shadow:
-0 2px 8px rgba(0,0,0,.75),
-0 0 10px rgba(0,245,255,.15);
-
-letter-spacing:.3px;
-
-}
-
-/* DROPDOWN FIX */
-#suggestions{
-position:absolute;
-
-top:calc(100% + 8px);
-left:0;
-right:0;
-
-max-height:320px;
-overflow-y:auto;
-
-z-index:9999999;
-
-display:none;
-
-background:
-linear-gradient(
-rgba(0,0,0,.55),
-rgba(0,0,0,.55)
-),
-url('8E3DEEF4-4D88-4CEE-8D4F-6C350C979398.png')
-center center / cover no-repeat;
-
-backdrop-filter:blur(8px);
--webkit-backdrop-filter:blur(8px);
-
-border-radius:18px;
-
-border:1px solid rgba(255,255,255,.08);
-
-box-shadow:
-0 10px 25px rgba(0,0,0,.35);
-
--webkit-overflow-scrolling:touch;
-
-transform:translateZ(999px);
-}
-
-.suggest-item{
-padding:16px 20px;
-border-bottom:1px solid rgba(255,255,255,.05);
-cursor:pointer;
-transition:.2s;
-
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-
-text-align:center;
-}
-
-.suggest-item:last-child{
-border-bottom:none;
-}
-
-.suggest-item:hover{
-background:rgba(255,255,255,.08);
-}
-
-.suggest-barcode{
-font-size:14px;
-font-weight:700;
-color:#00f5ff;
-}
-
-.suggest-name{
-font-size:13px;
-color:#cbd5e1;
-margin-top:4px;
-line-height:1.4;
-}
-
 /* BUTTON */
 button{
 width:100%;
@@ -489,13 +393,315 @@ filter:brightness(1.05);
 
 }
 
+button:disabled{
+
+opacity:.6;
+
+cursor:not-allowed;
+
+filter:grayscale(.2);
+
+}
+
 .reset-btn{
+
 margin-top:12px;
+
+border:1px solid rgba(255,80,80,.25);
+
+box-shadow:
+0 6px 18px rgba(0,0,0,.35),
+0 0 15px rgba(255,80,80,.15);
+
+}
+
+/* STATUS */
+#status{
+
+margin-top:18px;
+
+text-align:center;
+
+font-size:14px;
+
+font-weight:500;
+
+color:rgba(255,255,255,.88);
+
+min-height:20px;
+
+text-shadow:
+0 2px 8px rgba(0,0,0,.75),
+0 0 10px rgba(0,245,255,.15);
+
+letter-spacing:.3px;
+
+}
+
+/* DROPDOWN */
+#suggestions{
+position:absolute;
+
+top:calc(100% + 8px);
+left:0;
+right:0;
+
+max-height:320px;
+overflow-y:auto;
+
+z-index:9999999;
+
+background:
+linear-gradient(
+rgba(0,0,0,.55),
+rgba(0,0,0,.55)
+),
+url('8E3DEEF4-4D88-4CEE-8D4F-6C350C979398.png')
+center center / cover no-repeat;
+
+backdrop-filter:blur(8px);
+
+border-radius:18px;
+
+border:1px solid rgba(255,255,255,.08);
+
+box-shadow:
+0 10px 25px rgba(0,0,0,.35);
+
+-webkit-overflow-scrolling:touch;
+
+transform:translateZ(999px);
+}
+
+.suggest-item{
+padding:16px 20px;
+border-bottom:1px solid rgba(255,255,255,.05);
+cursor:pointer;
+transition:.2s;
+
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+
+text-align:center;
+}
+
+.suggest-item:last-child{
+border-bottom:none;
+}
+
+.suggest-item:hover{
+background:rgba(255,255,255,.08);
+}
+
+.suggest-barcode{
+font-size:14px;
+font-weight:700;
+color:#00f5ff;
+}
+
+.suggest-name{
+font-size:13px;
+color:#cbd5e1;
+margin-top:4px;
+line-height:1.4;
+}
+
+/* MODAL */
+.modal{
+position:fixed;
+inset:0;
+
+display:none;
+align-items:center;
+justify-content:center;
+
+background:rgba(0,0,0,.72);
+
+backdrop-filter:blur(10px);
+-webkit-backdrop-filter:blur(10px);
+
+z-index:999999999;
+}
+
+/* MODAL BOX */
+.modal-box{
+width:90%;
+max-width:360px;
+
+padding:28px;
+
+border-radius:28px;
+
+background:
+linear-gradient(
+rgba(0,0,0,.45),
+rgba(0,0,0,.45)
+),
+url('8E3DEEF4-4D88-4CEE-8D4F-6C350C979398.png')
+center center / cover no-repeat;
+
+border:1px solid rgba(255,255,255,.08);
+
+backdrop-filter:blur(10px);
+-webkit-backdrop-filter:blur(10px);
+
+box-shadow:
+0 0 15px rgba(0,245,255,.25),
+0 0 35px rgba(124,58,237,.20),
+0 15px 35px rgba(0,0,0,.45);
+
+animation:popup .25s ease;
+
+overflow:hidden;
+
+position:relative;
+}
+
+@keyframes popup{
+from{
+transform:scale(.85);
+opacity:0;
+}
+to{
+transform:scale(1);
+opacity:1;
+}
+}
+
+.modal-title{
+text-align:center;
+font-size:22px;
+font-weight:700;
+
+color:white;
+
+margin-bottom:20px;
+
+text-shadow:
+0 0 10px rgba(0,245,255,.45),
+0 2px 8px rgba(0,0,0,.8);
+}
+
+.modal-input{
+width:100%;
+padding:16px;
+
+border:none;
+outline:none;
+
+border-radius:18px;
+
+background:rgba(0,0,0,.35);
+
+color:white;
+
+font-size:16px;
+
+border:1px solid rgba(255,255,255,.08);
+
+margin-bottom:18px;
+
+transition:.3s;
+}
+
+.modal-input:focus{
+
+border:1px solid rgba(0,245,255,.7);
+
+box-shadow:
+0 0 12px rgba(0,245,255,.35),
+0 0 25px rgba(124,58,237,.20);
+
+background:rgba(0,0,0,.45);
+
+}
+
+.modal-actions{
+display:flex;
+gap:12px;
+}
+
+.modal-actions button{
+flex:1;
+padding:14px;
+border-radius:16px;
+}
+
+.cancel-btn{
+background:rgba(255,255,255,.08);
+}
+
+.confirm-btn{
+background:
+linear-gradient(
+135deg,
+#00f5ff,
+#7c3aed
+);
+}
+
+@media(max-width:500px){
+
+.container{
+padding:28px;
+}
+
+h1{
+font-size:24px;
+}
+
+#suggestions{
+max-height:280px;
+}
+
 }
 
 </style>
 </head>
 <body>
+
+<!-- LOGIN SCREEN -->
+<div class="login-overlay" id="loginOverlay">
+
+<div class="login-box">
+
+<div class="login-title">
+☠️ STOCKLOSS BSD
+</div>
+
+<div class="login-desc">
+Silahkan masukkan password terlebih dahulu
+</div>
+
+<input
+type="password"
+id="loginPassword"
+class="login-input"
+placeholder="Masukkan Password"
+>
+
+<button
+class="login-btn"
+onclick="loginApp()">
+Masuk
+</button>
+
+<div
+id="loginStatus"
+style="
+margin-top:14px;
+text-align:center;
+font-size:13px;
+color:#fff;
+min-height:18px;
+">
+</div>
+
+</div>
+
+</div>
 
 <div class="container">
 
@@ -535,11 +741,11 @@ placeholder="Masukkan Qty"
 
 </div>
 
-<button id="btnKirim">
+<button id="btnKirim" onclick="kirimData()">
 Kirim Data
 </button>
 
-<button class="reset-btn">
+<button onclick="resetData()" class="reset-btn">
 Reset Data Stockloss
 </button>
 
@@ -547,35 +753,170 @@ Reset Data Stockloss
 
 </div>
 
+<!-- MODAL PASSWORD -->
+<div class="modal" id="passwordModal">
+
+<div class="modal-box">
+
+<div class="modal-title">
+Silahkan Masukan Password
+</div>
+
+<input
+type="password"
+id="adminPassword"
+class="modal-input"
+placeholder="Masukkan password"
+>
+
+<div class="modal-actions">
+
+<button
+class="cancel-btn"
+onclick="closePasswordModal()">
+Batal
+</button>
+
+<button
+class="confirm-btn"
+onclick="submitReset()">
+Masuk
+</button>
+
+</div>
+
+</div>
+
+</div>
+
 <script>
 
-let barcodeCache = [
-{
-barcode:"8991234567890",
-nama:"Indomie Goreng"
-},
-{
-barcode:"8999876543210",
-nama:"Teh Botol"
-},
-{
-barcode:"8991111111111",
-nama:"Silverqueen"
-}
-];
+const URL_SCRIPT =
+"https://script.google.com/macros/s/AKfycbyYp-CRc2wUKF-OQ8VFb3NApejjOSpIDbdlVxcsvgDtY8YHEwGdysxaHU1ruQATXOIS-w/exec";
 
+const ADMIN_PASSWORD = "00";
+
+let barcodeCache = [];
 let debounceTimer;
+
+/* AUTO FOCUS */
+window.onload = async () => {
+
+await loadBarcodeData();
+
+setTimeout(()=>{
+
+document.getElementById("loginPassword").focus();
+
+},200);
+
+};
+
+/* LOGIN APP */
+function loginApp(){
+
+let password =
+document.getElementById("loginPassword").value;
+
+if(password !== ADMIN_PASSWORD){
+
+document.getElementById("loginStatus").innerHTML =
+"❌ Password salah";
+
+return;
+
+}
+
+document.getElementById("loginOverlay").style.display =
+"none";
+
+document.getElementById("barcode").focus();
+
+}
+
+/* ENTER LOGIN */
+document
+.getElementById("loginPassword")
+.addEventListener("keypress",function(e){
+
+if(e.key === "Enter"){
+
+loginApp();
+
+}
+
+});
+
+/* LOAD BARCODE */
+async function loadBarcodeData(){
+
+try{
+
+const res = await fetch(URL_SCRIPT,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"text/plain;charset=utf-8"
+},
+
+body:JSON.stringify({
+action:"getAllBarcode"
+})
+
+});
+
+barcodeCache = await res.json();
+
+}catch(err){
+
+console.log(err);
+
+}
+
+}
 
 /* HIDE DROPDOWN */
 function hideSuggestions(){
 
-const suggestions =
-document.getElementById("suggestions");
-
-suggestions.innerHTML = "";
-suggestions.style.display = "none";
+document.getElementById("suggestions").innerHTML = "";
 
 }
+
+/* AUTO QTY */
+document
+.getElementById("barcode")
+.addEventListener("input", function(){
+
+let barcode = this.value.trim();
+
+if(
+barcode.startsWith("20") &&
+barcode.length === 13 &&
+/^\d+$/.test(barcode)
+){
+
+hideSuggestions();
+
+let qtyRaw = barcode.substring(7,12);
+
+let qtyNumber =
+parseInt(qtyRaw,10) / 1000;
+
+let qtyFormatted =
+qtyNumber
+.toFixed(3)
+.replace(/\.?0+$/,'');
+
+qtyFormatted =
+qtyFormatted.replace(".",",");
+
+document.getElementById("qty").value =
+qtyFormatted;
+
+}
+
+});
 
 /* AUTOCOMPLETE */
 document
@@ -597,8 +938,6 @@ document.getElementById("suggestions");
 if(keyword.length < 2){
 
 suggestions.innerHTML = "";
-suggestions.style.display = "none";
-
 return;
 
 }
@@ -650,24 +989,9 @@ ${item.nama}
 
 suggestions.innerHTML = html;
 
-suggestions.style.display =
-html ? "block" : "none";
-
 },120);
 
 });
-
-/* PILIH BARCODE */
-function pilihBarcode(barcode){
-
-document.getElementById("barcode").value =
-barcode;
-
-hideSuggestions();
-
-document.getElementById("qty").focus();
-
-}
 
 /* HIDE SAAT FOCUS QTY */
 document.getElementById("qty")
@@ -687,6 +1011,247 @@ hideSuggestions();
 }
 
 });
+
+/* PILIH BARCODE */
+function pilihBarcode(barcode){
+
+document.getElementById("barcode").value =
+barcode;
+
+hideSuggestions();
+
+document.getElementById("qty").focus();
+
+}
+
+/* ENTER BARCODE */
+document.getElementById("barcode")
+.addEventListener("keypress",function(e){
+
+if(e.key === "Enter"){
+
+e.preventDefault();
+
+hideSuggestions();
+
+document.getElementById("qty").focus();
+
+}
+
+});
+
+/* ENTER QTY */
+document.getElementById("qty")
+.addEventListener("keypress",function(e){
+
+if(e.key === "Enter"){
+
+e.preventDefault();
+
+hideSuggestions();
+
+kirimData();
+
+}
+
+});
+
+/* KIRIM */
+async function kirimData(){
+
+let barcode =
+document.getElementById("barcode").value.trim();
+
+let qty =
+document.getElementById("qty").value.trim();
+
+qty = qty.replace(",", ".");
+
+let btn =
+document.getElementById("btnKirim");
+
+if(barcode === "" || qty === ""){
+
+document.getElementById("status").innerHTML =
+"⚠️ Barcode dan Qty wajib diisi";
+
+return;
+
+}
+
+btn.disabled = true;
+btn.innerHTML = "⏳ Mengirim...";
+
+document.getElementById("barcode").value = "";
+document.getElementById("qty").value = "";
+
+hideSuggestions();
+
+document.getElementById("barcode").focus();
+
+document.getElementById("status").innerHTML =
+"⏳ Mengirim data...";
+
+try{
+
+await fetch(URL_SCRIPT,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"text/plain;charset=utf-8"
+},
+
+body:JSON.stringify({
+
+barcode:barcode,
+qty:qty
+
+})
+
+});
+
+document.getElementById("status").innerHTML =
+"✅ Data berhasil dikirim";
+
+}catch(err){
+
+document.getElementById("status").innerHTML =
+"❌ Gagal mengirim data";
+
+console.log(err);
+
+}finally{
+
+btn.disabled = false;
+btn.innerHTML = "Kirim Data";
+
+}
+
+}
+
+/* BUKA MODAL */
+function openPasswordModal(){
+
+document.getElementById("passwordModal").style.display =
+"flex";
+
+setTimeout(()=>{
+
+document.getElementById("adminPassword").focus();
+
+},100);
+
+}
+
+/* TUTUP MODAL */
+function closePasswordModal(){
+
+document.getElementById("passwordModal").style.display =
+"none";
+
+document.getElementById("adminPassword").value = "";
+
+}
+
+/* ENTER PASSWORD */
+document.addEventListener("keydown",function(e){
+
+const modal =
+document.getElementById("passwordModal");
+
+if(modal.style.display === "flex"){
+
+if(e.key === "Enter"){
+
+submitReset();
+
+}
+
+if(e.key === "Escape"){
+
+closePasswordModal();
+
+}
+
+}
+
+});
+
+/* RESET */
+function resetData(){
+
+openPasswordModal();
+
+}
+
+/* SUBMIT RESET */
+function submitReset(){
+
+let password =
+document.getElementById("adminPassword").value;
+
+if(password !== ADMIN_PASSWORD){
+
+document.getElementById("status").innerHTML =
+"❌ Password salah";
+
+return;
+
+}
+
+closePasswordModal();
+
+let konfirmasi = confirm(
+"Yakin ingin menghapus semua data stockloss sebelumnya?"
+);
+
+if(!konfirmasi) return;
+
+document.getElementById("status").innerHTML =
+"⏳ Menghapus data...";
+
+fetch(URL_SCRIPT,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"text/plain;charset=utf-8"
+},
+
+body:JSON.stringify({
+
+action:"reset",
+password:password
+
+})
+
+})
+
+.then(res => res.text())
+
+.then(data => {
+
+document.getElementById("status").innerHTML =
+"✅ Semua data stockloss sebelumnya berhasil dihapus";
+
+document.getElementById("barcode").value = "";
+document.getElementById("qty").value = "";
+
+document.getElementById("barcode").focus();
+
+})
+
+.catch(err => {
+
+document.getElementById("status").innerHTML =
+"❌ Gagal reset data";
+
+console.log(err);
+
+});
+
+}
 
 </script>
 
