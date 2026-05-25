@@ -241,7 +241,7 @@ letter-spacing:.5px;
 
 /* INPUT BOX */
 .input-box{
-margin-bottom:20px;
+margin-bottom:10px;
 position:relative;
 
 border:1px solid rgba(255,255,255,.08);
@@ -477,7 +477,7 @@ transform:translateZ(999px);
 
 .suggest-item{
 padding:16px 20px;
-border-bottom:none;
+border-bottom:1px solid rgba(255,255,255,.05);
 cursor:pointer;
 transition:.2s;
 
@@ -489,9 +489,12 @@ justify-content:center;
 text-align:center;
 }
 
+.suggest-item:last-child{
+border-bottom:none;
+}
 
 .suggest-item:hover{
-background:rgba(255,255,255,.12);
+background:rgba(255,255,255,.08);
 }
 
 .suggest-barcode{
@@ -667,7 +670,7 @@ max-height:280px;
 <div class="login-box">
 
 <div class="login-title">
-☠️ STOCKLOSS BSD
+STOCKLOSS BSD
 </div>
 
 <div class="login-desc">
