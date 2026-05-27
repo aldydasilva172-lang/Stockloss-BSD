@@ -18,21 +18,31 @@ font-family:'Poppins',sans-serif;
 }
 
 html,body{
+width:100%;
+height:100%;
+margin:0;
+padding:0;
 overscroll-behavior:none;
 }
 
 body{
-min-height:100vh;
+min-height:100dvh;
+min-height:-webkit-fill-available;
+
 display:flex;
 justify-content:center;
 align-items:center;
+
 padding:20px;
 
 background:
 url('8E3DEEF4-4D88-4CEE-8D4F-6C350C979398.png')
-center center / cover no-repeat fixed;
+center center / cover no-repeat;
 
-overflow:hidden;
+overflow-x:hidden;
+overflow-y:auto;
+
+-webkit-text-size-adjust:100%;
 }
 
 /* LOGIN OVERLAY */
@@ -656,6 +666,18 @@ font-size:24px;
 
 #suggestions{
 max-height:280px;
+}
+
+}
+
+@supports (-webkit-touch-callout: none){
+
+html{
+height:-webkit-fill-available;
+}
+
+body{
+min-height:-webkit-fill-available;
 }
 
 }
