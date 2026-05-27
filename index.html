@@ -2,11 +2,18 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+>
 
 <title>STOCKLOSS BSD</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet"
+>
 
 <style>
 
@@ -18,21 +25,45 @@ font-family:'Poppins',sans-serif;
 }
 
 html,body{
+width:100%;
+height:100%;
+margin:0;
+padding:0;
 overscroll-behavior:none;
 }
 
+/* FIX ANDROID LAMA */
 body{
-min-height:100vh;
+min-height:100dvh;
+min-height:-webkit-fill-available;
+
 display:flex;
 justify-content:center;
 align-items:center;
+
 padding:20px;
 
 background:
 url('8E3DEEF4-4D88-4CEE-8D4F-6C350C979398.png')
-center center / cover no-repeat fixed;
+center center / cover no-repeat;
 
-overflow:hidden;
+overflow-x:hidden;
+overflow-y:auto;
+
+-webkit-text-size-adjust:100%;
+}
+
+/* FIX SAFARI / CHROME LAMA */
+@supports (-webkit-touch-callout: none){
+
+html{
+height:-webkit-fill-available;
+}
+
+body{
+min-height:-webkit-fill-available;
+}
+
 }
 
 /* LOGIN OVERLAY */
@@ -56,11 +87,14 @@ center center / cover no-repeat;
 
 backdrop-filter:blur(10px);
 -webkit-backdrop-filter:blur(10px);
+
+padding:20px;
+overflow:auto;
 }
 
 /* LOGIN BOX */
 .login-box{
-width:90%;
+width:100%;
 max-width:360px;
 
 padding:30px;
@@ -163,7 +197,9 @@ overflow:visible;
 
 width:100%;
 max-width:430px;
+
 padding:35px;
+
 border-radius:28px;
 
 background:transparent;
@@ -477,7 +513,6 @@ transform:translateZ(999px);
 
 .suggest-item{
 padding:12px 20px;
-border-bottom:1px solid rgba(255,255,255,.05);
 cursor:pointer;
 transition:.2s;
 
@@ -487,10 +522,6 @@ align-items:center;
 justify-content:center;
 
 text-align:center;
-}
-
-.suggest-item:last-child{
-border-bottom:none;
 }
 
 .suggest-item:hover{
@@ -525,11 +556,14 @@ backdrop-filter:blur(10px);
 -webkit-backdrop-filter:blur(10px);
 
 z-index:999999999;
+
+padding:20px;
+overflow:auto;
 }
 
 /* MODAL BOX */
 .modal-box{
-width:90%;
+width:100%;
 max-width:360px;
 
 padding:28px;
@@ -647,7 +681,7 @@ linear-gradient(
 @media(max-width:500px){
 
 .container{
-padding:28px;
+padding:24px;
 }
 
 h1{
@@ -655,7 +689,7 @@ font-size:24px;
 }
 
 #suggestions{
-max-height:280px;
+max-height:260px;
 }
 
 }
@@ -1259,5 +1293,3 @@ console.log(err);
 
 </body>
 </html>
-
-Ini kadang buat hp android versi lama ngk mau discrol kebawah
