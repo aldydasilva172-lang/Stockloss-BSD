@@ -18,28 +18,21 @@ font-family:'Poppins',sans-serif;
 }
 
 html,body{
-height:100%;
 overscroll-behavior:none;
 }
 
 body{
 min-height:100vh;
-
 display:flex;
 justify-content:center;
 align-items:center;
-
 padding:20px;
 
 background:
 url('8E3DEEF4-4D88-4CEE-8D4F-6C350C979398.png')
-center center / cover no-repeat;
+center center / cover no-repeat fixed;
 
-/* FIX SCROLL ANDROID LAMA */
-overflow-y:auto;
-overflow-x:hidden;
-
--webkit-overflow-scrolling:touch;
+overflow:hidden;
 }
 
 /* LOGIN OVERLAY */
@@ -63,9 +56,6 @@ center center / cover no-repeat;
 
 backdrop-filter:blur(10px);
 -webkit-backdrop-filter:blur(10px);
-
-overflow-y:auto;
-padding:20px;
 }
 
 /* LOGIN BOX */
@@ -173,14 +163,10 @@ overflow:visible;
 
 width:100%;
 max-width:430px;
-
 padding:35px;
-
 border-radius:28px;
 
 background:transparent;
-
-margin:auto;
 }
 
 /* LOGO */
@@ -491,6 +477,7 @@ transform:translateZ(999px);
 
 .suggest-item{
 padding:12px 20px;
+border-bottom:1px solid rgba(255,255,255,.05);
 cursor:pointer;
 transition:.2s;
 
@@ -500,6 +487,10 @@ align-items:center;
 justify-content:center;
 
 text-align:center;
+}
+
+.suggest-item:last-child{
+border-bottom:none;
 }
 
 .suggest-item:hover{
@@ -534,9 +525,6 @@ backdrop-filter:blur(10px);
 -webkit-backdrop-filter:blur(10px);
 
 z-index:999999999;
-
-overflow-y:auto;
-padding:20px;
 }
 
 /* MODAL BOX */
@@ -658,12 +646,6 @@ linear-gradient(
 
 @media(max-width:500px){
 
-body{
-align-items:flex-start;
-padding-top:30px;
-padding-bottom:30px;
-}
-
 .container{
 padding:28px;
 }
@@ -682,7 +664,600 @@ max-height:280px;
 </head>
 <body>
 
-<!-- ISI HTML DAN SCRIPT KAMU LANJUTKAN SEPERTI BIASA -->
+<!-- LOGIN SCREEN -->
+<div class="login-overlay" id="loginOverlay">
+
+<div class="login-box">
+
+<div class="login-title">
+STOCKLOSS BSD
+</div>
+
+<div class="login-desc">
+Silahkan masukkan password terlebih dahulu
+</div>
+
+<input
+type="password"
+id="loginPassword"
+class="login-input"
+placeholder="Masukkan Password"
+>
+
+<button
+class="login-btn"
+onclick="loginApp()">
+Masuk
+</button>
+
+<div
+id="loginStatus"
+style="
+margin-top:14px;
+text-align:center;
+font-size:13px;
+color:#fff;
+min-height:18px;
+">
+</div>
+
+</div>
+
+</div>
+
+<div class="container">
+
+<div class="logo">☠️</div>
+
+<h1>STOCKLOSS BSD</h1>
+
+<p class="desc">
+Scan / Input Barcode dan Qty
+</p>
+
+<div class="input-box">
+
+<label>Barcode</label>
+
+<input 
+type="text" 
+id="barcode" 
+placeholder="Scan / Input Barcode"
+autocomplete="off"
+>
+
+<div id="suggestions"></div>
+
+</div>
+
+<div class="input-box">
+
+<label>Qty</label>
+
+<input 
+type="text"
+inputmode="decimal"
+id="qty" 
+placeholder="Masukkan Qty"
+>
+
+</div>
+
+<button id="btnKirim" onclick="kirimData()">
+Kirim Data
+</button>
+
+<button onclick="resetData()" class="reset-btn">
+Reset Data Stockloss
+</button>
+
+<div id="status"></div>
+
+</div>
+
+<!-- MODAL PASSWORD -->
+<div class="modal" id="passwordModal">
+
+<div class="modal-box">
+
+<div class="modal-title">
+Silahkan Masukan Password
+</div>
+
+<input
+type="password"
+id="adminPassword"
+class="modal-input"
+placeholder="Masukkan password"
+>
+
+<div class="modal-actions">
+
+<button
+class="cancel-btn"
+onclick="closePasswordModal()">
+Batal
+</button>
+
+<button
+class="confirm-btn"
+onclick="submitReset()">
+Masuk
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const URL_SCRIPT =
+"https://script.google.com/macros/s/AKfycbyYp-CRc2wUKF-OQ8VFb3NApejjOSpIDbdlVxcsvgDtY8YHEwGdysxaHU1ruQATXOIS-w/exec";
+
+const ADMIN_PASSWORD = "0800";
+
+let barcodeCache = [];
+let debounceTimer;
+
+/* AUTO FOCUS */
+window.onload = async () => {
+
+await loadBarcodeData();
+
+setTimeout(()=>{
+
+document.getElementById("loginPassword").focus();
+
+},200);
+
+};
+
+/* LOGIN APP */
+function loginApp(){
+
+let password =
+document.getElementById("loginPassword").value;
+
+if(password !== ADMIN_PASSWORD){
+
+document.getElementById("loginStatus").innerHTML =
+"❌ Password salah";
+
+return;
+
+}
+
+document.getElementById("loginOverlay").style.display =
+"none";
+
+document.getElementById("barcode").focus();
+
+}
+
+/* ENTER LOGIN */
+document
+.getElementById("loginPassword")
+.addEventListener("keypress",function(e){
+
+if(e.key === "Enter"){
+
+loginApp();
+
+}
+
+});
+
+/* LOAD BARCODE */
+async function loadBarcodeData(){
+
+try{
+
+const res = await fetch(URL_SCRIPT,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"text/plain;charset=utf-8"
+},
+
+body:JSON.stringify({
+action:"getAllBarcode"
+})
+
+});
+
+barcodeCache = await res.json();
+
+}catch(err){
+
+console.log(err);
+
+}
+
+}
+
+/* HIDE DROPDOWN */
+function hideSuggestions(){
+
+document.getElementById("suggestions").innerHTML = "";
+
+}
+
+/* AUTO QTY */
+document
+.getElementById("barcode")
+.addEventListener("input", function(){
+
+let barcode = this.value.trim();
+
+if(
+barcode.startsWith("20") &&
+barcode.length === 13 &&
+/^\d+$/.test(barcode)
+){
+
+hideSuggestions();
+
+let qtyRaw = barcode.substring(7,12);
+
+let qtyNumber =
+parseInt(qtyRaw,10) / 1000;
+
+let qtyFormatted =
+qtyNumber
+.toFixed(3)
+.replace(/\.?0+$/,'');
+
+qtyFormatted =
+qtyFormatted.replace(".",",");
+
+document.getElementById("qty").value =
+qtyFormatted;
+
+}
+
+});
+
+/* AUTOCOMPLETE */
+document
+.getElementById("barcode")
+.addEventListener("input", function(e){
+
+e.stopPropagation();
+
+clearTimeout(debounceTimer);
+
+debounceTimer = setTimeout(() => {
+
+let keyword =
+this.value.trim().toLowerCase();
+
+const suggestions =
+document.getElementById("suggestions");
+
+if(keyword.length < 2){
+
+suggestions.innerHTML = "";
+return;
+
+}
+
+let filtered = barcodeCache.filter(item => {
+
+let barcode =
+String(item.barcode).toLowerCase();
+
+let nama =
+String(item.nama).toLowerCase();
+
+return (
+
+barcode.startsWith(keyword) ||
+
+barcode.includes(keyword) ||
+
+nama.includes(keyword)
+
+);
+
+});
+
+filtered = filtered.slice(0,20);
+
+let html = "";
+
+filtered.forEach(item => {
+
+html += `
+
+<div class="suggest-item"
+onclick="pilihBarcode('${item.barcode}')">
+
+<div class="suggest-barcode">
+${item.barcode}
+</div>
+
+<div class="suggest-name">
+${item.nama}
+</div>
+
+</div>
+
+`;
+
+});
+
+suggestions.innerHTML = html;
+
+},120);
+
+});
+
+/* HIDE SAAT FOCUS QTY */
+document.getElementById("qty")
+.addEventListener("focus",function(){
+
+hideSuggestions();
+
+});
+
+/* HIDE CLICK LUAR */
+document.addEventListener("click",function(e){
+
+if(!e.target.closest(".input-box")){
+
+hideSuggestions();
+
+}
+
+});
+
+/* PILIH BARCODE */
+function pilihBarcode(barcode){
+
+document.getElementById("barcode").value =
+barcode;
+
+hideSuggestions();
+
+document.getElementById("qty").focus();
+
+}
+
+/* ENTER BARCODE */
+document.getElementById("barcode")
+.addEventListener("keypress",function(e){
+
+if(e.key === "Enter"){
+
+e.preventDefault();
+
+hideSuggestions();
+
+document.getElementById("qty").focus();
+
+}
+
+});
+
+/* ENTER QTY */
+document.getElementById("qty")
+.addEventListener("keypress",function(e){
+
+if(e.key === "Enter"){
+
+e.preventDefault();
+
+hideSuggestions();
+
+kirimData();
+
+}
+
+});
+
+/* KIRIM */
+async function kirimData(){
+
+let barcode =
+document.getElementById("barcode").value.trim();
+
+let qty =
+document.getElementById("qty").value.trim();
+
+qty = qty.replace(",", ".");
+
+let btn =
+document.getElementById("btnKirim");
+
+if(barcode === "" || qty === ""){
+
+document.getElementById("status").innerHTML =
+"⚠️ Barcode dan Qty wajib diisi";
+
+return;
+
+}
+
+btn.disabled = true;
+btn.innerHTML = "⏳ Mengirim...";
+
+document.getElementById("barcode").value = "";
+document.getElementById("qty").value = "";
+
+hideSuggestions();
+
+document.getElementById("barcode").focus();
+
+document.getElementById("status").innerHTML =
+"⏳ Mengirim data...";
+
+try{
+
+await fetch(URL_SCRIPT,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"text/plain;charset=utf-8"
+},
+
+body:JSON.stringify({
+
+barcode:barcode,
+qty:qty
+
+})
+
+});
+
+document.getElementById("status").innerHTML =
+"✅ Data berhasil dikirim";
+
+}catch(err){
+
+document.getElementById("status").innerHTML =
+"❌ Gagal mengirim data";
+
+console.log(err);
+
+}finally{
+
+btn.disabled = false;
+btn.innerHTML = "Kirim Data";
+
+}
+
+}
+
+/* BUKA MODAL */
+function openPasswordModal(){
+
+document.getElementById("passwordModal").style.display =
+"flex";
+
+setTimeout(()=>{
+
+document.getElementById("adminPassword").focus();
+
+},100);
+
+}
+
+/* TUTUP MODAL */
+function closePasswordModal(){
+
+document.getElementById("passwordModal").style.display =
+"none";
+
+document.getElementById("adminPassword").value = "";
+
+}
+
+/* ENTER PASSWORD */
+document.addEventListener("keydown",function(e){
+
+const modal =
+document.getElementById("passwordModal");
+
+if(modal.style.display === "flex"){
+
+if(e.key === "Enter"){
+
+submitReset();
+
+}
+
+if(e.key === "Escape"){
+
+closePasswordModal();
+
+}
+
+}
+
+});
+
+/* RESET */
+function resetData(){
+
+openPasswordModal();
+
+}
+
+/* SUBMIT RESET */
+function submitReset(){
+
+let password =
+document.getElementById("adminPassword").value;
+
+if(password !== ADMIN_PASSWORD){
+
+document.getElementById("status").innerHTML =
+"❌ Password salah";
+
+return;
+
+}
+
+closePasswordModal();
+
+let konfirmasi = confirm(
+"Yakin ingin menghapus semua data stockloss sebelumnya?"
+);
+
+if(!konfirmasi) return;
+
+document.getElementById("status").innerHTML =
+"⏳ Menghapus data...";
+
+fetch(URL_SCRIPT,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"text/plain;charset=utf-8"
+},
+
+body:JSON.stringify({
+
+action:"reset",
+password:password
+
+})
+
+})
+
+.then(res => res.text())
+
+.then(data => {
+
+document.getElementById("status").innerHTML =
+"✅ Semua data stockloss sebelumnya berhasil dihapus";
+
+document.getElementById("barcode").value = "";
+document.getElementById("qty").value = "";
+
+document.getElementById("barcode").focus();
+
+})
+
+.catch(err => {
+
+document.getElementById("status").innerHTML =
+"❌ Gagal reset data";
+
+console.log(err);
+
+});
+
+}
+
+</script>
 
 </body>
 </html>
+
+Ini kadang buat hp android versi lama ngk mau discrol kebawah
