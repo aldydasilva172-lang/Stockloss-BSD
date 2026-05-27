@@ -257,6 +257,8 @@ letter-spacing:.5px;
 margin-bottom:10px;
 position:relative;
 
+border:1px solid rgba(255,255,255,.08);
+
 background:rgba(0,0,0,.12);
 
 border-radius:22px;
@@ -267,13 +269,16 @@ backdrop-filter:blur(4px);
 -webkit-backdrop-filter:blur(4px);
 
 box-shadow:
-0 0 20px rgba(0,245,255,.18),
-0 0 35px rgba(124,58,237,.15),
-0 15px 35px rgba(0,0,0,.35);
+0 0 20px rgba(0,245,255,.25),
+0 0 40px rgba(124,58,237,.20),
+0 15px 35px rgba(0,0,0,.45);
 
-overflow:hidden;
+overflow:visible;
 
 isolation:isolate;
+
+transform:translateZ(0);
+will-change:transform;
 }
 
 .input-box:first-of-type{
