@@ -454,6 +454,38 @@ letter-spacing:.3px;
 
 }
 
+/* NAMA BARANG */
+#namaBarang{
+
+margin-top:10px;
+
+padding:12px 14px;
+
+border-radius:14px;
+
+background:rgba(255,255,255,.06);
+
+border:1px solid rgba(255,255,255,.08);
+
+color:white;
+
+font-size:14px;
+font-weight:500;
+
+text-align:center;
+
+text-shadow:
+0 0 8px rgba(0,245,255,.25);
+
+box-shadow:
+0 0 12px rgba(0,245,255,.10);
+
+min-height:20px;
+
+display:none;
+
+}
+
 /* DROPDOWN */
 #suggestions{
 position:absolute;
@@ -757,6 +789,8 @@ placeholder="Scan / Input Barcode"
 autocomplete="off"
 >
 
+<div id="namaBarang"></div>
+
 <div id="suggestions"></div>
 
 </div>
@@ -923,6 +957,8 @@ document
 
 let barcode = this.value.trim();
 
+tampilkanNamaBarang(barcode);
+
 if(
 barcode.startsWith("20") &&
 barcode.length === 13 &&
@@ -950,6 +986,47 @@ qtyFormatted;
 }
 
 });
+
+/* TAMPILKAN NAMA BARANG */
+function tampilkanNamaBarang(barcode){
+
+let namaBox =
+document.getElementById("namaBarang");
+
+let searchBarcode = barcode;
+
+/* BARCODE TIMBANG */
+if(
+barcode.startsWith("20") &&
+barcode.length === 13 &&
+/^\d+$/.test(barcode)
+){
+
+searchBarcode =
+barcode.substring(2,7);
+
+}
+
+let item = barcodeCache.find(x =>
+String(x.barcode) === String(searchBarcode)
+);
+
+if(item){
+
+namaBox.style.display = "block";
+
+namaBox.innerHTML =
+"📦 " + item.nama;
+
+}else{
+
+namaBox.style.display = "none";
+
+namaBox.innerHTML = "";
+
+}
+
+}
 
 /* AUTOCOMPLETE */
 document
@@ -1118,6 +1195,9 @@ btn.innerHTML = "⏳ Mengirim...";
 document.getElementById("barcode").value = "";
 document.getElementById("qty").value = "";
 
+document.getElementById("namaBarang").style.display = "none";
+document.getElementById("namaBarang").innerHTML = "";
+
 hideSuggestions();
 
 document.getElementById("barcode").focus();
@@ -1270,6 +1350,9 @@ document.getElementById("status").innerHTML =
 
 document.getElementById("barcode").value = "";
 document.getElementById("qty").value = "";
+
+document.getElementById("namaBarang").style.display = "none";
+document.getElementById("namaBarang").innerHTML = "";
 
 document.getElementById("barcode").focus();
 
