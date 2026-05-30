@@ -17,36 +17,34 @@ box-sizing:border-box;
 font-family:'Poppins',sans-serif;
 }
 
-html, body {
-  width: 100%;
-  min-height: 100%;
-  margin: 0;
-  padding: 0;
-  overscroll-behavior: none;
+html,body{
+width:100%;
+height:100%;
+margin:0;
+padding:0;
+overscroll-behavior:none;
 }
 
-body {
-  min-height: 100dvh;
-  min-height: -webkit-fill-available;
+body{
+min-height:100dvh;
+min-height:-webkit-fill-available;
 
-  margin: 0;
-  padding: 0;
+display:flex;
+justify-content:center;
+align-items:center;
 
-  position: relative;
+padding:20px;
 
-  background: url('8E3DEEF4-4D88-4CEE-8D4F-6C350C979398.png')
-    center center / cover no-repeat;
+position:relative;
 
-  overflow-x: hidden;
-}
+background:
+url('8E3DEEF4-4D88-4CEE-8D4F-6C350C979398.png')
+center center / cover no-repeat;
 
-.page{
-  min-height:100dvh;
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  padding:20px;
+overflow-x:hidden;
+overflow-y:auto;
+
+-webkit-text-size-adjust:100%;
 }
 
 /* LOGIN OVERLAY */
@@ -177,6 +175,7 @@ z-index:1;
 overflow:visible;
 
 width:100%;
+max-width:430px;
 padding:35px;
 border-radius:28px;
 
@@ -792,17 +791,8 @@ min-height:-webkit-fill-available;
 </head>
 <body>
 
-<div class="page">
-
-  <div class="login-overlay"></div>
-
-  <div class="container">
-    ...
-  </div>
-
-</div>
-
-</body>
+<!-- LOGIN SCREEN -->
+<div class="login-overlay" id="loginOverlay">
 
 <div class="login-box">
 
