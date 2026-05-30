@@ -339,11 +339,11 @@ transform:translateZ(0);
 will-change:transform;
 }
 
-.input-box:first-of-type{
+.input-box:has(#barcode){
 z-index:999999;
 }
 
-.input-box:nth-of-type(2){
+.input-box:has(#qty){
 z-index:1;
 }
 
@@ -854,7 +854,7 @@ Qty :
 
 </div>
 
-<div class="input-box">
+<div class="input-box barcode-box">
 
 <label>Barcode</label>
 
@@ -871,7 +871,7 @@ autocomplete="off"
 
 </div>
 
-<div class="input-box">
+<div class="input-box qty-box">
 
 <label>Qty</label>
 
