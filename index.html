@@ -486,41 +486,6 @@ display:none;
 
 }
 
-/* LAST INPUT */
-#lastInput{
-
-display:none;
-
-margin-bottom:16px;
-
-padding:12px 14px;
-
-border-radius:14px;
-
-background:rgba(255,255,255,.06);
-
-border:1px solid rgba(255,255,255,.08);
-
-color:white;
-
-font-size:14px;
-font-weight:500;
-
-text-align:center;
-
-backdrop-filter:blur(4px);
--webkit-backdrop-filter:blur(4px);
-
-box-shadow:
-0 0 14px rgba(0,245,255,.18),
-0 0 28px rgba(124,58,237,.14),
-0 8px 22px rgba(0,0,0,.32);
-
-text-shadow:
-0 0 10px rgba(0,245,255,.25);
-
-}
-
 /* DROPDOWN */
 #suggestions{
 position:absolute;
@@ -812,8 +777,6 @@ min-height:18px;
 <p class="desc">
 Scan / Input Barcode dan Qty
 </p>
-
-<div id="lastInput"></div>
 
 <div class="input-box">
 
@@ -1213,16 +1176,6 @@ document.getElementById("barcode").value.trim();
 let qty =
 document.getElementById("qty").value.trim();
 
-let namaBarang = "";
-
-let item = barcodeCache.find(x =>
-String(x.barcode) === String(barcode)
-);
-
-if(item){
-namaBarang = item.nama;
-}
-
 qty = qty.replace(",", ".");
 
 let btn =
@@ -1274,18 +1227,6 @@ qty:qty
 
 document.getElementById("status").innerHTML =
 "✅ Data berhasil dikirim";
-
-const lastInput =
-document.getElementById("lastInput");
-
-lastInput.style.display = "block";
-
-lastInput.innerHTML = `
-<b>Last Input</b><br>
-${barcode}<br>
-${namaBarang}<br>
-Qty : ${qty}
-`;
 
 }catch(err){
 
@@ -1410,9 +1351,6 @@ document.getElementById("status").innerHTML =
 
 document.getElementById("barcode").value = "";
 document.getElementById("qty").value = "";
-
-document.getElementById("lastInput").style.display = "none";
-document.getElementById("lastInput").innerHTML = "";
 
 document.getElementById("namaBarang").style.display = "none";
 document.getElementById("namaBarang").innerHTML = "";
