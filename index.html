@@ -285,21 +285,16 @@ text-shadow:
 
 .history-item{
 padding:6px 8px;
+border-bottom:1px solid rgba(255,255,255,.08);
 
 display:flex;
 justify-content:space-between;
 align-items:center;
 gap:10px;
-
-background:rgba(255,255,255,.03);
-border-radius:12px;
-margin-bottom:4px;
 }
 
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:10px;
+.history-item:last-child{
+border-bottom:none;
 }
 
 .history-nama{
@@ -333,6 +328,7 @@ box-shadow:
 0 0 8px rgba(249,115,22,.15);
 
 }
+
 /* INPUT BOX */
 .input-box{
 margin-bottom:16px;
