@@ -281,6 +281,42 @@ text-shadow:
 0 0 20px rgba(124,58,237,.5),
 0 2px 8px rgba(0,0,0,.8)
 }
+.history-item{
+
+padding:8px 0;
+
+border-bottom:
+1px solid rgba(255,255,255,.08);
+
+}
+
+.history-item:last-child{
+border-bottom:none;
+}
+
+.history-name{
+
+font-size:13px;
+font-weight:600;
+
+color:white;
+
+text-shadow:
+0 0 10px rgba(0,245,255,.7),
+0 0 20px rgba(124,58,237,.5),
+0 2px 8px rgba(0,0,0,.8);
+
+}
+
+.history-qty{
+
+font-size:12px;
+
+color:#f97316;
+
+margin-top:2px;
+
+}
 
 /* INPUT BOX */
 .input-box{
@@ -803,21 +839,14 @@ min-height:18px;
 Scan / Input Barcode dan Qty
 </p>
 
-<!-- LAST INPUT -->
-<div id="lastInputBox" class="last-input-box">
+<!-- HISTORY INPUT -->
+<div id="historyBox" class="last-input-box">
 
 <div class="last-title">
-LAST INPUT
+RIWAYAT INPUT
 </div>
 
-<div class="last-name" id="lastNama">
--
-</div>
-
-<div class="last-qty">
-QTY :
-<span id="lastQty">-</span>
-</div>
+<div id="historyList"></div>
 
 </div>
 
@@ -909,48 +938,85 @@ const ADMIN_PASSWORD = "0800";
 let barcodeCache = [];
 let debounceTimer;
 
-/* LAST INPUT */
-
-function loadLastInput(){
+/* HISTORY */
+function loadHistory(){
 
 let data =
-localStorage.getItem("lastInput");
-
-if(!data) return;
-
-data = JSON.parse(data);
-
-document.getElementById("lastInputBox").style.display =
-"block";
-
-document.getElementById("lastNama").innerHTML =
-data.nama;
-
-document.getElementById("lastQty").innerHTML =
-data.qty;
-
-}
-
-function saveLastInput(nama,qty){
-
-localStorage.setItem(
-"lastInput",
-JSON.stringify({
-nama:nama,
-qty:qty
-})
+JSON.parse(
+localStorage.getItem("historyInput") || "[]"
 );
 
-loadLastInput();
+const box =
+document.getElementById("historyBox");
+
+const list =
+document.getElementById("historyList");
+
+if(data.length === 0){
+
+box.style.display = "none";
+return;
 
 }
 
-function clearLastInput(){
+box.style.display = "block";
 
-localStorage.removeItem("lastInput");
+let html = "";
 
-document.getElementById("lastInputBox").style.display =
-"none";
+data.forEach(item=>{
+
+html += `
+<div class="history-item">
+
+<div class="history-name">
+${item.nama}
+</div>
+
+<div class="history-qty">
+QTY : ${item.qty}
+</div>
+
+</div>
+`;
+
+});
+
+list.innerHTML = html;
+
+}
+
+function saveHistory(nama,qty){
+
+let data =
+JSON.parse(
+localStorage.getItem("historyInput") || "[]"
+);
+
+data.unshift({
+nama:nama,
+qty:qty
+});
+
+if(data.length > 50){
+
+data = data.slice(0,50);
+
+}
+
+localStorage.setItem(
+"historyInput",
+JSON.stringify(data)
+);
+
+loadHistory();
+
+}
+
+function clearHistory(){
+
+localStorage.removeItem("historyInput");
+
+loadHistory();
 
 }
 
@@ -959,7 +1025,7 @@ window.onload = async () => {
 
 await loadBarcodeData();
 
-loadLastInput();
+loadHistory();
 
 setTimeout(()=>{
 
@@ -1343,7 +1409,7 @@ qty:qty
 document.getElementById("status").innerHTML =
 "✅ Data berhasil dikirim";
 
-saveLastInput(
+saveHistory(
 namaBarang || barcode,
 qty.replace(".",",")
 );
@@ -1469,7 +1535,7 @@ password:password
 document.getElementById("status").innerHTML =
 "✅ Semua data stockloss sebelumnya berhasil dihapus";
 
-clearLastInput();
+clearHistory();
 
 document.getElementById("barcode").value = "";
 document.getElementById("qty").value = "";
