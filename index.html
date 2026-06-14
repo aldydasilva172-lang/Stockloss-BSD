@@ -213,110 +213,6 @@ text-shadow:
 letter-spacing:.5px;
 }
 
-/* LAST INPUT */
-.last-input-box{
-
-display:none;
-
-margin-bottom:8px;
-
-border:1px solid rgba(255,255,255,.08);
-
-background:rgba(0,0,0,.02);
-
-border-radius:22px;
-
-padding:10px 12px;
-
-backdrop-filter:blur(4px);
--webkit-backdrop-filter:blur(4px);
-
-box-shadow:
-0 0 14px rgba(0,245,255,.18),
-0 0 28px rgba(124,58,237,.14),
-0 8px 22px rgba(0,0,0,.32);
-
-text-align:center;
-
-}
-
-.last-title{
-
-font-size:15px;
-font-weight:600;
-
-color:grey;
-
-margin-bottom:6px;
-
-text-shadow:
-0 0 10px rgba(0,245,255,.7),
-0 0 20px rgba(124,58,237,.5),
-0 2px 8px rgba(0,0,0,.8)
-}
-
-.last-name{
-
-font-size:13px;
-font-weight:600;
-
-color:white;
-
-text-shadow:
-0 0 10px rgba(0,245,255,.7),
-0 0 20px rgba(124,58,237,.5),
-0 2px 8px rgba(0,0,0,.8);
-
-margin-bottom:3px;
-
-}
-
-.last-qty{
-
-font-size:12px;
-color:#f97316;
-
-text-shadow:
-0 0 10px rgba(0,245,255,.7),
-0 0 20px rgba(124,58,237,.5),
-0 2px 8px rgba(0,0,0,.8)
-}
-.history-item{
-
-padding:8px 0;
-
-border-bottom:
-1px solid rgba(255,255,255,.08);
-
-}
-
-.history-item:last-child{
-border-bottom:none;
-}
-
-.history-name{
-
-font-size:13px;
-font-weight:600;
-
-color:white;
-
-text-shadow:
-0 0 10px rgba(0,245,255,.7),
-0 0 20px rgba(124,58,237,.5),
-0 2px 8px rgba(0,0,0,.8);
-
-}
-
-.history-qty{
-
-font-size:12px;
-
-color:#f97316;
-
-margin-top:2px;
-
-}
 
 /* INPUT BOX */
 .input-box{
@@ -774,7 +670,46 @@ max-height:280px;
 
 }
 
+.history-container{
+
+width:100%;
+max-width:430px;
+
+margin:20px auto;
+
+padding:14px;
+
+border-radius:22px;
+
+background:rgba(0,0,0,.12);
+
+backdrop-filter:blur(4px);
+-webkit-backdrop-filter:blur(4px);
+
+border:1px solid rgba(255,255,255,.08);
+
+box-shadow:
+0 0 14px rgba(0,245,255,.18),
+0 0 28px rgba(124,58,237,.14),
+0 8px 22px rgba(0,0,0,.32);
+
+display:none;
+
+}
+
+#historyList{
+
+max-height:250px;
+
+overflow-y:auto;
+
+padding-right:4px;
+
+}
+
 @supports (-webkit-touch-callout: none){
+
+
 
 html{
 height:-webkit-fill-available;
@@ -891,6 +826,18 @@ Reset Data Stockloss
 <div id="status"></div>
 
 </div>
+
+<div id="historyBox" class="history-container">
+
+<div class="last-title">
+RIWAYAT INPUT
+</div>
+
+<div id="historyList"></div>
+
+</div>
+
+<!-- MODAL PASSWORD -->
 
 <!-- MODAL PASSWORD -->
 <div class="modal" id="passwordModal">
