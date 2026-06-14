@@ -940,12 +940,26 @@ let debounceTimer;
 
 /* LAST INPUT */
 
-function loadHistory(){
+async function loadHistory(){
 
-let history =
-JSON.parse(
-localStorage.getItem("historyInput") || "[]"
-);
+try{
+
+const res = await fetch(URL_SCRIPT,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"text/plain;charset=utf-8"
+},
+
+body:JSON.stringify({
+action:"getHistory"
+})
+
+});
+
+const history =
+await res.json();
 
 const box =
 document.getElementById("historyBox");
@@ -956,6 +970,9 @@ document.getElementById("historyList");
 if(history.length === 0){
 
 box.style.display = "none";
+
+list.innerHTML = "";
+
 return;
 
 }
@@ -964,12 +981,10 @@ box.style.display = "block";
 
 let html = "";
 
-history
-.slice()
-.reverse()
-.forEach(item=>{
+history.forEach(item=>{
 
 html += `
+
 <div class="history-item">
 
 <div class="history-nama">
@@ -981,44 +996,22 @@ QTY : ${item.qty}
 </div>
 
 </div>
+
 `;
 
 });
 
 list.innerHTML = html;
 
-}
+}catch(err){
 
-function saveHistory(nama,qty){
-
-let history =
-JSON.parse(
-localStorage.getItem("historyInput") || "[]"
-);
-
-history.push({
-nama:nama,
-qty:qty
-});
-
-localStorage.setItem(
-"historyInput",
-JSON.stringify(history)
-);
-
-loadHistory();
+console.log(err);
 
 }
 
-function clearHistory(){
-
-localStorage.removeItem(
-"historyInput"
-);
-
-loadHistory();
-
 }
+
+
 
 /* AUTO FOCUS */
 window.onload = async () => {
@@ -1409,10 +1402,7 @@ qty:qty
 document.getElementById("status").innerHTML =
 "✅ Data berhasil dikirim";
 
-saveHistory(
-namaBarang || barcode,
-qty.replace(".",",")
-);
+await loadHistory();
 
 }catch(err){
 
@@ -1530,12 +1520,12 @@ password:password
 
 .then(res => res.text())
 
-.then(data => {
+.then(async data => {
 
 document.getElementById("status").innerHTML =
 "✅ Semua data stockloss sebelumnya berhasil dihapus";
 
-clearHistory();
+await loadHistory();
 
 document.getElementById("barcode").value = "";
 document.getElementById("qty").value = "";
@@ -1557,6 +1547,11 @@ console.log(err);
 });
 
 }
+setInterval(()=>{
+
+loadHistory();
+
+},3000);
 
 </script>
 
