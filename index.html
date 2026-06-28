@@ -1435,16 +1435,6 @@ return;
 btn.disabled = true;
 btn.innerHTML = "⏳ Mengirim...";
 
-document.getElementById("barcode").value = "";
-document.getElementById("qty").value = "";
-
-document.getElementById("namaBarang").style.display = "none";
-document.getElementById("namaBarang").innerHTML = "";
-
-hideSuggestions();
-
-document.getElementById("barcode").focus();
-
 document.getElementById("status").innerHTML =
 "⏳ Mengirim data...";
 
@@ -1470,7 +1460,17 @@ qty:qty
 document.getElementById("status").innerHTML =
 "✅ Data berhasil dikirim";
 
-await loadHistory();
+document.getElementById("barcode").value = "";
+document.getElementById("qty").value = "";
+
+document.getElementById("namaBarang").style.display = "none";
+document.getElementById("namaBarang").innerHTML = "";
+
+hideSuggestions();
+
+document.getElementById("barcode").focus();
+
+loadHistory();
 
 }catch(err){
 
