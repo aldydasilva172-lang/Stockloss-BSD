@@ -932,6 +932,7 @@ autocomplete="off"
 <input 
 type="text"
 inputmode="decimal"
+enterkeyhint="enter"
 id="qty" 
 placeholder="Masukkan Qty"
 >
@@ -1501,7 +1502,9 @@ document.getElementById("status").innerHTML =
 
 console.log(err);
 
-}).finally(()=>{
+})
+
+.finally(()=>{
 
 btn.disabled = false;
 btn.innerHTML = "Kirim Data";
