@@ -391,11 +391,18 @@ overflow:visible;
 }
 
 .barcode-box{
-z-index:9999;
+position:relative;
+z-index:100;
 }
 
 .qty-box{
-z-index:1;
+position:relative;
+z-index:10;
+}
+
+.barcode-box #suggestions{
+position:absolute;
+z-index:9999;
 }
 
 .input-box label{
