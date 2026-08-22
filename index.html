@@ -1435,8 +1435,19 @@ return;
 
 }
 
+/* KUNCI TOMBOL AGAR TIDAK DOUBLE INPUT */
+
+if(btn.disabled) return;
+
 btn.disabled = true;
 btn.innerHTML = "⏳ Mengirim...";
+
+/* SIMPAN DATA INPUT */
+
+const barcodeKirim = barcode;
+const qtyKirim = qty;
+
+/* LANGSUNG KOSONGKAN FORM */
 
 document.getElementById("barcode").value = "";
 document.getElementById("qty").value = "";
@@ -1446,14 +1457,14 @@ document.getElementById("namaBarang").innerHTML = "";
 
 hideSuggestions();
 
-document.getElementById("barcode").focus();
-
 document.getElementById("status").innerHTML =
 "⏳ Mengirim data...";
 
+/* KIRIM DATA */
+
 try{
 
-await fetch(URL_SCRIPT,{
+const request = fetch(URL_SCRIPT,{
 
 method:"POST",
 
@@ -1463,17 +1474,41 @@ headers:{
 
 body:JSON.stringify({
 
-barcode:barcode,
-qty:qty
+barcode:barcodeKirim,
+qty:qtyKirim
 
 })
 
 });
 
+/*
+JANGAN MENUNGGU LOAD HISTORY
+*/
+
+request.then(async res => {
+
 document.getElementById("status").innerHTML =
 "✅ Data berhasil dikirim";
 
-await loadHistory();
+/* UPDATE HISTORY DI BELAKANG */
+
+loadHistory();
+
+}).catch(err => {
+
+document.getElementById("status").innerHTML =
+"❌ Gagal mengirim data";
+
+console.log(err);
+
+}).finally(()=>{
+
+btn.disabled = false;
+btn.innerHTML = "Kirim Data";
+
+document.getElementById("barcode").focus();
+
+});
 
 }catch(err){
 
@@ -1482,10 +1517,10 @@ document.getElementById("status").innerHTML =
 
 console.log(err);
 
-}finally{
-
 btn.disabled = false;
 btn.innerHTML = "Kirim Data";
+
+document.getElementById("barcode").focus();
 
 }
 
@@ -1618,11 +1653,6 @@ console.log(err);
 });
 
 }
-setInterval(()=>{
-
-loadHistory();
-
-},3000);
 
 </script>
 
