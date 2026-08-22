@@ -456,9 +456,12 @@ text-shadow:
 letter-spacing:.4px;
 }
 
-/* BUTTON */
+/* ============================= */
+/* BUTTON GLASS NEON */
+/* ============================= */
 
 button{
+
 width:100%;
 padding:16px;
 
@@ -468,8 +471,8 @@ border-radius:18px;
 background:
 linear-gradient(
 135deg,
-rgba(0,245,255,.90),
-rgba(124,58,237,.90)
+rgba(0,0,0,.72),
+rgba(5,15,25,.62)
 );
 
 color:white;
@@ -479,23 +482,65 @@ font-weight:600;
 
 cursor:pointer;
 
-transition:.3s;
+transition:
+transform .25s ease,
+box-shadow .25s ease,
+border-color .25s ease,
+background .25s ease;
 
-border:1px solid rgba(255,255,255,.15);
+border:1px solid rgba(0,245,255,.35);
 
-backdrop-filter:blur(6px);
--webkit-backdrop-filter:blur(6px);
+backdrop-filter:blur(10px);
+-webkit-backdrop-filter:blur(10px);
 
 box-shadow:
-0 0 15px rgba(0,245,255,.35),
-0 0 30px rgba(124,58,237,.25),
-0 10px 30px rgba(0,0,0,.40);
+inset 0 0 15px rgba(0,245,255,.08),
+0 0 10px rgba(0,245,255,.18),
+0 0 25px rgba(0,245,255,.10),
+0 10px 25px rgba(0,0,0,.45);
 
 text-shadow:
+0 0 8px rgba(255,255,255,.45),
 0 2px 8px rgba(0,0,0,.8);
 
 letter-spacing:.5px;
+
+position:relative;
+
+overflow:hidden;
 }
+
+
+/* CAHAYA DI DALAM TOMBOL */
+
+button::before{
+
+content:"";
+
+position:absolute;
+
+top:0;
+left:-120%;
+
+width:70%;
+height:100%;
+
+background:
+linear-gradient(
+90deg,
+transparent,
+rgba(255,255,255,.12),
+transparent
+);
+
+transform:skewX(-20deg);
+
+transition:.5s;
+
+}
+
+
+/* HOVER */
 
 button:hover{
 
@@ -503,13 +548,46 @@ transform:
 translateY(-2px)
 scale(1.01);
 
-box-shadow:
-0 0 20px rgba(0,245,255,.55),
-0 0 40px rgba(124,58,237,.40),
-0 15px 35px rgba(0,0,0,.45);
+border-color:
+rgba(0,245,255,.75);
 
-filter:brightness(1.08);
+background:
+linear-gradient(
+135deg,
+rgba(0,0,0,.80),
+rgba(5,20,30,.72)
+);
+
+box-shadow:
+inset 0 0 20px rgba(0,245,255,.12),
+0 0 15px rgba(0,245,255,.45),
+0 0 35px rgba(0,245,255,.25),
+0 12px 30px rgba(0,0,0,.50);
+
 }
+
+button:hover::before{
+
+left:130%;
+
+}
+
+
+/* SAAT DITEKAN */
+
+button:active{
+
+transform:
+scale(.98);
+
+box-shadow:
+inset 0 0 25px rgba(0,245,255,.18),
+0 0 20px rgba(0,245,255,.55);
+
+}
+
+
+/* DISABLED */
 
 button:disabled{
 
@@ -517,37 +595,68 @@ opacity:.6;
 
 cursor:not-allowed;
 
-filter:grayscale(.2);
+filter:none;
 
 }
 
+
+/* ============================= */
 /* RESET BUTTON */
+/* ============================= */
 
 .reset-btn{
 
 margin-top:12px;
 
+border-color:
+rgba(255,60,60,.35);
+
 background:
 linear-gradient(
 135deg,
-rgba(239,68,68,.90),
-rgba(185,28,28,.90)
+rgba(0,0,0,.74),
+rgba(25,5,8,.65)
 );
 
-border:1px solid rgba(255,100,100,.30);
-
 box-shadow:
-0 0 15px rgba(239,68,68,.30),
-0 0 30px rgba(185,28,28,.20),
-0 8px 22px rgba(0,0,0,.35);
+inset 0 0 15px rgba(255,0,0,.07),
+0 0 10px rgba(255,0,0,.18),
+0 0 25px rgba(255,0,0,.10),
+0 10px 25px rgba(0,0,0,.45);
+
 }
+
+
+/* RESET HOVER */
 
 .reset-btn:hover{
 
+border-color:
+rgba(255,70,70,.80);
+
+background:
+linear-gradient(
+135deg,
+rgba(0,0,0,.82),
+rgba(30,5,8,.72)
+);
+
 box-shadow:
-0 0 20px rgba(239,68,68,.50),
-0 0 40px rgba(185,28,28,.35),
-0 12px 30px rgba(0,0,0,.45);
+inset 0 0 20px rgba(255,0,0,.12),
+0 0 15px rgba(255,50,50,.45),
+0 0 35px rgba(255,0,0,.25),
+0 12px 30px rgba(0,0,0,.50);
+
+}
+
+
+/* RESET ACTIVE */
+
+.reset-btn:active{
+
+box-shadow:
+inset 0 0 25px rgba(255,0,0,.18),
+0 0 20px rgba(255,50,50,.55);
 
 }
 
@@ -562,7 +671,7 @@ font-size:14px;
 
 font-weight:500;
 
-color:rgba(0,0,0,.88);
+color:rgba(225,225,225,.95);
 
 min-height:20px;
 
