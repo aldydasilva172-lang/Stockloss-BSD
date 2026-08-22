@@ -23,7 +23,6 @@ min-height:100%;
 margin:0;
 padding:0;
 overscroll-behavior:none;
-
 -webkit-text-size-adjust:100%;
 }
 
@@ -37,9 +36,9 @@ position:relative;
 
 background:
 linear-gradient(
-        rgba(0,0,0,.60),
-        rgba(0,0,0,.60)
-    ),
+rgba(0,0,0,.60),
+rgba(0,0,0,.60)
+),
 url('232c59a2-a76c-4766-8c58-20a6e1b7550a.jpeg')
 center top / 100% auto repeat-y;
 
@@ -50,6 +49,7 @@ display:block;
 }
 
 /* LOGIN OVERLAY */
+
 .login-overlay{
 position:fixed;
 inset:0;
@@ -70,10 +70,13 @@ center center / cover no-repeat;
 
 backdrop-filter:blur(10px);
 -webkit-backdrop-filter:blur(10px);
+
 padding:20px;
 overflow:auto;
 }
+
 /* LOGIN BOX */
+
 .login-box{
 width:90%;
 max-width:360px;
@@ -145,10 +148,10 @@ color:white;
 font-size:16px;
 
 border:1px solid rgba(255,255,255,.08);
-        
+
 box-shadow:
-    0 0 12px rgba(0,245,255,.35),
-    0 0 25px rgba(124,58,237,.20);
+0 0 12px rgba(0,245,255,.35),
+0 0 25px rgba(124,58,237,.20);
 
 margin-bottom:18px;
 
@@ -156,11 +159,11 @@ transition:.3s;
 }
 
 .login-input:focus{
-    box-shadow:
-    0 0 18px rgba(0,245,255,.55),
-    0 0 35px rgba(124,58,237,.35);
+box-shadow:
+0 0 18px rgba(0,245,255,.55),
+0 0 35px rgba(124,58,237,.35);
 
-    background:rgba(0,0,0,.45);
+background:rgba(0,0,0,.45);
 }
 
 .login-btn{
@@ -168,6 +171,7 @@ width:100%;
 }
 
 /* CONTAINER */
+
 .container{
 position:relative;
 z-index:1;
@@ -177,6 +181,7 @@ overflow:visible;
 width:100%;
 max-width:430px;
 padding:35px;
+
 border-radius:28px;
 
 background:transparent;
@@ -214,8 +219,8 @@ letter-spacing:.5px;
 }
 
 /* LAST INPUT */
-.last-input-box{
 
+.last-input-box{
 display:none;
 
 margin-top:16px;
@@ -238,47 +243,20 @@ box-shadow:
 0 8px 22px rgba(0,0,0,.32);
 
 text-align:center;
-
 }
 
 .last-title{
-
 font-size:15px;
 font-weight:600;
 
-color:White;
+color:white;
 
 margin-bottom:6px;
 
 text-shadow:
 0 0 10px rgba(0,245,255,.7),
 0 0 20px rgba(124,58,237,.5),
-0 2px 8px rgba(0,0,0,.8)
-}
-
-.last-name{
-
-font-size:10px;
-font-weight:600;
-color:#f97316;
-
-text-shadow:
-0 0 10px rgba(0,245,255,.7),
-0 0 20px rgba(124,58,237,.5),
 0 2px 8px rgba(0,0,0,.8);
-
-margin-bottom:1px;
-}
-
-.last-qty{
-
-font-size:10px;
-color:#f97316;
-
-text-shadow:
-0 0 10px rgba(0,245,255,.7),
-0 0 20px rgba(124,58,237,.5),
-0 2px 8px rgba(0,0,0,.8)
 }
 
 .history-header{
@@ -327,6 +305,19 @@ background:rgba(0,0,0,.08);
 margin-bottom:2px;
 
 overflow:hidden;
+
+animation:historyIn .20s ease;
+}
+
+@keyframes historyIn{
+from{
+opacity:0;
+transform:translateY(-5px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
 }
 
 .history-nama{
@@ -367,6 +358,7 @@ text-shadow:
 }
 
 /* INPUT BOX */
+
 .input-box{
 margin-bottom:16px;
 position:relative;
@@ -391,22 +383,16 @@ overflow:visible;
 }
 
 .barcode-box{
-position:relative;
-z-index:100;
+z-index:9999;
 }
 
 .qty-box{
-position:relative;
-z-index:10;
-}
-
-.barcode-box #suggestions{
-position:absolute;
-z-index:9999;
+z-index:1;
 }
 
 .input-box label{
 display:block;
+
 margin-bottom:8px;
 
 font-size:14px;
@@ -423,6 +409,7 @@ letter-spacing:.5px;
 
 .input-box input{
 width:100%;
+
 padding:16px;
 
 border:none;
@@ -448,7 +435,6 @@ box-shadow:
 }
 
 .input-box input:focus{
-
 border:1px solid rgba(0,245,255,.7);
 
 background:rgba(0,0,0,.35);
@@ -459,7 +445,6 @@ box-shadow:
 0 4px 15px rgba(0,0,0,.35);
 
 transform:scale(1.01);
-
 }
 
 input::placeholder{
@@ -472,18 +457,22 @@ letter-spacing:.4px;
 }
 
 /* BUTTON */
+
 button{
 width:100%;
+
 padding:16px;
 
 border:none;
 border-radius:18px;
 
-background:linear-gradient(
-135deg,
-rgba(0,245,255,.18),
-rgba(124,58,237,.25)
-);
+background:
+linear-gradient(
+rgba(0,0,0,.65),
+rgba(0,0,0,.65)
+),
+url('6470974e-f80e-4098-a38e-f3f838dc6672.jpeg')
+center center / cover no-repeat;
 
 color:white;
 
@@ -494,14 +483,13 @@ cursor:pointer;
 
 transition:.3s;
 
-border:1px solid rgba(0,245,255,.35);
+border:1px solid rgba(255,255,255,.10);
 
 backdrop-filter:blur(6px);
--webkit-backdrop-filter:blur(6px);
 
 box-shadow:
-0 0 15px rgba(0,245,255,.25),
-0 0 35px rgba(124,58,237,.20),
+0 0 15px rgba(255,0,0,.45),
+0 0 35px rgba(255,0,0,.30),
 0 10px 30px rgba(0,0,0,.40);
 
 text-shadow:
@@ -511,46 +499,39 @@ letter-spacing:.5px;
 }
 
 button:hover{
-
 transform:
 translateY(-2px)
 scale(1.01);
 
 box-shadow:
-    0 0 20px rgba(255,0,0,.60),
-    0 0 45px rgba(255,0,0,.40),
-    0 15px 35px rgba(0,0,0,.45);
-transition:.3s;
+0 0 20px rgba(255,0,0,.60),
+0 0 45px rgba(255,0,0,.40),
+0 15px 35px rgba(0,0,0,.45);
 
 filter:brightness(1.05);
-
 }
 
 button:disabled{
-
 opacity:.6;
 
 cursor:not-allowed;
 
 filter:grayscale(.2);
-
 }
 
 .reset-btn{
 margin-top:12px;
 
-background:rgba(255,255,255,.06);
-
-border:1px solid rgba(255,80,80,.30);
+border:1px solid rgba(255,80,80,.25);
 
 box-shadow:
 0 6px 18px rgba(0,0,0,.35),
-0 0 25px rgba(255,80,80,.15);
+0 0 25px rgba(255,80,80,.20);
 }
 
 /* STATUS */
-#status{
 
+#status{
 margin-top:16px;
 
 text-align:center;
@@ -559,7 +540,7 @@ font-size:14px;
 
 font-weight:500;
 
-color:rgba(255,255,255,.95);
+color:rgba(0,0,0,.88);
 
 min-height:20px;
 
@@ -569,12 +550,11 @@ text-shadow:
 0 0 22px rgba(0,245,255,.25);
 
 letter-spacing:.3px;
-
 }
 
 /* NAMA BARANG */
-#namaBarang{
 
+#namaBarang{
 margin-top:10px;
 
 padding:12px 14px;
@@ -603,18 +583,20 @@ box-shadow:
 min-height:20px;
 
 display:none;
-
 }
 
 /* DROPDOWN */
+
 #suggestions{
 position:absolute;
 
 top:calc(100% + 8px);
+
 left:0;
 right:0;
 
 max-height:320px;
+
 overflow-y:auto;
 
 overscroll-behavior:contain;
@@ -645,12 +627,16 @@ transform:translateZ(999px);
 
 .suggest-item{
 padding:12px 20px;
+
 border-bottom:1px solid rgba(255,255,255,.05);
+
 cursor:pointer;
+
 transition:.2s;
 
 display:flex;
 flex-direction:column;
+
 align-items:center;
 justify-content:center;
 
@@ -668,22 +654,28 @@ background:rgba(255,255,255,.08);
 .suggest-barcode{
 font-size:14px;
 font-weight:700;
+
 color:#00f5ff;
 }
 
 .suggest-name{
 font-size:13px;
+
 color:#cbd5e1;
+
 margin-top:4px;
+
 line-height:1.4;
 }
 
 /* MODAL */
+
 .modal{
 position:fixed;
 inset:0;
 
 display:none;
+
 align-items:center;
 justify-content:center;
 
@@ -695,10 +687,12 @@ backdrop-filter:blur(10px);
 z-index:999999999;
 
 padding:20px;
+
 overflow:auto;
 }
 
 /* MODAL BOX */
+
 .modal-box{
 width:90%;
 max-width:360px;
@@ -745,6 +739,7 @@ opacity:1;
 
 .modal-title{
 text-align:center;
+
 font-size:22px;
 font-weight:700;
 
@@ -759,6 +754,7 @@ text-shadow:
 
 .modal-input{
 width:100%;
+
 padding:16px;
 
 border:none;
@@ -780,7 +776,6 @@ transition:.3s;
 }
 
 .modal-input:focus{
-
 border:1px solid rgba(0,245,255,.7);
 
 box-shadow:
@@ -788,17 +783,19 @@ box-shadow:
 0 0 25px rgba(124,58,237,.20);
 
 background:rgba(0,0,0,.45);
-
 }
 
 .modal-actions{
 display:flex;
+
 gap:12px;
 }
 
 .modal-actions button{
 flex:1;
+
 padding:14px;
+
 border-radius:16px;
 }
 
@@ -843,18 +840,21 @@ min-height:-webkit-fill-available;
 
 }
 
-@media (min-width: 768px){
+@media (min-width:768px){
 
 body{
 display:flex;
+
 justify-content:center;
 align-items:center;
+
 min-height:100vh;
 }
 
 .container{
 width:100%;
 max-width:450px;
+
 margin:0 auto;
 }
 
@@ -862,9 +862,11 @@ margin:0 auto;
 
 </style>
 </head>
+
 <body>
 
 <!-- LOGIN SCREEN -->
+
 <div class="login-overlay" id="loginOverlay">
 
 <div class="login-box">
@@ -905,6 +907,7 @@ min-height:18px;
 
 </div>
 
+
 <div class="container">
 
 <h1>STOCKLOSS BSD</h1>
@@ -912,6 +915,9 @@ min-height:18px;
 <p class="desc">
 Scan / Input Barcode dan Qty
 </p>
+
+
+<!-- BARCODE -->
 
 <div class="input-box barcode-box">
 
@@ -930,6 +936,9 @@ autocomplete="off"
 
 </div>
 
+
+<!-- QTY -->
+
 <div class="input-box qty-box">
 
 <label>Qty</label>
@@ -937,12 +946,12 @@ autocomplete="off"
 <input 
 type="text"
 inputmode="decimal"
-enterkeyhint="enter"
 id="qty" 
 placeholder="Masukkan Qty"
 >
 
 </div>
+
 
 <button id="btnKirim" onclick="kirimData()">
 Kirim Data
@@ -954,7 +963,9 @@ Reset Data Stockloss
 
 <div id="status"></div>
 
-<!-- HISTORY INPUT -->
+
+<!-- HISTORY -->
+
 <div id="historyBox" class="last-input-box">
 
 <div class="last-title">
@@ -962,16 +973,26 @@ DATA INPUT
 </div>
 
 <div class="history-header">
-<div>ARTICLE NAME</div>
-<div>QTY</div>
+
+<div>
+ARTICLE NAME
+</div>
+
+<div>
+QTY
+</div>
+
 </div>
 
 <div id="historyList"></div>
 
 </div>
+
 </div>
 
+
 <!-- MODAL PASSWORD -->
+
 <div class="modal" id="passwordModal">
 
 <div class="modal-box">
@@ -1007,7 +1028,12 @@ Masuk
 
 </div>
 
+
 <script>
+
+/* ================================================= */
+/* CONFIG */
+/* ================================================= */
 
 const URL_SCRIPT =
 "https://script.google.com/macros/s/AKfycbyYp-CRc2wUKF-OQ8VFb3NApejjOSpIDbdlVxcsvgDtY8YHEwGdysxaHU1ruQATXOIS-w/exec";
@@ -1015,20 +1041,28 @@ const URL_SCRIPT =
 const ADMIN_PASSWORD = "0800";
 
 let barcodeCache = [];
+
 let debounceTimer;
 
-/* LAST INPUT */
+let historyData = [];
+
+
+/* ================================================= */
+/* LOAD HISTORY */
+/* ================================================= */
 
 async function loadHistory(){
 
 try{
 
-const res = await fetch(URL_SCRIPT,{
+const res =
+await fetch(URL_SCRIPT,{
 
 method:"POST",
 
 headers:{
-"Content-Type":"text/plain;charset=utf-8"
+"Content-Type":
+"text/plain;charset=utf-8"
 },
 
 body:JSON.stringify({
@@ -1037,16 +1071,44 @@ action:"getHistory"
 
 });
 
-const history =
+historyData =
 await res.json();
 
+renderHistory();
+
+}catch(err){
+
+console.log(
+"Load history error:",
+err
+);
+
+}
+
+}
+
+
+/* ================================================= */
+/* RENDER HISTORY */
+/* ================================================= */
+
+function renderHistory(){
+
 const box =
-document.getElementById("historyBox");
+document.getElementById(
+"historyBox"
+);
 
 const list =
-document.getElementById("historyList");
+document.getElementById(
+"historyList"
+);
 
-if(history.length === 0){
+
+if(
+!Array.isArray(historyData) ||
+historyData.length === 0
+){
 
 box.style.display = "none";
 
@@ -1056,22 +1118,27 @@ return;
 
 }
 
+
 box.style.display = "block";
+
 
 let html = "";
 
-history.forEach(item=>{
+
+historyData
+.slice(0,50)
+.forEach(item=>{
 
 html += `
 
 <div class="history-item">
 
 <div class="history-nama">
-${item.nama}
+${escapeHTML(item.nama)}
 </div>
 
 <div class="history-qty">
-${item.qty}
+${escapeHTML(item.qty)}
 </div>
 
 </div>
@@ -1080,17 +1147,55 @@ ${item.qty}
 
 });
 
+
 list.innerHTML = html;
 
-}catch(err){
+}
 
-console.log(err);
+
+/* ================================================= */
+/* ESCAPE HTML */
+/* ================================================= */
+
+function escapeHTML(value){
+
+return String(value ?? "")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
 
 }
 
+
+/* ================================================= */
+/* TAMBAH HISTORY LANGSUNG */
+/* ================================================= */
+
+function addHistoryInstant(nama,qty){
+
+historyData.unshift({
+
+nama:nama || "-",
+
+qty:qty
+
+});
+
+
+historyData =
+historyData.slice(0,50);
+
+renderHistory();
+
 }
 
-/* AUTO FOCUS */
+
+/* ================================================= */
+/* AUTO FOCUS / INITIAL LOAD */
+/* ================================================= */
+
 window.onload = async () => {
 
 await loadBarcodeData();
@@ -1099,38 +1204,61 @@ await loadHistory();
 
 setTimeout(()=>{
 
-document.getElementById("loginPassword").focus();
+document
+.getElementById("loginPassword")
+.focus();
 
 },200);
 
 };
 
-/* LOGIN APP */
+
+/* ================================================= */
+/* LOGIN */
+/* ================================================= */
+
 function loginApp(){
 
-let password =
-document.getElementById("loginPassword").value;
+const password =
+document
+.getElementById("loginPassword")
+.value;
+
 
 if(password !== ADMIN_PASSWORD){
 
-document.getElementById("loginStatus").innerHTML =
+document
+.getElementById("loginStatus")
+.innerHTML =
 "❌ Password salah";
 
 return;
 
 }
 
-document.getElementById("loginOverlay").style.display =
+
+document
+.getElementById("loginOverlay")
+.style.display =
 "none";
 
-document.getElementById("barcode").focus();
+
+document
+.getElementById("barcode")
+.focus();
 
 }
 
+
+/* ================================================= */
 /* ENTER LOGIN */
+/* ================================================= */
+
 document
 .getElementById("loginPassword")
-.addEventListener("keypress",function(e){
+.addEventListener(
+"keypress",
+function(e){
 
 if(e.key === "Enter"){
 
@@ -1140,17 +1268,23 @@ loginApp();
 
 });
 
+
+/* ================================================= */
 /* LOAD BARCODE */
+/* ================================================= */
+
 async function loadBarcodeData(){
 
 try{
 
-const res = await fetch(URL_SCRIPT,{
+const res =
+await fetch(URL_SCRIPT,{
 
 method:"POST",
 
 headers:{
-"Content-Type":"text/plain;charset=utf-8"
+"Content-Type":
+"text/plain;charset=utf-8"
 },
 
 body:JSON.stringify({
@@ -1159,31 +1293,53 @@ action:"getAllBarcode"
 
 });
 
-barcodeCache = await res.json();
+
+barcodeCache =
+await res.json();
 
 }catch(err){
 
-console.log(err);
+console.log(
+"Barcode load error:",
+err
+);
 
 }
 
 }
 
+
+/* ================================================= */
 /* HIDE DROPDOWN */
+/* ================================================= */
+
 function hideSuggestions(){
 
-document.getElementById("suggestions").innerHTML = "";
+document
+.getElementById("suggestions")
+.innerHTML = "";
 
 }
 
-/* AUTO QTY */
+
+/* ================================================= */
+/* AUTO QTY + NAMA */
+/* ================================================= */
+
 document
 .getElementById("barcode")
-.addEventListener("input", function(){
+.addEventListener(
+"input",
+function(){
 
-let barcode = this.value.trim();
+const barcode =
+this.value.trim();
 
-tampilkanNamaBarang(barcode);
+
+tampilkanNamaBarang(
+barcode
+);
+
 
 if(
 barcode.startsWith("20") &&
@@ -1193,35 +1349,59 @@ barcode.length === 13 &&
 
 hideSuggestions();
 
-let qtyRaw = barcode.substring(7,12);
 
-let qtyNumber =
-parseInt(qtyRaw,10) / 1000;
+const qtyRaw =
+barcode.substring(7,12);
+
+
+const qtyNumber =
+parseInt(
+qtyRaw,
+10
+) / 1000;
+
 
 let qtyFormatted =
 qtyNumber
 .toFixed(3)
 .replace(/\.?0+$/,'');
 
-qtyFormatted =
-qtyFormatted.replace(".",",");
 
-document.getElementById("qty").value =
+qtyFormatted =
+qtyFormatted.replace(
+".",
+","
+);
+
+
+document
+.getElementById("qty")
+.value =
 qtyFormatted;
 
 }
 
 });
 
+
+/* ================================================= */
 /* TAMPILKAN NAMA BARANG */
+/* ================================================= */
+
 function tampilkanNamaBarang(barcode){
 
-let namaBox =
-document.getElementById("namaBarang");
+const namaBox =
+document.getElementById(
+"namaBarang"
+);
 
-let searchBarcode = barcode;
+
+let searchBarcode =
+barcode;
+
 
 /* BARCODE TIMBANG */
+
 if(
 barcode.startsWith("20") &&
 barcode.length === 13 &&
@@ -1233,19 +1413,26 @@ barcode.substring(2,7);
 
 }
 
-let item = barcodeCache.find(x =>
-String(x.barcode) === String(searchBarcode)
+
+const item =
+barcodeCache.find(x =>
+String(x.barcode) ===
+String(searchBarcode)
 );
+
 
 if(item){
 
-namaBox.style.display = "block";
+namaBox.style.display =
+"block";
 
-namaBox.innerHTML = item.nama;
+namaBox.innerHTML =
+escapeHTML(item.nama);
 
 }else{
 
-namaBox.style.display = "none";
+namaBox.style.display =
+"none";
 
 namaBox.innerHTML = "";
 
@@ -1253,67 +1440,91 @@ namaBox.innerHTML = "";
 
 }
 
+
+/* ================================================= */
 /* AUTOCOMPLETE */
+/* ================================================= */
+
 document
 .getElementById("barcode")
-.addEventListener("input", function(e){
+.addEventListener(
+"input",
+function(e){
 
 e.stopPropagation();
 
-clearTimeout(debounceTimer);
 
-debounceTimer = setTimeout(() => {
+clearTimeout(
+debounceTimer
+);
 
-let keyword =
-this.value.trim().toLowerCase();
+
+debounceTimer =
+setTimeout(()=>{
+
+const keyword =
+this.value
+.trim()
+.toLowerCase();
+
 
 const suggestions =
-document.getElementById("suggestions");
+document.getElementById(
+"suggestions"
+);
+
 
 if(keyword.length < 2){
 
 suggestions.innerHTML = "";
+
 return;
 
 }
 
-let filtered = barcodeCache.filter(item => {
 
-let barcode =
-String(item.barcode).toLowerCase();
+let filtered =
+barcodeCache.filter(item=>{
 
-let nama =
-String(item.nama).toLowerCase();
+const barcode =
+String(item.barcode)
+.toLowerCase();
 
-return (
+const nama =
+String(item.nama)
+.toLowerCase();
 
+
+return(
 barcode.startsWith(keyword) ||
-
 barcode.includes(keyword) ||
-
 nama.includes(keyword)
-
 );
 
 });
 
-filtered = filtered.slice(0,20);
+
+filtered =
+filtered.slice(0,20);
+
 
 let html = "";
 
-filtered.forEach(item => {
+
+filtered.forEach(item=>{
 
 html += `
 
-<div class="suggest-item"
-onclick="pilihBarcode('${item.barcode}')">
+<div
+class="suggest-item"
+onclick="pilihBarcode('${String(item.barcode).replace(/'/g,"\\'")}')">
 
 <div class="suggest-barcode">
-${item.barcode}
+${escapeHTML(item.barcode)}
 </div>
 
 <div class="suggest-name">
-${item.nama}
+${escapeHTML(item.nama)}
 </div>
 
 </div>
@@ -1322,24 +1533,44 @@ ${item.nama}
 
 });
 
-suggestions.innerHTML = html;
+
+suggestions.innerHTML =
+html;
+
 
 },120);
 
 });
 
-/* HIDE SAAT FOCUS QTY */
-document.getElementById("qty")
-.addEventListener("focus",function(){
+
+/* ================================================= */
+/* HIDE QTY DROPDOWN */
+/* ================================================= */
+
+document
+.getElementById("qty")
+.addEventListener(
+"focus",
+function(){
 
 hideSuggestions();
 
 });
 
-/* HIDE CLICK LUAR */
-document.addEventListener("click",function(e){
 
-if(!e.target.closest(".input-box")){
+/* ================================================= */
+/* HIDE CLICK LUAR */
+/* ================================================= */
+
+document.addEventListener(
+"click",
+function(e){
+
+if(
+!e.target.closest(
+".input-box"
+)
+){
 
 hideSuggestions();
 
@@ -1347,23 +1578,43 @@ hideSuggestions();
 
 });
 
+
+/* ================================================= */
 /* PILIH BARCODE */
+/* ================================================= */
+
 function pilihBarcode(barcode){
 
-document.getElementById("barcode").value =
+document
+.getElementById("barcode")
+.value =
 barcode;
 
-tampilkanNamaBarang(barcode);
+
+tampilkanNamaBarang(
+barcode
+);
+
 
 hideSuggestions();
 
-document.getElementById("qty").focus();
+
+document
+.getElementById("qty")
+.focus();
 
 }
 
+
+/* ================================================= */
 /* ENTER BARCODE */
-document.getElementById("barcode")
-.addEventListener("keypress",function(e){
+/* ================================================= */
+
+document
+.getElementById("barcode")
+.addEventListener(
+"keypress",
+function(e){
 
 if(e.key === "Enter"){
 
@@ -1371,15 +1622,24 @@ e.preventDefault();
 
 hideSuggestions();
 
-document.getElementById("qty").focus();
+document
+.getElementById("qty")
+.focus();
 
 }
 
 });
 
+
+/* ================================================= */
 /* ENTER QTY */
-document.getElementById("qty")
-.addEventListener("keypress",function(e){
+/* ================================================= */
+
+document
+.getElementById("qty")
+.addEventListener(
+"keypress",
+function(e){
 
 if(e.key === "Enter"){
 
@@ -1393,18 +1653,53 @@ kirimData();
 
 });
 
-/* KIRIM */
+
+/* ================================================= */
+/* KIRIM DATA - OPTIMIZED */
+/* ================================================= */
+
 async function kirimData(){
 
+const barcodeInput =
+document
+.getElementById("barcode");
+
+
+const qtyInput =
+document
+.getElementById("qty");
+
+
 let barcode =
-document.getElementById("barcode").value.trim();
+barcodeInput.value.trim();
+
 
 let qty =
-document.getElementById("qty").value.trim();
+qtyInput.value.trim();
+
+
+if(
+barcode === "" ||
+qty === ""
+){
+
+document
+.getElementById("status")
+.innerHTML =
+"⚠️ Barcode dan Qty wajib diisi";
+
+return;
+
+}
+
 
 let namaBarang = "";
 
-let searchBarcode = barcode;
+let searchBarcode =
+barcode;
+
+
+/* BARCODE TIMBANG */
 
 if(
 barcode.startsWith("20") &&
@@ -1417,160 +1712,237 @@ barcode.substring(2,7);
 
 }
 
-let item = barcodeCache.find(x =>
-String(x.barcode) === String(searchBarcode)
+
+const item =
+barcodeCache.find(x =>
+String(x.barcode) ===
+String(searchBarcode)
 );
+
 
 if(item){
 
-namaBarang = item.nama;
+namaBarang =
+item.nama;
 
 }
 
-qty = qty.replace(",", ".");
 
-let btn =
-document.getElementById("btnKirim");
+/* QTY */
 
-if(barcode === "" || qty === ""){
+qty =
+qty.replace(",", ".");
 
-document.getElementById("status").innerHTML =
-"⚠️ Barcode dan Qty wajib diisi";
 
-return;
+const btn =
+document
+.getElementById("btnKirim");
 
-}
-
-/* KUNCI TOMBOL AGAR TIDAK DOUBLE INPUT */
-
-if(btn.disabled) return;
 
 btn.disabled = true;
-btn.innerHTML = "⏳ Mengirim...";
 
+btn.innerHTML =
+"⏳ Mengirim...";
+
+
+/* ================================================= */
 /* SIMPAN DATA INPUT */
+/* ================================================= */
 
-const barcodeKirim = barcode;
-const qtyKirim = qty;
+barcodeInput.value = "";
 
-/* LANGSUNG KOSONGKAN FORM */
+qtyInput.value = "";
 
-document.getElementById("barcode").value = "";
-document.getElementById("qty").value = "";
+document
+.getElementById("namaBarang")
+.style.display =
+"none";
 
-document.getElementById("namaBarang").style.display = "none";
-document.getElementById("namaBarang").innerHTML = "";
+document
+.getElementById("namaBarang")
+.innerHTML = "";
 
 hideSuggestions();
 
-document.getElementById("status").innerHTML =
-"⏳ Mengirim data...";
 
-/* KIRIM DATA */
+/* ================================================= */
+/* UPDATE HISTORY LANGSUNG */
+/* ================================================= */
+
+addHistoryInstant(
+namaBarang || barcode,
+qty
+);
+
+
+document
+.getElementById("status")
+.innerHTML =
+"⏳ Menyimpan data...";
+
+
+barcodeInput.focus();
+
+
+/* ================================================= */
+/* KIRIM KE GOOGLE */
+/* ================================================= */
 
 try{
 
-const request = fetch(URL_SCRIPT,{
+const res =
+await fetch(
+URL_SCRIPT,
+{
 
 method:"POST",
 
 headers:{
-"Content-Type":"text/plain;charset=utf-8"
+"Content-Type":
+"text/plain;charset=utf-8"
 },
 
 body:JSON.stringify({
 
-barcode:barcodeKirim,
-qty:qtyKirim
+barcode:barcode,
+
+qty:qty
 
 })
 
 });
 
-/*
-JANGAN MENUNGGU LOAD HISTORY
-*/
 
-request.then(async res => {
+const result =
+await res.text();
 
-document.getElementById("status").innerHTML =
+
+if(
+result.startsWith("Success")
+){
+
+document
+.getElementById("status")
+.innerHTML =
 "✅ Data berhasil dikirim";
 
-/* UPDATE HISTORY DI BELAKANG */
+}else{
 
-loadHistory();
+throw new Error(result);
 
-}).catch(err => {
+}
 
-document.getElementById("status").innerHTML =
-"❌ Gagal mengirim data";
-
-console.log(err);
-
-})
-
-.finally(()=>{
-
-btn.disabled = false;
-btn.innerHTML = "Kirim Data";
-
-document.getElementById("barcode").focus();
-
-});
 
 }catch(err){
 
-document.getElementById("status").innerHTML =
+console.log(
+"Send error:",
+err
+);
+
+
+/*
+ * Jika gagal, hapus history
+ * yang tadi ditampilkan secara lokal.
+ */
+
+historyData.shift();
+
+renderHistory();
+
+
+document
+.getElementById("status")
+.innerHTML =
 "❌ Gagal mengirim data";
 
-console.log(err);
+
+}finally{
 
 btn.disabled = false;
-btn.innerHTML = "Kirim Data";
 
-document.getElementById("barcode").focus();
-
-}
+btn.innerHTML =
+"Kirim Data";
 
 }
 
-/* BUKA MODAL */
+}
+
+
+/* ================================================= */
+/* BUKA MODAL PASSWORD */
+/* ================================================= */
+
 function openPasswordModal(){
 
-document.getElementById("passwordModal").style.display =
+document
+.getElementById("passwordModal")
+.style.display =
 "flex";
+
+
+document
+.getElementById("adminPassword")
+.value = "";
+
 
 setTimeout(()=>{
 
-document.getElementById("adminPassword").focus();
+document
+.getElementById("adminPassword")
+.focus();
 
 },100);
 
 }
 
+
+/* ================================================= */
 /* TUTUP MODAL */
+/* ================================================= */
+
 function closePasswordModal(){
 
-document.getElementById("passwordModal").style.display =
+document
+.getElementById("passwordModal")
+.style.display =
 "none";
 
-document.getElementById("adminPassword").value = "";
+
+document
+.getElementById("adminPassword")
+.value = "";
 
 }
 
-/* ENTER PASSWORD */
-document.addEventListener("keydown",function(e){
+
+/* ================================================= */
+/* ENTER PASSWORD RESET */
+/* ================================================= */
+
+document.addEventListener(
+"keydown",
+function(e){
 
 const modal =
-document.getElementById("passwordModal");
+document.getElementById(
+"passwordModal"
+);
 
-if(modal.style.display === "flex"){
+
+if(
+modal.style.display ===
+"flex"
+){
 
 if(e.key === "Enter"){
+
+e.preventDefault();
 
 submitReset();
 
 }
+
 
 if(e.key === "Escape"){
 
@@ -1582,83 +1954,182 @@ closePasswordModal();
 
 });
 
+
+/* ================================================= */
 /* RESET */
+/* ================================================= */
+
 function resetData(){
 
 openPasswordModal();
 
 }
 
-/* SUBMIT RESET */
-function submitReset(){
 
-let password =
-document.getElementById("adminPassword").value;
+/* ================================================= */
+/* SUBMIT RESET - OPTIMIZED */
+/* ================================================= */
+
+async function submitReset(){
+
+const password =
+document
+.getElementById("adminPassword")
+.value;
+
 
 if(password !== ADMIN_PASSWORD){
 
-document.getElementById("status").innerHTML =
+document
+.getElementById("status")
+.innerHTML =
 "❌ Password salah";
 
 return;
 
 }
 
+
 closePasswordModal();
 
-let konfirmasi = confirm(
+
+const konfirmasi =
+confirm(
 "Yakin ingin menghapus semua data stockloss sebelumnya?"
 );
 
-if(!konfirmasi) return;
 
-document.getElementById("status").innerHTML =
+if(!konfirmasi){
+
+return;
+
+}
+
+
+/* ================================================= */
+/* LANGSUNG KOSONGKAN HISTORY */
+/* ================================================= */
+
+historyData = [];
+
+renderHistory();
+
+
+document
+.getElementById("barcode")
+.value = "";
+
+document
+.getElementById("qty")
+.value = "";
+
+document
+.getElementById("namaBarang")
+.style.display =
+"none";
+
+document
+.getElementById("namaBarang")
+.innerHTML = "";
+
+hideSuggestions();
+
+
+document
+.getElementById("status")
+.innerHTML =
 "⏳ Menghapus data...";
 
-fetch(URL_SCRIPT,{
+
+const resetButton =
+document.querySelector(
+".reset-btn"
+);
+
+
+resetButton.disabled =
+true;
+
+
+try{
+
+const res =
+await fetch(
+URL_SCRIPT,
+{
 
 method:"POST",
 
 headers:{
-"Content-Type":"text/plain;charset=utf-8"
+"Content-Type":
+"text/plain;charset=utf-8"
 },
 
 body:JSON.stringify({
 
 action:"reset",
+
 password:password
 
 })
 
-})
+});
 
-.then(res => res.text())
 
-.then(async data => {
+const result =
+await res.text();
 
-document.getElementById("status").innerHTML =
+
+if(
+result ===
+"Reset berhasil"
+){
+
+document
+.getElementById("status")
+.innerHTML =
 "✅ Semua data stockloss sebelumnya berhasil dihapus";
+
+}else{
+
+throw new Error(result);
+
+}
+
+
+}catch(err){
+
+console.log(
+"Reset error:",
+err
+);
+
+
+document
+.getElementById("status")
+.innerHTML =
+"❌ Gagal reset data";
+
+
+/*
+ * Jika reset gagal,
+ * ambil kembali history asli.
+ */
 
 await loadHistory();
 
-document.getElementById("barcode").value = "";
-document.getElementById("qty").value = "";
 
-document.getElementById("namaBarang").style.display = "none";
-document.getElementById("namaBarang").innerHTML = "";
+}finally{
 
-document.getElementById("barcode").focus();
+resetButton.disabled =
+false;
 
-})
 
-.catch(err => {
+document
+.getElementById("barcode")
+.focus();
 
-document.getElementById("status").innerHTML =
-"❌ Gagal reset data";
-
-console.log(err);
-
-});
+}
 
 }
 
