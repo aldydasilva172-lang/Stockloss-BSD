@@ -991,10 +991,273 @@ margin:0 auto;
 
 }
 
+/* ============================= */
+/* MODE OVERLAY */
+/* ============================= */
+
+.mode-overlay{
+position:fixed;
+inset:0;
+
+display:none;
+
+justify-content:center;
+align-items:center;
+
+z-index:9999999998;
+
+background:
+linear-gradient(
+rgba(0,0,0,.80),
+rgba(0,0,0,.80)
+),
+url('232c59a2-a76c-4766-8c58-20a6e1b7550a.jpeg')
+center center / cover no-repeat;
+
+backdrop-filter:blur(10px);
+-webkit-backdrop-filter:blur(10px);
+
+padding:20px;
+}
+
+
+/* MODE BOX */
+
+.mode-box{
+width:90%;
+max-width:360px;
+
+padding:30px;
+
+border-radius:28px;
+
+background:
+linear-gradient(
+rgba(0,0,0,.45),
+rgba(0,0,0,.45)
+),
+url('232c59a2-a76c-4766-8c58-20a6e1b7550a.jpeg')
+center center / cover no-repeat;
+
+border:1px solid rgba(255,255,255,.08);
+
+backdrop-filter:blur(10px);
+-webkit-backdrop-filter:blur(10px);
+
+box-shadow:
+0 0 20px rgba(0,245,255,.25),
+0 0 40px rgba(124,58,237,.20),
+0 15px 35px rgba(0,0,0,.45);
+
+animation:popup .25s ease;
+}
+
+
+/* TITLE */
+
+.mode-title{
+text-align:center;
+
+font-size:24px;
+font-weight:700;
+
+color:white;
+
+margin-bottom:8px;
+
+text-shadow:
+0 0 10px rgba(0,245,255,.55),
+0 0 20px rgba(124,58,237,.35),
+0 2px 8px rgba(0,0,0,.8);
+}
+
+
+.mode-desc{
+text-align:center;
+
+font-size:13px;
+
+color:#cbd5e1;
+
+margin-bottom:25px;
+}
+
+
+/* BUTTON WRAPPER */
+
+.mode-buttons{
+display:flex;
+flex-direction:column;
+
+gap:14px;
+}
+
+
+/* MODE BUTTON */
+
+.mode-btn{
+width:100%;
+
+padding:18px;
+
+border-radius:18px;
+
+font-size:16px;
+font-weight:700;
+
+letter-spacing:.7px;
+
+color:white;
+
+cursor:pointer;
+
+transition:
+transform .25s ease,
+box-shadow .25s ease,
+border-color .25s ease;
+
+position:relative;
+overflow:hidden;
+}
+
+
+/* STOCKLOSS */
+
+.stockloss-mode{
+
+border:1px solid rgba(0,245,255,.45);
+
+background:
+linear-gradient(
+135deg,
+rgba(0,245,255,.12),
+rgba(0,0,0,.65)
+);
+
+box-shadow:
+inset 0 0 15px rgba(0,245,255,.08),
+0 0 12px rgba(0,245,255,.20);
+}
+
+
+/* STOCK OPNAME */
+
+.opname-mode{
+
+border:1px solid rgba(124,58,237,.55);
+
+background:
+linear-gradient(
+135deg,
+rgba(124,58,237,.18),
+rgba(0,0,0,.65)
+);
+
+box-shadow:
+inset 0 0 15px rgba(124,58,237,.08),
+0 0 12px rgba(124,58,237,.20);
+}
+
+
+/* HOVER */
+
+.stockloss-mode:hover{
+
+transform:
+translateY(-2px)
+scale(1.02);
+
+border-color:
+rgba(0,245,255,.85);
+
+box-shadow:
+inset 0 0 20px rgba(0,245,255,.12),
+0 0 18px rgba(0,245,255,.50),
+0 0 35px rgba(0,245,255,.20);
+}
+
+
+.opname-mode:hover{
+
+transform:
+translateY(-2px)
+scale(1.02);
+
+border-color:
+rgba(168,85,247,.90);
+
+box-shadow:
+inset 0 0 20px rgba(124,58,237,.12),
+0 0 18px rgba(124,58,237,.50),
+0 0 35px rgba(124,58,237,.20);
+}
+
+
+/* ACTIVE */
+
+.mode-btn:active{
+
+transform:scale(.97);
+}
+
+
+/* MOBILE */
+
+@media(max-width:500px){
+
+.mode-box{
+padding:28px 22px;
+}
+
+.mode-title{
+font-size:22px;
+}
+
+.mode-btn{
+padding:17px;
+font-size:15px;
+}
+
+}
+
 </style>
 </head>
 
 <body>
+    
+<!-- PILIH MODE -->
+
+<div class="mode-overlay" id="modeOverlay">
+
+<div class="mode-box">
+
+<div class="mode-title">
+PILIH MODE
+</div>
+
+<div class="mode-desc">
+Silahkan pilih jenis transaksi
+</div>
+
+<div class="mode-buttons">
+
+<button
+class="mode-btn stockloss-mode"
+onclick="pilihMode('stockloss')">
+STOCKLOSS
+</button>
+
+<button
+class="mode-btn opname-mode"
+onclick="pilihMode('opname')">
+STOCK OPNAME
+</button>
+
+</div>
+
+</div>
+
+</div>
 
 <!-- LOGIN SCREEN -->
 
@@ -1035,6 +1298,41 @@ min-height:18px;
 </div>
 
 </div>
+
+</div>
+
+
+<!-- PILIH MODE -->
+
+<div class="mode-overlay" id="modeOverlay">
+
+    <div class="mode-box">
+
+        <div class="mode-title">
+            PILIH MODE
+        </div>
+
+        <div class="mode-desc">
+            Silahkan pilih jenis transaksi
+        </div>
+
+        <div class="mode-buttons">
+
+            <button
+            class="mode-btn stockloss-mode"
+            onclick="pilihMode('stockloss')">
+                STOCKLOSS
+            </button>
+
+            <button
+            class="mode-btn opname-mode"
+            onclick="pilihMode('opname')">
+                STOCK OPNAME
+            </button>
+
+        </div>
+
+    </div>
 
 </div>
 
@@ -1345,6 +1643,7 @@ document
 
 
 /* ================================================= */
+/* ================================================= */
 /* LOGIN */
 /* ================================================= */
 
@@ -1360,7 +1659,7 @@ if(password !== ADMIN_PASSWORD){
 
 document
 .getElementById("loginStatus")
-.innerHTML =
+innerHTML =
 "❌ Password salah";
 
 return;
@@ -1368,15 +1667,76 @@ return;
 }
 
 
+/* PASSWORD BENAR */
+
 document
 .getElementById("loginOverlay")
 .style.display =
 "none";
 
 
+/* TAMPILKAN PILIH MODE */
+
+document
+.getElementById("modeOverlay")
+.style.display =
+"flex";
+
+}
+
+
+/* ================================================= */
+/* PILIH MODE */
+/* ================================================= */
+
+function pilihMode(mode){
+
+const title =
+document.querySelector("h1");
+
+const desc =
+document.querySelector(".desc");
+
+const modeOverlay =
+document.getElementById("modeOverlay");
+
+
+if(mode === "stockloss"){
+
+title.innerText =
+"STOCKLOSS BSD";
+
+desc.innerText =
+"Scan / Input Barcode dan Qty";
+
+}
+
+else if(mode === "opname"){
+
+title.innerText =
+"STOCK OPNAME BSD";
+
+desc.innerText =
+"Scan / Input Barcode dan Qty";
+
+}
+
+
+/* TUTUP PILIHAN MODE */
+
+modeOverlay.style.display =
+"none";
+
+
+/* FOCUS BARCODE */
+
+setTimeout(()=>{
+
 document
 .getElementById("barcode")
 .focus();
+
+},100);
 
 }
 
