@@ -357,7 +357,7 @@ text-shadow:
 0 0 6px rgba(249,115,22,.35);
 }
 
-/* INPUT BOX */
+/* INPUT BOX (SUDAH DIPERBAIKI) */
 
 .input-box{
 margin-bottom:16px;
@@ -371,15 +371,24 @@ border-radius:22px;
 
 padding:14px;
 
-backdrop-filter:blur(4px);
--webkit-backdrop-filter:blur(4px);
-
 box-shadow:
 0 0 14px rgba(0,245,255,.18),
 0 0 28px rgba(124,58,237,.14),
 0 8px 22px rgba(0,0,0,.32);
 
 overflow:visible;
+}
+
+/* Menangani efek blur via layer terpisah agar tidak merusak rendering iOS & Safari */
+.input-box::before{
+content:"";
+position:absolute;
+inset:0;
+border-radius:22px;
+backdrop-filter:blur(4px);
+-webkit-backdrop-filter:blur(4px);
+z-index:-1;
+pointer-events:none;
 }
 
 .barcode-box{
@@ -714,7 +723,7 @@ min-height:20px;
 display:none;
 }
 
-/* DROPDOWN */
+/* DROPDOWN (SUDAH DIPERBAIKI) */
 
 #suggestions{
 position:absolute;
@@ -741,6 +750,7 @@ url('232c59a2-a76c-4766-8c58-20a6e1b7550a.jpeg')
 center center / cover no-repeat;
 
 backdrop-filter:blur(8px);
+-webkit-backdrop-filter:blur(8px);
 
 border-radius:18px;
 
@@ -751,7 +761,7 @@ box-shadow:
 
 -webkit-overflow-scrolling:touch;
 
-transform:translateZ(999px);
+transform:translateZ(0);
 }
 
 .suggest-item{
@@ -1219,6 +1229,7 @@ font-size:15px;
 }
 
 </style>
+
 </head>
 
 <body>
