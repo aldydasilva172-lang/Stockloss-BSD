@@ -1549,6 +1549,51 @@ renderHistory();
 
 
 /* ================================================= */
+/* LOAD BARCODE DARI MASTER */
+/* ================================================= */
+
+async function loadBarcodeData(){
+
+try{
+
+const res =
+await fetch(URL_SCRIPT,{
+
+method:"POST",
+
+headers:{
+"Content-Type":
+"text/plain;charset=utf-8"
+},
+
+body:JSON.stringify({
+action:"getAllBarcode"
+})
+
+});
+
+barcodeCache =
+await res.json();
+
+console.log(
+"Barcode berhasil dimuat:",
+barcodeCache.length
+);
+
+}catch(err){
+
+console.log(
+"Load barcode error:",
+err
+);
+
+barcodeCache = [];
+
+}
+
+}
+
+/* ================================================= */
 /* AUTO FOCUS / INITIAL LOAD */
 /* ================================================= */
 
