@@ -1302,41 +1302,6 @@ min-height:18px;
 </div>
 
 
-<!-- PILIH MODE -->
-
-<div class="mode-overlay" id="modeOverlay">
-
-    <div class="mode-box">
-
-        <div class="mode-title">
-            PILIH MODE
-        </div>
-
-        <div class="mode-desc">
-            Silahkan pilih jenis transaksi
-        </div>
-
-        <div class="mode-buttons">
-
-            <button
-            class="mode-btn stockloss-mode"
-            onclick="pilihMode('stockloss')">
-                STOCKLOSS
-            </button>
-
-            <button
-            class="mode-btn opname-mode"
-            onclick="pilihMode('opname')">
-                STOCK OPNAME
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
 <div class="container">
 
 <h1>STOCKLOSS BSD</h1>
@@ -1736,25 +1701,6 @@ function pilihMode(mode){
       .focus();
 
   },100);
-
-}
-
-
-/* TUTUP PILIHAN MODE */
-
-modeOverlay.style.display =
-"none";
-
-
-/* FOCUS BARCODE */
-
-setTimeout(()=>{
-
-document
-.getElementById("barcode")
-.focus();
-
-},100);
 
 }
 
