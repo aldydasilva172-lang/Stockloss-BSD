@@ -390,24 +390,26 @@ text-shadow:
 
     border-radius:22px;
 
+    padding:14px;
+
     backdrop-filter:blur(50px);
     -webkit-backdrop-filter:blur(50px);
 
-    /* MATIKAN SHADOW */
-    box-shadow:none;
+    /* GLASS GLOW HALUS */
+    box-shadow:
+        0 0 10px rgba(0,245,255,.10),
+        0 0 20px rgba(124,58,237,.08),
+        0 6px 18px rgba(0,0,0,.22);
 
     overflow:visible;
 }
 
 .barcode-box{
-    margin-bottom:0;
-    border-radius:22px 22px 0 0;
-    border-bottom:none;
+    margin-bottom:10px;
 }
 
 .qty-box{
-    border-radius:0 0 22px 22px;
-    border-top:none;
+    margin-top:0;
 }
 
 .input-box label{
