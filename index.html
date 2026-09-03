@@ -2549,26 +2549,28 @@ async function signupApp(){
 
     if(result === "OTP_SENT"){
 
-      signupUsernameTemp =
-        username;
+  signupUsernameTemp =
+    username;
 
+  localStorage.setItem(
+    "signupUsernameTemp",
+    username
+  );
 
-      status.textContent =
-        "✅ OTP berhasil dikirim ke email";
+  status.textContent =
+    "✅ OTP berhasil dikirim ke email";
 
-      status.style.color =
-        "#00f5ff";
+  status.style.color =
+    "#00f5ff";
 
+  setTimeout(() => {
 
-      setTimeout(() => {
+    showOTP();
 
-        showOTP();
+  }, 500);
 
-      }, 500);
-
-
-      return;
-    }
+  return;
+}
 
 
     /* =========================
