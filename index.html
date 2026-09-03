@@ -2434,189 +2434,226 @@ btn.innerHTML =
 
 async function signupApp(){
 
-const nama =
-document
-.getElementById("signupNama")
-.value
-.trim();
+  const nama =
+    document.getElementById("signupNama").value.trim();
 
+  const username =
+    document.getElementById("signupUsername")
+      .value.trim().toLowerCase();
 
-const username =
-document
-.getElementById("signupUsername")
-.value
-.trim()
-.toLowerCase();
+  const email =
+    document.getElementById("signupEmail")
+      .value.trim().toLowerCase();
 
+  const password =
+    document.getElementById("signupPassword").value;
 
-const email =
-document
-.getElementById("signupEmail")
-.value
-.trim();
+  const password2 =
+    document.getElementById("signupPassword2").value;
 
+  const status =
+    document.getElementById("signupStatus");
 
-const password =
-document
-.getElementById("signupPassword")
-.value;
+  const btn =
+    document.getElementById("signupBtn");
 
 
-const password2 =
-document
-.getElementById("signupPassword2")
-.value;
+  /* =========================
+     VALIDASI
+  ========================= */
 
+  if(
+    nama === "" ||
+    username === "" ||
+    email === "" ||
+    password === "" ||
+    password2 === ""
+  ){
 
-const status =
-document
-.getElementById("signupStatus");
+    status.textContent =
+      "⚠️ Semua data wajib diisi";
 
+    status.style.color =
+      "#f97316";
 
-const btn =
-document
-.getElementById("signupBtn");
+    return;
+  }
 
 
-if(
-nama === "" ||
-username === "" ||
-email === "" ||
-password === "" ||
-password2 === ""
-){
+  if(password !== password2){
 
-status.innerHTML =
-"⚠️ Semua data wajib diisi";
+    status.textContent =
+      "❌ Konfirmasi password tidak sama";
 
-status.style.color =
-"#f97316";
+    status.style.color =
+      "#ff4d4d";
 
-return;
+    return;
+  }
 
-}
 
+  /* =========================
+     LOADING
+  ========================= */
 
-if(
-password !== password2
-){
+  btn.disabled = true;
 
-status.innerHTML =
-"❌ Konfirmasi password tidak sama";
+  btn.textContent =
+    "⏳ MENDAFTAR...";
 
-status.style.color =
-"#ff4d4d";
+  status.textContent = "";
 
-return;
 
-}
+  try{
 
+    const res = await fetch(
+      URL_SCRIPT,
+      {
+        method: "POST",
 
-btn.disabled = true;
+        headers: {
+          "Content-Type":
+            "text/plain;charset=utf-8"
+        },
 
-btn.innerHTML =
-"⏳ MENDAFTAR...";
+        body: JSON.stringify({
 
-status.innerHTML = "";
+          action: "signup",
 
+          nama: nama,
 
-try{
+          username: username,
 
-const res =
-await fetch(
-URL_SCRIPT,
-{
+          email: email,
 
-method:"POST",
+          password: password
 
-headers:{
-"Content-Type":
-"text/plain;charset=utf-8"
-},
+        })
+      }
+    );
 
-body:JSON.stringify({
 
-action:"signup",
+    const result =
+      (await res.text()).trim();
 
-nama:nama,
 
-username:username,
+    console.log(
+      "RESPON APPS SCRIPT:",
+      result
+    );
 
-email:email,
 
-password:password
+    /* =========================
+       BERHASIL
+    ========================= */
 
-})
+    if(result === "OTP_SENT"){
 
-});
+      signupUsernameTemp =
+        username;
 
 
-const result =
-await res.text();
+      status.textContent =
+        "✅ OTP berhasil dikirim ke email";
 
+      status.style.color =
+        "#00f5ff";
 
-if(
-result ===
-"OTP_SENT"
-){
 
-signupUsernameTemp =
-username;
+      setTimeout(() => {
 
+        showOTP();
 
-status.innerHTML =
-"✅ OTP berhasil dikirim ke email";
+      }, 500);
 
-status.style.color =
-"#00f5ff";
 
+      return;
+    }
 
-setTimeout(()=>{
 
-showOTP();
+    /* =========================
+       JIKA GOOGLE MENGIRIM HTML
+    ========================= */
 
-},500);
+    if(
+      result.includes("<html") ||
+      result.includes("<!DOCTYPE") ||
+      result.includes("Google Drive") ||
+      result.includes("Maaf, saat ini tidak dapat membuka file")
+    ){
 
+      status.textContent =
+        "⚠️ Data sudah dikirim, tetapi server memberikan respon yang tidak sesuai. Silakan cek email OTP.";
 
-}else{
+      status.style.color =
+        "#f97316";
 
-throw new Error(
-result
-);
 
-}
+      /*
+       * Karena data sudah masuk USER,
+       * kita tetap siapkan username untuk OTP.
+       */
 
+      signupUsernameTemp =
+        username;
 
-}catch(err){
 
-let message =
-err.message ||
-"Pendaftaran gagal";
+      setTimeout(() => {
 
+        showOTP();
 
-message =
-message.replace(
-"Error: ",
-""
-);
+      }, 1200);
 
 
-status.innerHTML =
-"❌ " +
-escapeHTML(message);
+      return;
+    }
 
-status.style.color =
-"#ff4d4d";
 
+    /* =========================
+       ERROR DARI APPS SCRIPT
+    ========================= */
 
-}finally{
+    let message =
+      result || "Pendaftaran gagal";
 
-btn.disabled = false;
 
-btn.innerHTML =
-"DAFTAR";
+    message =
+      message.replace(
+        /^Error:\s*/i,
+        ""
+      );
 
-}
+
+    status.textContent =
+      "❌ " + message;
+
+    status.style.color =
+      "#ff4d4d";
+
+
+  }catch(err){
+
+    console.error(
+      "SIGNUP ERROR:",
+      err
+    );
+
+
+    status.textContent =
+      "❌ Gagal terhubung ke server";
+
+    status.style.color =
+      "#ff4d4d";
+
+
+  }finally{
+
+    btn.disabled = false;
+
+    btn.textContent =
+      "DAFTAR";
+
+  }
 
 }
 
