@@ -1469,6 +1469,8 @@ const URL_SCRIPT =
 
 const ADMIN_PASSWORD = "0800";
 
+let currentMode = "";
+
 let barcodeCache = [];
 
 let debounceTimer;
@@ -1691,33 +1693,49 @@ document
 
 function pilihMode(mode){
 
-const title =
-document.querySelector("h1");
+  currentMode = mode;
 
-const desc =
-document.querySelector(".desc");
+  const title =
+    document.querySelector("h1");
 
-const modeOverlay =
-document.getElementById("modeOverlay");
+  const desc =
+    document.querySelector(".desc");
+
+  const modeOverlay =
+    document.getElementById("modeOverlay");
 
 
-if(mode === "stockloss"){
+  if(mode === "stockloss"){
 
-title.innerText =
-"STOCKLOSS BSD";
+    title.innerText =
+      "STOCKLOSS BSD";
 
-desc.innerText =
-"Scan / Input Barcode dan Qty";
+    desc.innerText =
+      "Scan / Input Barcode dan Qty";
 
-}
+  }
 
-else if(mode === "opname"){
+  else if(mode === "opname"){
 
-title.innerText =
-"STOCK OPNAME BSD";
+    title.innerText =
+      "STOCK OPNAME BSD";
 
-desc.innerText =
-"Scan / Input Barcode dan Qty";
+    desc.innerText =
+      "Scan / Input Barcode dan Qty";
+
+  }
+
+
+  modeOverlay.style.display = "none";
+
+
+  setTimeout(()=>{
+
+    document
+      .getElementById("barcode")
+      .focus();
+
+  },100);
 
 }
 
@@ -2295,9 +2313,13 @@ headers:{
 
 body:JSON.stringify({
 
+action:"saveData",
+
 barcode:barcode,
 
-qty:qty
+qty:qty,
+
+mode:currentMode
 
 })
 
