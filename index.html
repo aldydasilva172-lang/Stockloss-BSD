@@ -10,44 +10,6 @@
 
 <style>
 
-/* ============================= */
-/* BACKGROUND BLUR HALUS */
-/* ============================= */
-
-body::before{
-content:"";
-
-position:fixed;
-inset:-20px;
-
-z-index:-2;
-
-background:
-url('232c59a2-a76c-4766-8c58-20a6e1b7550a.jpeg')
-center top / cover no-repeat;
-
-filter:blur(5px);
-
-transform:scale(1.05);
-
-opacity:.95;
-}
-
-/* LAPISAN GELAP TIPIS */
-
-body::after{
-content:"";
-
-position:fixed;
-inset:0;
-
-z-index:-1;
-
-background:rgba(0,0,0,.35);
-
-pointer-events:none;
-}
-
 *{
 margin:0;
 padding:0;
@@ -65,46 +27,83 @@ overscroll-behavior:none;
 }
 
 body{
-min-height:100dvh;
-min-height:-webkit-fill-available;
+    min-height:100dvh;
+    min-height:-webkit-fill-available;
 
-padding:20px;
+    padding:20px;
+    position:relative;
 
-position:relative;
+    overflow-x:hidden;
+    overflow-y:auto;
 
-background:#050505;
+    display:block;
+}
 
-overflow-x:hidden;
-overflow-y:auto;
+/* BACKGROUND BLUR */
+body::before{
+    content:"";
+    position:fixed;
+    inset:-15px;
 
-display:block;
+    background:
+        linear-gradient(
+            rgba(0,0,0,.60),
+            rgba(0,0,0,.60)
+        ),
+        url('232c59a2-a76c-4766-8c58-20a6e1b7550a.jpeg')
+        center top / 100% auto repeat-y;
+
+    filter:blur(6px);
+
+    z-index:-1;
 }
 
 /* LOGIN OVERLAY */
 
+.login-overlay{
+    position:fixed;
+    inset:0;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    z-index:9999999999;
+
+    padding:20px;
+    overflow:auto;
+
+    background:rgba(0,0,0,.60);
+}
+
+/* FOTO BACKGROUND LOGIN + BLUR */
 .login-overlay::before{
-content:"";
+    content:"";
+    position:absolute;
+    inset:-15px;
 
-position:absolute;
-inset:-15px;
+    background:
+        linear-gradient(
+            rgba(0,0,0,.60),
+            rgba(0,0,0,.60)
+        ),
+        url('232c59a2-a76c-4766-8c58-20a6e1b7550a.jpeg')
+        center center / cover no-repeat;
 
-background:
-url('232c59a2-a76c-4766-8c58-20a6e1b7550a.jpeg')
-center center / cover no-repeat;
+    filter:blur(10px);
 
-filter:blur(7px);
+    z-index:-1;
+}
 
-transform:scale(1.04);
-
-z-index:-1;
+/* LOGIN BOX TETAP TAJAM */
+.login-box{
+    position:relative;
+    z-index:1;
 }
 
 /* LOGIN BOX */
 
 .login-box{
-position:relative;
-z-index:2;
-
 width:90%;
 max-width:360px;
 
