@@ -379,7 +379,7 @@ box-shadow:
 0 0 28px rgba(124,58,237,.14),
 0 8px 22px rgba(0,0,0,.32);
 
-overflow:hidden;
+overflow:visible;
 }
 
 .barcode-box{
@@ -751,7 +751,12 @@ box-shadow:
 
 -webkit-overflow-scrolling:touch;
 
-transform:translateZ(999px);
+display:none;
+}
+
+#suggestions:empty{
+
+display:none;
 }
 
 .suggest-item{
