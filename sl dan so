@@ -1302,41 +1302,6 @@ min-height:18px;
 </div>
 
 
-<!-- PILIH MODE -->
-
-<div class="mode-overlay" id="modeOverlay">
-
-    <div class="mode-box">
-
-        <div class="mode-title">
-            PILIH MODE
-        </div>
-
-        <div class="mode-desc">
-            Silahkan pilih jenis transaksi
-        </div>
-
-        <div class="mode-buttons">
-
-            <button
-            class="mode-btn stockloss-mode"
-            onclick="pilihMode('stockloss')">
-                STOCKLOSS
-            </button>
-
-            <button
-            class="mode-btn opname-mode"
-            onclick="pilihMode('opname')">
-                STOCK OPNAME
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
 <div class="container">
 
 <h1>STOCKLOSS BSD</h1>
@@ -1469,52 +1434,14 @@ const URL_SCRIPT =
 
 const ADMIN_PASSWORD = "0800";
 
+let currentMode = "";
+
 let barcodeCache = [];
 
 let debounceTimer;
 
 let historyData = [];
 
-
-/* ================================================= */
-/* LOAD HISTORY */
-/* ================================================= */
-
-async function loadHistory(){
-
-try{
-
-const res =
-await fetch(URL_SCRIPT,{
-
-method:"POST",
-
-headers:{
-"Content-Type":
-"text/plain;charset=utf-8"
-},
-
-body:JSON.stringify({
-action:"getHistory"
-})
-
-});
-
-historyData =
-await res.json();
-
-renderHistory();
-
-}catch(err){
-
-console.log(
-"Load history error:",
-err
-);
-
-}
-
-}
 
 
 /* ================================================= */
@@ -1622,14 +1549,57 @@ renderHistory();
 
 
 /* ================================================= */
+/* LOAD BARCODE DARI MASTER */
+/* ================================================= */
+
+async function loadBarcodeData(){
+
+try{
+
+const res =
+await fetch(URL_SCRIPT,{
+
+method:"POST",
+
+headers:{
+"Content-Type":
+"text/plain;charset=utf-8"
+},
+
+body:JSON.stringify({
+action:"getAllBarcode"
+})
+
+});
+
+barcodeCache =
+await res.json();
+
+console.log(
+"Barcode berhasil dimuat:",
+barcodeCache.length
+);
+
+}catch(err){
+
+console.log(
+"Load barcode error:",
+err
+);
+
+barcodeCache = [];
+
+}
+
+}
+
+/* ================================================= */
 /* AUTO FOCUS / INITIAL LOAD */
 /* ================================================= */
 
 window.onload = async () => {
 
 await loadBarcodeData();
-
-await loadHistory();
 
 setTimeout(()=>{
 
@@ -1691,6 +1661,8 @@ document
 
 function pilihMode(mode){
 
+currentMode = mode;
+
 const title =
 document.querySelector("h1");
 
@@ -1709,6 +1681,9 @@ title.innerText =
 desc.innerText =
 "Scan / Input Barcode dan Qty";
 
+document.querySelector(".reset-btn").innerText =
+"Reset Data Stockloss";
+
 }
 
 else if(mode === "opname"){
@@ -1719,16 +1694,27 @@ title.innerText =
 desc.innerText =
 "Scan / Input Barcode dan Qty";
 
+document.querySelector(".reset-btn").innerText =
+"Reset Data Stock Opname";
+
 }
 
 
-/* TUTUP PILIHAN MODE */
+/* KOSONGKAN HISTORY MODE SEBELUMNYA */
+
+historyData = [];
+
+renderHistory();
+
 
 modeOverlay.style.display =
 "none";
 
 
-/* FOCUS BARCODE */
+/* LOAD HISTORY SESUAI MODE */
+
+loadHistory();
+
 
 setTimeout(()=>{
 
@@ -1761,10 +1747,10 @@ loginApp();
 
 
 /* ================================================= */
-/* LOAD BARCODE */
+/* LOAD History */
 /* ================================================= */
 
-async function loadBarcodeData(){
+async function loadHistory(){
 
 try{
 
@@ -1779,19 +1765,21 @@ headers:{
 },
 
 body:JSON.stringify({
-action:"getAllBarcode"
+action:"getHistory",
+mode:currentMode
 })
 
 });
 
-
-barcodeCache =
+historyData =
 await res.json();
+
+renderHistory();
 
 }catch(err){
 
 console.log(
-"Barcode load error:",
+"Load history error:",
 err
 );
 
@@ -2295,9 +2283,13 @@ headers:{
 
 body:JSON.stringify({
 
+action:"saveData",
+
 barcode:barcode,
 
-qty:qty
+qty:qty,
+
+mode:currentMode
 
 })
 
@@ -2484,9 +2476,14 @@ return;
 closePasswordModal();
 
 
+const namaMode =
+currentMode === "opname"
+? "STOCK OPNAME"
+: "STOCKLOSS";
+
 const konfirmasi =
 confirm(
-"Yakin ingin menghapus semua data stockloss sebelumnya?"
+`Yakin ingin menghapus semua data ${namaMode} sebelumnya?`
 );
 
 
@@ -2560,7 +2557,9 @@ body:JSON.stringify({
 
 action:"reset",
 
-password:password
+password:password,
+
+mode:currentMode
 
 })
 
@@ -2579,7 +2578,8 @@ result ===
 document
 .getElementById("status")
 .innerHTML =
-"✅ Semua data stockloss sebelumnya berhasil dihapus";
+`✅ Semua data ${namaMode} sebelumnya berhasil dihapus`;
+
 
 }else{
 
