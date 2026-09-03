@@ -1489,13 +1489,86 @@ function initRiveLogin(){
 
         onLoad: () => {
 
-            console.log(
-                "🐷 Rive Pig berhasil dimuat"
-            );
+            console.log("🐷 Rive Pig berhasil dimuat");
+
+            tampilkanInfoRive();
 
         }
 
     });
+
+}
+function tampilkanInfoRive(){
+
+    const info =
+        document.createElement("div");
+
+    info.id = "riveInfo";
+
+    info.style.cssText = `
+        margin-top:10px;
+        padding:8px;
+        background:rgba(0,0,0,.6);
+        border:1px solid rgba(0,245,255,.3);
+        border-radius:10px;
+        color:#00f5ff;
+        font-size:11px;
+        text-align:center;
+        word-break:break-word;
+    `;
+
+    let infoText = "";
+
+    try{
+
+        const artboard =
+            riveLogin.artboard;
+
+        infoText +=
+            "Artboard: " +
+            (artboard?.name || "Tidak diketahui");
+
+        infoText += "<br>";
+
+        if(
+            riveLogin.stateMachineInputs &&
+            riveLogin.stateMachineInputs.length
+        ){
+
+            infoText +=
+                "State Machine Inputs:<br>";
+
+            riveLogin
+                .stateMachineInputs
+                .forEach(input=>{
+
+                    infoText +=
+                        input.name +
+                        " (" +
+                        input.type +
+                        ")<br>";
+
+                });
+
+        }else{
+
+            infoText +=
+                "Tidak ada State Machine Input";
+
+        }
+
+    }catch(err){
+
+        infoText +=
+            "Error: " + err.message;
+
+    }
+
+    info.innerHTML = infoText;
+
+    document
+        .querySelector(".rive-login")
+        .appendChild(info);
 
 }
 
