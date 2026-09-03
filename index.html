@@ -357,7 +357,7 @@ text-shadow:
 0 0 6px rgba(249,115,22,.35);
 }
 
-/* INPUT BOX (SUDAH DIPERBAIKI) */
+/* INPUT BOX */
 
 .input-box{
 margin-bottom:16px;
@@ -371,24 +371,15 @@ border-radius:22px;
 
 padding:14px;
 
+backdrop-filter:blur(4px);
+-webkit-backdrop-filter:blur(4px);
+
 box-shadow:
 0 0 14px rgba(0,245,255,.18),
 0 0 28px rgba(124,58,237,.14),
 0 8px 22px rgba(0,0,0,.32);
 
-overflow:visible;
-}
-
-/* Menangani efek blur via layer terpisah agar tidak merusak rendering iOS & Safari */
-.input-box::before{
-content:"";
-position:absolute;
-inset:0;
-border-radius:22px;
-backdrop-filter:blur(4px);
--webkit-backdrop-filter:blur(4px);
-z-index:-1;
-pointer-events:none;
+overflow:hidden;
 }
 
 .barcode-box{
@@ -723,46 +714,45 @@ min-height:20px;
 display:none;
 }
 
-/* DROPDOWN (SUDAH DIPERBAIKI) */
+/* DROPDOWN */
 
 #suggestions{
-position:absolute;
+position:fixed;
 
-top:calc(100% + 8px);
+left:50%;
+transform:translateX(-50%);
+width:calc(100% - 70px);
+max-width:360px;
 
-left:0;
-right:0;
-
-max-height:320px;
+max-height:280px;
 
 overflow-y:auto;
 
 overscroll-behavior:contain;
 
-z-index:9999999;
+z-index:99999999;
 
 background:
 linear-gradient(
-rgba(0,0,0,.75),
-rgba(0,0,0,.75)
+rgba(0,0,0,.90),
+rgba(0,0,0,.90)
 ),
 url('232c59a2-a76c-4766-8c58-20a6e1b7550a.jpeg')
 center center / cover no-repeat;
 
-backdrop-filter:blur(8px);
--webkit-backdrop-filter:blur(8px);
+backdrop-filter:blur(12px);
+-webkit-backdrop-filter:blur(12px);
 
 border-radius:18px;
 
-border:1px solid rgba(255,255,255,.08);
+border:1px solid rgba(0,245,255,.3);
 
 box-shadow:
-0 10px 25px rgba(0,0,0,.35);
+0 10px 30px rgba(0,0,0,.8);
 
 -webkit-overflow-scrolling:touch;
-
-transform:translateZ(0);
 }
+
 
 .suggest-item{
 padding:12px 20px;
@@ -1229,7 +1219,6 @@ font-size:15px;
 }
 
 </style>
-
 </head>
 
 <body>
