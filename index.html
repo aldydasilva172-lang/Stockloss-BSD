@@ -1797,9 +1797,12 @@ err
 
 function hideSuggestions(){
 
-document
-.getElementById("suggestions")
-.innerHTML = "";
+const suggestions =
+document.getElementById("suggestions");
+
+suggestions.innerHTML = "";
+
+suggestions.style.display = "none";
 
 }
 
@@ -2019,10 +2022,20 @@ ${escapeHTML(item.nama)}
 suggestions.innerHTML =
 html;
 
+if(filtered.length > 0){
+
+suggestions.style.display =
+"block";
+
+}else{
+
+suggestions.style.display =
+"none";
+
+}
+
 
 },120);
-
-});
 
 
 /* ================================================= */
