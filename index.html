@@ -27,25 +27,38 @@ overscroll-behavior:none;
 }
 
 body{
-min-height:100dvh;
-min-height:-webkit-fill-available;
+    min-height:100dvh;
+    min-height:-webkit-fill-available;
 
-padding:20px;
+    padding:20px;
 
-position:relative;
+    position:relative;
 
-background:
-linear-gradient(
-rgba(0,0,0,.60),
-rgba(0,0,0,.60)
-),
-url('232c59a2-a76c-4766-8c58-20a6e1b7550a.jpeg')
-center top / 100% auto repeat-y;
+    background:#05080d;
 
-overflow-x:hidden;
-overflow-y:auto;
+    overflow-x:hidden;
+    overflow-y:auto;
 
-display:block;
+    display:block;
+}
+
+body::before{
+    content:"";
+
+    position:fixed;
+    inset:0;
+
+    background:
+    linear-gradient(
+        rgba(0,0,0,.60),
+        rgba(0,0,0,.60)
+    ),
+    url('232c59a2-a76c-4766-8c58-20a6e1b7550a.jpeg')
+    center center / cover no-repeat;
+
+    z-index:-1;
+
+    pointer-events:none;
 }
 
 /* LOGIN OVERLAY */
