@@ -426,6 +426,7 @@ color:white;
 font-size:15px;
 font-weight:500;
 
+backdrop-filter:blur(6px);
 
 transition:.3s;
 
@@ -741,6 +742,7 @@ rgba(0,0,0,.75)
 url('232c59a2-a76c-4766-8c58-20a6e1b7550a.jpeg')
 center center / cover no-repeat;
 
+backdrop-filter:blur(8px);
 
 border-radius:18px;
 
@@ -751,12 +753,7 @@ box-shadow:
 
 -webkit-overflow-scrolling:touch;
 
-display:none;
-}
-
-#suggestions:empty{
-
-display:none;
+transform:translateZ(999px);
 }
 
 .suggest-item{
@@ -1797,12 +1794,9 @@ err
 
 function hideSuggestions(){
 
-const suggestions =
-document.getElementById("suggestions");
-
-suggestions.innerHTML = "";
-
-suggestions.style.display = "none";
+document
+.getElementById("suggestions")
+.innerHTML = "";
 
 }
 
@@ -2022,20 +2016,10 @@ ${escapeHTML(item.nama)}
 suggestions.innerHTML =
 html;
 
-if(filtered.length > 0){
-
-suggestions.style.display =
-"block";
-
-}else{
-
-suggestions.style.display =
-"none";
-
-}
-
 
 },120);
+
+});
 
 
 /* ================================================= */
