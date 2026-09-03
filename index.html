@@ -7,7 +7,7 @@
 <title>STOCKLOSS BSD</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/@rive-app/canvas"></script>
+
 <style>
 
 *{
@@ -1220,26 +1220,6 @@ font-size:15px;
 
 }
 
-.rive-login{
-    width:100%;
-    height:180px;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    margin-bottom:5px;
-
-    overflow:hidden;
-}
-
-#riveLogin{
-    width:180px;
-    height:180px;
-
-    display:block;
-}
-
 </style>
 </head>
 
@@ -1284,10 +1264,6 @@ STOCK OPNAME
 <div class="login-overlay" id="loginOverlay">
 
 <div class="login-box">
-    
-<div class="rive-login">
-    <canvas id="riveLogin"></canvas>
-</div>
 
 <div class="login-title">
 THE BUTCHER KEMANG
@@ -1466,112 +1442,6 @@ let debounceTimer;
 
 let historyData = [];
 
-/* ================================================= */
-/* RIVE PIG LOGIN */
-/* ================================================= */
-
-let riveLogin;
-
-function initRiveLogin(){
-
-    riveLogin = new rive.Rive({
-
-        src: "1087-2123-pigtutorial.riv",
-
-        canvas:
-            document.getElementById("riveLogin"),
-
-        autoplay:true,
-
-        fit: rive.Fit.Contain,
-
-        alignment: rive.Alignment.Center,
-
-        onLoad: () => {
-
-            console.log("🐷 Rive Pig berhasil dimuat");
-
-            tampilkanInfoRive();
-
-        }
-
-    });
-
-}
-function tampilkanInfoRive(){
-
-    const info =
-        document.createElement("div");
-
-    info.id = "riveInfo";
-
-    info.style.cssText = `
-        margin-top:10px;
-        padding:8px;
-        background:rgba(0,0,0,.6);
-        border:1px solid rgba(0,245,255,.3);
-        border-radius:10px;
-        color:#00f5ff;
-        font-size:11px;
-        text-align:center;
-        word-break:break-word;
-    `;
-
-    let infoText = "";
-
-    try{
-
-        const artboard =
-            riveLogin.artboard;
-
-        infoText +=
-            "Artboard: " +
-            (artboard?.name || "Tidak diketahui");
-
-        infoText += "<br>";
-
-        if(
-            riveLogin.stateMachineInputs &&
-            riveLogin.stateMachineInputs.length
-        ){
-
-            infoText +=
-                "State Machine Inputs:<br>";
-
-            riveLogin
-                .stateMachineInputs
-                .forEach(input=>{
-
-                    infoText +=
-                        input.name +
-                        " (" +
-                        input.type +
-                        ")<br>";
-
-                });
-
-        }else{
-
-            infoText +=
-                "Tidak ada State Machine Input";
-
-        }
-
-    }catch(err){
-
-        infoText +=
-            "Error: " + err.message;
-
-    }
-
-    info.innerHTML = infoText;
-
-    document
-        .querySelector(".rive-login")
-        .appendChild(info);
-
-}
-
 
 
 /* ================================================= */
@@ -1729,17 +1599,15 @@ barcodeCache = [];
 
 window.onload = async () => {
 
-    initRiveLogin();
+await loadBarcodeData();
 
-    await loadBarcodeData();
+setTimeout(()=>{
 
-    setTimeout(()=>{
+document
+.getElementById("loginPassword")
+.focus();
 
-        document
-        .getElementById("loginPassword")
-        .focus();
-
-    },200);
+},200);
 
 };
 
