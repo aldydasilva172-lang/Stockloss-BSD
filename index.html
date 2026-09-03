@@ -1,14 +1,27 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
 
 <title>STOCKLOSS BSD</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet"
+>
 
 <style>
+
+/* ================================================= */
+/* GLOBAL */
+/* ================================================= */
 
 *{
 margin:0;
@@ -17,17 +30,22 @@ box-sizing:border-box;
 font-family:'Poppins',sans-serif;
 }
 
-html, body{
+html,
+body{
 width:100%;
 min-height:100%;
 margin:0;
 padding:0;
+
 overscroll-behavior:none;
+
 -webkit-text-size-adjust:100%;
 }
 
 body{
+
 min-height:100dvh;
+
 min-height:-webkit-fill-available;
 
 padding:20px;
@@ -35,93 +53,134 @@ padding:20px;
 position:relative;
 
 background:
+
 linear-gradient(
 rgba(0,0,0,.60),
 rgba(0,0,0,.60)
 ),
+
 url('232c59a2-a76c-4766-8c58-20a6e1b7550a.jpeg')
+
 center top / 100% auto repeat-y;
 
 overflow-x:hidden;
+
 overflow-y:auto;
 
 display:block;
 }
 
-/* LOGIN OVERLAY */
 
-.login-overlay{
+/* ================================================= */
+/* LOGIN / SIGNUP / OTP OVERLAY */
+/* ================================================= */
+
+.auth-overlay{
+
 position:fixed;
+
 inset:0;
 
 display:flex;
+
 justify-content:center;
+
 align-items:center;
 
 z-index:9999999999;
 
 background:
+
 linear-gradient(
 rgba(0,0,0,.80),
 rgba(0,0,0,.80)
 ),
+
 url('232c59a2-a76c-4766-8c58-20a6e1b7550a.jpeg')
+
 center center / cover no-repeat;
 
 backdrop-filter:blur(10px);
+
 -webkit-backdrop-filter:blur(10px);
 
 padding:20px;
+
 overflow:auto;
 }
 
-/* LOGIN BOX */
 
-.login-box{
+/* ================================================= */
+/* AUTH BOX */
+/* ================================================= */
+
+.auth-box{
+
 width:90%;
-max-width:360px;
+
+max-width:380px;
 
 padding:30px;
 
 border-radius:28px;
 
 background:
+
 linear-gradient(
 rgba(0,0,0,.45),
 rgba(0,0,0,.45)
 ),
+
 url('232c59a2-a76c-4766-8c58-20a6e1b7550a.jpeg')
+
 center center / cover no-repeat;
 
 border:1px solid rgba(255,255,255,.08);
 
 backdrop-filter:blur(10px);
+
 -webkit-backdrop-filter:blur(10px);
 
 box-shadow:
+
 0 0 20px rgba(0,245,255,.25),
+
 0 0 40px rgba(124,58,237,.20),
+
 0 15px 35px rgba(0,0,0,.45);
 
 animation:popup .25s ease;
 }
 
-.login-title{
+
+/* ================================================= */
+/* AUTH TITLE */
+/* ================================================= */
+
+.auth-title{
+
 text-align:center;
 
 font-size:24px;
+
 font-weight:700;
 
 color:white;
 
-margin-bottom:10px;
+margin-bottom:8px;
 
 text-shadow:
+
 0 0 10px rgba(0,245,255,.45),
+
+0 0 20px rgba(124,58,237,.35),
+
 0 2px 8px rgba(0,0,0,.8);
 }
 
-.login-desc{
+
+.auth-desc{
+
 text-align:center;
 
 font-size:13px;
@@ -133,78 +192,252 @@ margin-bottom:22px;
 line-height:1.5;
 }
 
-.login-input{
+
+/* ================================================= */
+/* AUTH INPUT */
+/* ================================================= */
+
+.auth-input{
+
 width:100%;
-padding:16px;
+
+padding:15px;
 
 border:none;
+
 outline:none;
 
-border-radius:18px;
+border-radius:17px;
 
 background:rgba(0,0,0,.35);
 
 color:white;
-font-size:16px;
+
+font-size:15px;
 
 border:1px solid rgba(255,255,255,.08);
 
 box-shadow:
-0 0 12px rgba(0,245,255,.35),
-0 0 25px rgba(124,58,237,.20);
 
-margin-bottom:18px;
+0 0 12px rgba(0,245,255,.20),
+
+0 0 25px rgba(124,58,237,.10);
+
+margin-bottom:14px;
 
 transition:.3s;
 }
 
-.login-input:focus{
+
+.auth-input:focus{
+
+border-color:
+rgba(0,245,255,.7);
+
+background:
+rgba(0,0,0,.45);
+
 box-shadow:
-0 0 18px rgba(0,245,255,.55),
-0 0 35px rgba(124,58,237,.35);
 
-background:rgba(0,0,0,.45);
+0 0 15px rgba(0,245,255,.45),
+
+0 0 30px rgba(124,58,237,.20);
 }
 
-.login-btn{
+
+.auth-input::placeholder{
+
+color:
+rgba(219,234,254,.55);
+}
+
+
+/* ================================================= */
+/* AUTH BUTTON */
+/* ================================================= */
+
+.auth-btn{
+
 width:100%;
+
+padding:15px;
+
+border:none;
+
+border-radius:18px;
+
+background:
+
+linear-gradient(
+135deg,
+rgba(0,245,255,.18),
+rgba(124,58,237,.25)
+);
+
+color:white;
+
+font-size:16px;
+
+font-weight:600;
+
+cursor:pointer;
+
+border:1px solid rgba(0,245,255,.40);
+
+box-shadow:
+
+0 0 12px rgba(0,245,255,.20),
+
+0 0 25px rgba(124,58,237,.15);
+
+transition:.25s;
+
+margin-top:4px;
 }
 
+
+.auth-btn:hover{
+
+transform:
+translateY(-2px);
+
+border-color:
+rgba(0,245,255,.8);
+
+box-shadow:
+
+0 0 18px rgba(0,245,255,.50),
+
+0 0 35px rgba(124,58,237,.25);
+}
+
+
+.auth-btn:active{
+
+transform:
+scale(.98);
+}
+
+
+.auth-btn:disabled{
+
+opacity:.6;
+
+cursor:not-allowed;
+
+transform:none;
+}
+
+
+/* ================================================= */
+/* AUTH LINK */
+/* ================================================= */
+
+.auth-link{
+
+text-align:center;
+
+margin-top:18px;
+
+font-size:13px;
+
+color:#cbd5e1;
+}
+
+
+.auth-link span{
+
+color:#00f5ff;
+
+font-weight:600;
+
+cursor:pointer;
+
+text-shadow:
+0 0 8px rgba(0,245,255,.45);
+}
+
+
+.auth-status{
+
+margin-top:14px;
+
+min-height:20px;
+
+text-align:center;
+
+font-size:13px;
+
+font-weight:500;
+
+line-height:1.5;
+}
+
+
+/* ================================================= */
+/* OTP */
+/* ================================================= */
+
+.otp-input{
+
+text-align:center;
+
+font-size:25px;
+
+font-weight:700;
+
+letter-spacing:8px;
+}
+
+
+/* ================================================= */
 /* CONTAINER */
+/* ================================================= */
 
 .container{
+
 position:relative;
+
 z-index:1;
 
 overflow:visible;
 
 width:100%;
+
 max-width:430px;
+
 padding:35px;
-
-border-radius:28px;
-
-background:transparent;
 }
 
+
 h1{
+
 text-align:center;
+
 font-size:40px;
+
 font-weight:700;
+
 margin-bottom:8px;
 
 color:white;
 
 text-shadow:
+
 0 0 10px rgba(0,245,255,.7),
+
 0 0 20px rgba(124,58,237,.5),
+
 0 2px 8px rgba(0,0,0,.8);
 
 letter-spacing:1px;
 }
 
+
 .desc{
+
 text-align:center;
+
 font-size:12px;
 
 color:#f97316;
@@ -212,18 +445,25 @@ color:#f97316;
 margin-bottom:30px;
 
 text-shadow:
+
 0 0 8px rgba(56,189,248,.5),
+
 0 0 18px rgba(14,165,233,.35);
 
 letter-spacing:.5px;
 }
 
+
+/* ================================================= */
 /* LAST INPUT */
+/* ================================================= */
 
 .last-input-box{
+
 display:none;
 
 margin-top:16px;
+
 margin-bottom:8px;
 
 border:1px solid rgba(255,255,255,.08);
@@ -235,18 +475,25 @@ border-radius:22px;
 padding:10px 12px;
 
 backdrop-filter:blur(2px);
+
 -webkit-backdrop-filter:blur(2px);
 
 box-shadow:
+
 0 0 14px rgba(0,245,255,.18),
+
 0 0 28px rgba(124,58,237,.25),
+
 0 8px 22px rgba(0,0,0,.32);
 
 text-align:center;
 }
 
+
 .last-title{
+
 font-size:15px;
+
 font-weight:600;
 
 color:white;
@@ -254,12 +501,21 @@ color:white;
 margin-bottom:6px;
 
 text-shadow:
+
 0 0 10px rgba(0,245,255,.7),
+
 0 0 20px rgba(124,58,237,.5),
+
 0 2px 8px rgba(0,0,0,.8);
 }
 
+
+/* ================================================= */
+/* HISTORY */
+/* ================================================= */
+
 .history-header{
+
 display:flex;
 
 background:rgba(249,115,22,.20);
@@ -269,6 +525,7 @@ border:1px solid rgba(249,115,22,.35);
 border-radius:10px 10px 0 0;
 
 font-size:12px;
+
 font-weight:700;
 
 color:#f97316;
@@ -276,7 +533,9 @@ color:#f97316;
 margin-bottom:2px;
 }
 
+
 .history-header div:first-child{
+
 flex:1;
 
 padding:8px 10px;
@@ -286,7 +545,9 @@ border-right:1px solid rgba(249,115,22,.35);
 text-align:center;
 }
 
+
 .history-header div:last-child{
+
 width:60px;
 
 padding:8px;
@@ -294,8 +555,11 @@ padding:8px;
 text-align:center;
 }
 
+
 .history-item{
+
 display:flex;
+
 align-items:center;
 
 border:1px solid rgba(255,255,255,.10);
@@ -309,23 +573,38 @@ overflow:hidden;
 animation:historyIn .20s ease;
 }
 
+
 @keyframes historyIn{
+
 from{
+
 opacity:0;
-transform:translateY(-5px);
-}
-to{
-opacity:1;
-transform:translateY(0);
-}
+
+transform:
+translateY(-5px);
+
 }
 
+to{
+
+opacity:1;
+
+transform:
+translateY(0);
+
+}
+
+}
+
+
 .history-nama{
+
 flex:1;
 
 padding:8px 10px;
 
 font-size:13px;
+
 font-weight:600;
 
 color:white;
@@ -335,11 +614,15 @@ text-align:left;
 border-right:1px solid rgba(255,255,255,.10);
 
 text-shadow:
+
 0 0 5px rgba(0,245,255,.35),
+
 0 1px 4px rgba(0,0,0,.8);
 }
 
+
 .history-qty{
+
 min-width:60px;
 
 padding:8px 10px;
@@ -347,20 +630,25 @@ padding:8px 10px;
 text-align:center;
 
 font-size:12px;
+
 font-weight:700;
 
 color:#f97316;
 
-background:transparent;
-
 text-shadow:
+
 0 0 6px rgba(249,115,22,.35);
 }
 
+
+/* ================================================= */
 /* INPUT BOX */
+/* ================================================= */
 
 .input-box{
+
 margin-bottom:16px;
+
 position:relative;
 
 border:1px solid rgba(255,255,255,.08);
@@ -372,47 +660,63 @@ border-radius:22px;
 padding:14px;
 
 backdrop-filter:blur(4px);
+
 -webkit-backdrop-filter:blur(4px);
 
 box-shadow:
+
 0 0 14px rgba(0,245,255,.18),
+
 0 0 28px rgba(124,58,237,.14),
+
 0 8px 22px rgba(0,0,0,.32);
 
 overflow:visible;
 }
 
+
 .barcode-box{
+
 z-index:9999;
 }
 
+
 .qty-box{
+
 z-index:1;
 }
 
+
 .input-box label{
+
 display:block;
 
 margin-bottom:8px;
 
 font-size:14px;
+
 font-weight:600;
 
 color:white;
 
 text-shadow:
+
 0 2px 8px rgba(0,0,0,.7),
+
 0 0 8px rgba(0,245,255,.35);
 
 letter-spacing:.5px;
 }
 
+
 .input-box input{
+
 width:100%;
 
 padding:16px;
 
 border:none;
+
 outline:none;
 
 border-radius:16px;
@@ -424,6 +728,7 @@ background:rgba(0,0,0,.25);
 color:white;
 
 font-size:15px;
+
 font-weight:500;
 
 backdrop-filter:blur(6px);
@@ -434,21 +739,32 @@ box-shadow:
 0 4px 12px rgba(0,0,0,.25);
 }
 
-.input-box input:focus{
-border:1px solid rgba(0,245,255,.7);
 
-background:rgba(0,0,0,.35);
+.input-box input:focus{
+
+border:
+1px solid rgba(0,245,255,.7);
+
+background:
+rgba(0,0,0,.35);
 
 box-shadow:
+
 0 0 12px rgba(0,245,255,.35),
+
 0 0 25px rgba(124,58,237,.20),
+
 0 4px 15px rgba(0,0,0,.35);
 
-transform:scale(1.01);
+transform:
+scale(1.01);
 }
 
+
 input::placeholder{
-color:rgba(219,234,254,.55);
+
+color:
+rgba(219,234,254,.55);
 
 text-shadow:
 0 0 6px rgba(0,245,255,.18);
@@ -456,19 +772,23 @@ text-shadow:
 letter-spacing:.4px;
 }
 
-/* ============================= */
-/* BUTTON GLASS NEON */
-/* ============================= */
+
+/* ================================================= */
+/* BUTTON */
+/* ================================================= */
 
 button{
 
 width:100%;
+
 padding:16px;
 
 border:none;
+
 border-radius:18px;
 
 background:
+
 linear-gradient(
 135deg,
 rgba(0,0,0,.72),
@@ -478,29 +798,41 @@ rgba(5,15,25,.62)
 color:white;
 
 font-size:16px;
+
 font-weight:600;
 
 cursor:pointer;
 
 transition:
+
 transform .25s ease,
+
 box-shadow .25s ease,
+
 border-color .25s ease,
+
 background .25s ease;
 
 border:1px solid rgba(0,245,255,.35);
 
 backdrop-filter:blur(10px);
+
 -webkit-backdrop-filter:blur(10px);
 
 box-shadow:
+
 inset 0 0 15px rgba(0,245,255,.08),
+
 0 0 10px rgba(0,245,255,.18),
+
 0 0 25px rgba(0,245,255,.10),
+
 0 10px 25px rgba(0,0,0,.45);
 
 text-shadow:
+
 0 0 8px rgba(255,255,255,.45),
+
 0 2px 8px rgba(0,0,0,.8);
 
 letter-spacing:.5px;
@@ -511,8 +843,6 @@ overflow:hidden;
 }
 
 
-/* CAHAYA DI DALAM TOMBOL */
-
 button::before{
 
 content:"";
@@ -520,12 +850,15 @@ content:"";
 position:absolute;
 
 top:0;
+
 left:-120%;
 
 width:70%;
+
 height:100%;
 
 background:
+
 linear-gradient(
 90deg,
 transparent,
@@ -533,14 +866,12 @@ rgba(255,255,255,.12),
 transparent
 );
 
-transform:skewX(-20deg);
+transform:
+skewX(-20deg);
 
 transition:.5s;
-
 }
 
-
-/* HOVER */
 
 button:hover{
 
@@ -552,6 +883,7 @@ border-color:
 rgba(0,245,255,.75);
 
 background:
+
 linear-gradient(
 135deg,
 rgba(0,0,0,.80),
@@ -559,21 +891,22 @@ rgba(5,20,30,.72)
 );
 
 box-shadow:
-inset 0 0 20px rgba(0,245,255,.12),
-0 0 15px rgba(0,245,255,.45),
-0 0 35px rgba(0,245,255,.25),
-0 12px 30px rgba(0,0,0,.50);
 
+inset 0 0 20px rgba(0,245,255,.12),
+
+0 0 15px rgba(0,245,255,.45),
+
+0 0 35px rgba(0,245,255,.25),
+
+0 12px 30px rgba(0,0,0,.50);
 }
+
 
 button:hover::before{
 
 left:130%;
-
 }
 
-
-/* SAAT DITEKAN */
 
 button:active{
 
@@ -581,13 +914,12 @@ transform:
 scale(.98);
 
 box-shadow:
-inset 0 0 25px rgba(0,245,255,.18),
-0 0 20px rgba(0,245,255,.55);
 
+inset 0 0 25px rgba(0,245,255,.18),
+
+0 0 20px rgba(0,245,255,.55);
 }
 
-
-/* DISABLED */
 
 button:disabled{
 
@@ -596,13 +928,12 @@ opacity:.6;
 cursor:not-allowed;
 
 filter:none;
-
 }
 
 
-/* ============================= */
-/* RESET BUTTON */
-/* ============================= */
+/* ================================================= */
+/* RESET */
+/* ================================================= */
 
 .reset-btn{
 
@@ -612,6 +943,7 @@ border-color:
 rgba(255,60,60,.35);
 
 background:
+
 linear-gradient(
 135deg,
 rgba(0,0,0,.74),
@@ -619,15 +951,16 @@ rgba(25,5,8,.65)
 );
 
 box-shadow:
-inset 0 0 15px rgba(255,0,0,.07),
-0 0 10px rgba(255,0,0,.18),
-0 0 25px rgba(255,0,0,.10),
-0 10px 25px rgba(0,0,0,.45);
 
+inset 0 0 15px rgba(255,0,0,.07),
+
+0 0 10px rgba(255,0,0,.18),
+
+0 0 25px rgba(255,0,0,.10),
+
+0 10px 25px rgba(0,0,0,.45);
 }
 
-
-/* RESET HOVER */
 
 .reset-btn:hover{
 
@@ -635,6 +968,7 @@ border-color:
 rgba(255,70,70,.80);
 
 background:
+
 linear-gradient(
 135deg,
 rgba(0,0,0,.82),
@@ -642,27 +976,23 @@ rgba(30,5,8,.72)
 );
 
 box-shadow:
+
 inset 0 0 20px rgba(255,0,0,.12),
+
 0 0 15px rgba(255,50,50,.45),
+
 0 0 35px rgba(255,0,0,.25),
+
 0 12px 30px rgba(0,0,0,.50);
-
 }
 
 
-/* RESET ACTIVE */
-
-.reset-btn:active{
-
-box-shadow:
-inset 0 0 25px rgba(255,0,0,.18),
-0 0 20px rgba(255,50,50,.55);
-
-}
-
+/* ================================================= */
 /* STATUS */
+/* ================================================= */
 
 #status{
+
 margin-top:16px;
 
 text-align:center;
@@ -676,16 +1006,23 @@ color:rgba(225,225,225,.95);
 min-height:20px;
 
 text-shadow:
+
 0 2px 8px rgba(255,255,255,.35),
+
 0 0 12px rgba(0,245,255,.45),
+
 0 0 22px rgba(0,245,255,.25);
 
 letter-spacing:.3px;
 }
 
+
+/* ================================================= */
 /* NAMA BARANG */
+/* ================================================= */
 
 #namaBarang{
+
 margin-top:10px;
 
 padding:12px 14px;
@@ -699,13 +1036,17 @@ border:1px solid rgba(255,255,255,.08);
 color:white;
 
 font-size:14px;
+
 font-weight:500;
 
 text-align:center;
 
 text-shadow:
+
 0 0 10px rgba(0,245,255,.7),
+
 0 0 20px rgba(124,58,237,.5),
+
 0 2px 8px rgba(0,0,0,.8);
 
 box-shadow:
@@ -716,14 +1057,19 @@ min-height:20px;
 display:none;
 }
 
+
+/* ================================================= */
 /* DROPDOWN */
+/* ================================================= */
 
 #suggestions{
+
 position:absolute;
 
 top:calc(100% + 8px);
 
 left:0;
+
 right:0;
 
 max-height:320px;
@@ -735,11 +1081,14 @@ overscroll-behavior:contain;
 z-index:9999999;
 
 background:
+
 linear-gradient(
 rgba(0,0,0,.75),
 rgba(0,0,0,.75)
 ),
+
 url('232c59a2-a76c-4766-8c58-20a6e1b7550a.jpeg')
+
 center center / cover no-repeat;
 
 backdrop-filter:blur(8px);
@@ -753,43 +1102,59 @@ box-shadow:
 
 -webkit-overflow-scrolling:touch;
 
-transform:translateZ(999px);
+transform:
+translateZ(999px);
 }
 
+
 .suggest-item{
+
 padding:12px 20px;
 
-border-bottom:1px solid rgba(255,255,255,.05);
+border-bottom:
+1px solid rgba(255,255,255,.05);
 
 cursor:pointer;
 
 transition:.2s;
 
 display:flex;
+
 flex-direction:column;
 
 align-items:center;
+
 justify-content:center;
 
 text-align:center;
 }
 
+
 .suggest-item:last-child{
+
 border-bottom:none;
 }
 
+
 .suggest-item:hover{
-background:rgba(255,255,255,.08);
+
+background:
+rgba(255,255,255,.08);
 }
 
+
 .suggest-barcode{
+
 font-size:14px;
+
 font-weight:700;
 
 color:#00f5ff;
 }
 
+
 .suggest-name{
+
 font-size:13px;
 
 color:#cbd5e1;
@@ -799,20 +1164,28 @@ margin-top:4px;
 line-height:1.4;
 }
 
-/* MODAL */
+
+/* ================================================= */
+/* MODAL RESET */
+/* ================================================= */
 
 .modal{
+
 position:fixed;
+
 inset:0;
 
 display:none;
 
 align-items:center;
+
 justify-content:center;
 
-background:rgba(0,0,0,.72);
+background:
+rgba(0,0,0,.72);
 
 backdrop-filter:blur(10px);
+
 -webkit-backdrop-filter:blur(10px);
 
 z-index:999999999;
@@ -822,10 +1195,11 @@ padding:20px;
 overflow:auto;
 }
 
-/* MODAL BOX */
 
 .modal-box{
+
 width:90%;
+
 max-width:360px;
 
 padding:28px;
@@ -833,45 +1207,45 @@ padding:28px;
 border-radius:28px;
 
 background:
+
 linear-gradient(
 rgba(0,0,0,.45),
 rgba(0,0,0,.45)
 ),
+
 url('232c59a2-a76c-4766-8c58-20a6e1b7550a.jpeg')
+
 center center / cover no-repeat;
 
 border:1px solid rgba(255,255,255,.08);
 
 backdrop-filter:blur(10px);
+
 -webkit-backdrop-filter:blur(10px);
 
 box-shadow:
+
 0 0 15px rgba(0,245,255,.25),
+
 0 0 35px rgba(124,58,237,.20),
+
 0 15px 35px rgba(0,0,0,.45);
 
-animation:popup .25s ease;
+animation:
+popup .25s ease;
 
 overflow:hidden;
 
 position:relative;
 }
 
-@keyframes popup{
-from{
-transform:scale(.85);
-opacity:0;
-}
-to{
-transform:scale(1);
-opacity:1;
-}
-}
 
 .modal-title{
+
 text-align:center;
 
 font-size:22px;
+
 font-weight:700;
 
 color:white;
@@ -879,16 +1253,21 @@ color:white;
 margin-bottom:20px;
 
 text-shadow:
+
 0 0 10px rgba(0,245,255,.45),
+
 0 2px 8px rgba(0,0,0,.8);
 }
 
+
 .modal-input{
+
 width:100%;
 
 padding:16px;
 
 border:none;
+
 outline:none;
 
 border-radius:18px;
@@ -906,23 +1285,33 @@ margin-bottom:18px;
 transition:.3s;
 }
 
+
 .modal-input:focus{
-border:1px solid rgba(0,245,255,.7);
+
+border:
+1px solid rgba(0,245,255,.7);
 
 box-shadow:
+
 0 0 12px rgba(0,245,255,.35),
+
 0 0 25px rgba(124,58,237,.20);
 
-background:rgba(0,0,0,.45);
+background:
+rgba(0,0,0,.45);
 }
 
+
 .modal-actions{
+
 display:flex;
 
 gap:12px;
 }
 
+
 .modal-actions button{
+
 flex:1;
 
 padding:14px;
@@ -930,12 +1319,18 @@ padding:14px;
 border-radius:16px;
 }
 
+
 .cancel-btn{
-background:rgba(255,255,255,.08);
+
+background:
+rgba(255,255,255,.08);
 }
 
+
 .confirm-btn{
+
 background:
+
 linear-gradient(
 135deg,
 #00f5ff,
@@ -943,88 +1338,48 @@ linear-gradient(
 );
 }
 
-@media(max-width:500px){
 
-.container{
-padding:28px;
-}
-
-h1{
-font-size:24px;
-}
-
-#suggestions{
-max-height:280px;
-}
-
-}
-
-@supports (-webkit-touch-callout: none){
-
-html{
-height:-webkit-fill-available;
-}
-
-body{
-min-height:-webkit-fill-available;
-}
-
-}
-
-@media (min-width:768px){
-
-body{
-display:flex;
-
-justify-content:center;
-align-items:center;
-
-min-height:100vh;
-}
-
-.container{
-width:100%;
-max-width:450px;
-
-margin:0 auto;
-}
-
-}
-
-/* ============================= */
+/* ================================================= */
 /* MODE OVERLAY */
-/* ============================= */
+/* ================================================= */
 
 .mode-overlay{
+
 position:fixed;
+
 inset:0;
 
 display:none;
 
 justify-content:center;
+
 align-items:center;
 
 z-index:9999999998;
 
 background:
+
 linear-gradient(
 rgba(0,0,0,.80),
 rgba(0,0,0,.80)
 ),
+
 url('232c59a2-a76c-4766-8c58-20a6e1b7550a.jpeg')
+
 center center / cover no-repeat;
 
 backdrop-filter:blur(10px);
+
 -webkit-backdrop-filter:blur(10px);
 
 padding:20px;
 }
 
 
-/* MODE BOX */
-
 .mode-box{
+
 width:90%;
+
 max-width:360px;
 
 padding:30px;
@@ -1032,33 +1387,41 @@ padding:30px;
 border-radius:28px;
 
 background:
+
 linear-gradient(
 rgba(0,0,0,.45),
 rgba(0,0,0,.45)
 ),
+
 url('232c59a2-a76c-4766-8c58-20a6e1b7550a.jpeg')
+
 center center / cover no-repeat;
 
 border:1px solid rgba(255,255,255,.08);
 
 backdrop-filter:blur(10px);
+
 -webkit-backdrop-filter:blur(10px);
 
 box-shadow:
+
 0 0 20px rgba(0,245,255,.25),
+
 0 0 40px rgba(124,58,237,.20),
+
 0 15px 35px rgba(0,0,0,.45);
 
-animation:popup .25s ease;
+animation:
+popup .25s ease;
 }
 
 
-/* TITLE */
-
 .mode-title{
+
 text-align:center;
 
 font-size:24px;
+
 font-weight:700;
 
 color:white;
@@ -1066,13 +1429,17 @@ color:white;
 margin-bottom:8px;
 
 text-shadow:
+
 0 0 10px rgba(0,245,255,.55),
+
 0 0 20px rgba(124,58,237,.35),
+
 0 2px 8px rgba(0,0,0,.8);
 }
 
 
 .mode-desc{
+
 text-align:center;
 
 font-size:13px;
@@ -1083,19 +1450,18 @@ margin-bottom:25px;
 }
 
 
-/* BUTTON WRAPPER */
-
 .mode-buttons{
+
 display:flex;
+
 flex-direction:column;
 
 gap:14px;
 }
 
 
-/* MODE BUTTON */
-
 .mode-btn{
+
 width:100%;
 
 padding:18px;
@@ -1103,6 +1469,7 @@ padding:18px;
 border-radius:18px;
 
 font-size:16px;
+
 font-weight:700;
 
 letter-spacing:.7px;
@@ -1112,22 +1479,26 @@ color:white;
 cursor:pointer;
 
 transition:
+
 transform .25s ease,
+
 box-shadow .25s ease,
+
 border-color .25s ease;
 
 position:relative;
+
 overflow:hidden;
 }
 
 
-/* STOCKLOSS */
-
 .stockloss-mode{
 
-border:1px solid rgba(0,245,255,.45);
+border:
+1px solid rgba(0,245,255,.45);
 
 background:
+
 linear-gradient(
 135deg,
 rgba(0,245,255,.12),
@@ -1135,18 +1506,20 @@ rgba(0,0,0,.65)
 );
 
 box-shadow:
+
 inset 0 0 15px rgba(0,245,255,.08),
+
 0 0 12px rgba(0,245,255,.20);
 }
 
 
-/* STOCK OPNAME */
-
 .opname-mode{
 
-border:1px solid rgba(124,58,237,.55);
+border:
+1px solid rgba(124,58,237,.55);
 
 background:
+
 linear-gradient(
 135deg,
 rgba(124,58,237,.18),
@@ -1154,12 +1527,12 @@ rgba(0,0,0,.65)
 );
 
 box-shadow:
+
 inset 0 0 15px rgba(124,58,237,.08),
+
 0 0 12px rgba(124,58,237,.20);
 }
 
-
-/* HOVER */
 
 .stockloss-mode:hover{
 
@@ -1171,8 +1544,11 @@ border-color:
 rgba(0,245,255,.85);
 
 box-shadow:
+
 inset 0 0 20px rgba(0,245,255,.12),
+
 0 0 18px rgba(0,245,255,.50),
+
 0 0 35px rgba(0,245,255,.20);
 }
 
@@ -1187,47 +1563,382 @@ border-color:
 rgba(168,85,247,.90);
 
 box-shadow:
+
 inset 0 0 20px rgba(124,58,237,.12),
+
 0 0 18px rgba(124,58,237,.50),
+
 0 0 35px rgba(124,58,237,.20);
 }
 
 
-/* ACTIVE */
+/* ================================================= */
+/* ANIMATION */
+/* ================================================= */
 
-.mode-btn:active{
+@keyframes popup{
 
-transform:scale(.97);
+from{
+
+transform:
+scale(.85);
+
+opacity:0;
+
+}
+
+to{
+
+transform:
+scale(1);
+
+opacity:1;
+
+}
+
 }
 
 
+/* ================================================= */
 /* MOBILE */
+/* ================================================= */
 
 @media(max-width:500px){
 
+.container{
+
+padding:28px;
+}
+
+h1{
+
+font-size:24px;
+}
+
+#suggestions{
+
+max-height:280px;
+}
+
+.auth-box{
+
+padding:25px 22px;
+}
+
+.auth-title{
+
+font-size:22px;
+}
+
 .mode-box{
+
 padding:28px 22px;
 }
 
 .mode-title{
+
 font-size:22px;
 }
 
 .mode-btn{
+
 padding:17px;
+
 font-size:15px;
 }
 
 }
 
+
+@supports (-webkit-touch-callout:none){
+
+html{
+
+height:
+-webkit-fill-available;
+}
+
+body{
+
+min-height:
+-webkit-fill-available;
+}
+
+}
+
+
+@media(min-width:768px){
+
+body{
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+min-height:100vh;
+}
+
+.container{
+
+width:100%;
+
+max-width:450px;
+
+margin:0 auto;
+}
+
+}
+
 </style>
+
 </head>
 
-<body>
-    
-<!-- PILIH MODE -->
 
-<div class="mode-overlay" id="modeOverlay">
+<body>
+
+
+<!-- ================================================= -->
+<!-- AUTH OVERLAY -->
+<!-- ================================================= -->
+
+<div
+class="auth-overlay"
+id="authOverlay"
+>
+
+
+<!-- ================================================= -->
+<!-- LOGIN -->
+<!-- ================================================= -->
+
+<div
+class="auth-box"
+id="loginBox"
+>
+
+<div class="auth-title">
+THE BUTCHER KEMANG
+</div>
+
+<div class="auth-desc">
+Silahkan login untuk melanjutkan
+</div>
+
+
+<input
+type="text"
+id="loginUsername"
+class="auth-input"
+placeholder="Username"
+autocomplete="username"
+>
+
+
+<input
+type="password"
+id="loginPassword"
+class="auth-input"
+placeholder="Password"
+autocomplete="current-password"
+>
+
+
+<button
+class="auth-btn"
+id="loginBtn"
+onclick="loginApp()"
+>
+MASUK
+</button>
+
+
+<div
+id="loginStatus"
+class="auth-status"
+></div>
+
+
+<div class="auth-link">
+
+Belum punya akun?
+
+<span onclick="showSignup()">
+DAFTAR
+</span>
+
+</div>
+
+</div>
+
+
+<!-- ================================================= -->
+<!-- SIGN UP -->
+<!-- ================================================= -->
+
+<div
+class="auth-box"
+id="signupBox"
+style="display:none"
+>
+
+<div class="auth-title">
+SIGN UP
+</div>
+
+<div class="auth-desc">
+Buat akun baru STOCKLOSS BSD
+</div>
+
+
+<input
+type="text"
+id="signupNama"
+class="auth-input"
+placeholder="Nama Lengkap"
+>
+
+
+<input
+type="text"
+id="signupUsername"
+class="auth-input"
+placeholder="Username"
+autocomplete="username"
+>
+
+
+<input
+type="email"
+id="signupEmail"
+class="auth-input"
+placeholder="Email"
+autocomplete="email"
+>
+
+
+<input
+type="password"
+id="signupPassword"
+class="auth-input"
+placeholder="Password"
+autocomplete="new-password"
+>
+
+
+<input
+type="password"
+id="signupPassword2"
+class="auth-input"
+placeholder="Konfirmasi Password"
+autocomplete="new-password"
+>
+
+
+<button
+class="auth-btn"
+id="signupBtn"
+onclick="signupApp()"
+>
+DAFTAR
+</button>
+
+
+<div
+id="signupStatus"
+class="auth-status"
+></div>
+
+
+<div class="auth-link">
+
+Sudah punya akun?
+
+<span onclick="showLogin()">
+LOGIN
+</span>
+
+</div>
+
+</div>
+
+
+<!-- ================================================= -->
+<!-- OTP -->
+<!-- ================================================= -->
+
+<div
+class="auth-box"
+id="otpBox"
+style="display:none"
+>
+
+<div class="auth-title">
+VERIFIKASI EMAIL
+</div>
+
+<div class="auth-desc">
+
+Kode OTP telah dikirim ke email kamu.
+
+<br>
+
+Masukkan kode 6 digit.
+
+</div>
+
+
+<input
+type="text"
+id="otpInput"
+class="auth-input otp-input"
+placeholder="000000"
+inputmode="numeric"
+maxlength="6"
+autocomplete="one-time-code"
+>
+
+
+<button
+class="auth-btn"
+id="otpBtn"
+onclick="verifyOTP()"
+>
+VERIFIKASI
+</button>
+
+
+<div
+id="otpStatus"
+class="auth-status"
+></div>
+
+
+<div class="auth-link">
+
+Salah email?
+
+<span onclick="showSignup()">
+KEMBALI
+
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ================================================= -->
+<!-- MODE -->
+<!-- ================================================= -->
+
+<div
+class="mode-overlay"
+id="modeOverlay"
+>
 
 <div class="mode-box">
 
@@ -1241,70 +1952,41 @@ Silahkan pilih jenis transaksi
 
 <div class="mode-buttons">
 
+
 <button
 class="mode-btn stockloss-mode"
-onclick="pilihMode('stockloss')">
+onclick="pilihMode('stockloss')"
+>
 STOCKLOSS
 </button>
 
+
 <button
 class="mode-btn opname-mode"
-onclick="pilihMode('opname')">
+onclick="pilihMode('opname')"
+>
 STOCK OPNAME
 </button>
 
-</div>
 
-</div>
-
-</div>
-
-<!-- LOGIN SCREEN -->
-
-<div class="login-overlay" id="loginOverlay">
-
-<div class="login-box">
-
-<div class="login-title">
-THE BUTCHER KEMANG
-</div>
-
-<div class="login-desc">
-Silahkan masukkan password terlebih dahulu
-</div>
-
-<input
-type="password"
-id="loginPassword"
-class="login-input"
-placeholder="Masukkan Password"
->
-
-<button
-class="login-btn"
-onclick="loginApp()">
-Masuk
-</button>
-
-<div
-id="loginStatus"
-style="
-margin-top:14px;
-text-align:center;
-font-size:13px;
-color:#fff;
-min-height:18px;
-">
 </div>
 
 </div>
 
 </div>
 
+
+<!-- ================================================= -->
+<!-- MAIN -->
+<!-- ================================================= -->
 
 <div class="container">
 
-<h1>STOCKLOSS BSD</h1>
+
+<h1>
+STOCKLOSS BSD
+</h1>
+
 
 <p class="desc">
 Scan / Input Barcode dan Qty
@@ -1315,18 +1997,27 @@ Scan / Input Barcode dan Qty
 
 <div class="input-box barcode-box">
 
-<label>Barcode</label>
+<label>
+Barcode
+</label>
 
-<input 
-type="text" 
-id="barcode" 
+
+<input
+type="text"
+id="barcode"
 placeholder="Scan / Input Barcode"
 autocomplete="off"
 >
 
-<div id="namaBarang"></div>
 
-<div id="suggestions"></div>
+<div
+id="namaBarang"
+></div>
+
+
+<div
+id="suggestions"
+></div>
 
 </div>
 
@@ -1335,36 +2026,51 @@ autocomplete="off"
 
 <div class="input-box qty-box">
 
-<label>Qty</label>
+<label>
+Qty
+</label>
 
-<input 
+
+<input
 type="text"
 inputmode="decimal"
-id="qty" 
+id="qty"
 placeholder="Masukkan Qty"
 >
 
 </div>
 
 
-<button id="btnKirim" onclick="kirimData()">
+<button
+id="btnKirim"
+onclick="kirimData()"
+>
 Kirim Data
 </button>
 
-<button onclick="resetData()" class="reset-btn">
+
+<button
+onclick="resetData()"
+class="reset-btn"
+>
 Reset Data Stockloss
 </button>
+
 
 <div id="status"></div>
 
 
 <!-- HISTORY -->
 
-<div id="historyBox" class="last-input-box">
+<div
+id="historyBox"
+class="last-input-box"
+>
 
 <div class="last-title">
 DATA INPUT
 </div>
+
 
 <div class="history-header">
 
@@ -1378,22 +2084,32 @@ QTY
 
 </div>
 
-<div id="historyList"></div>
+
+<div
+id="historyList"
+></div>
 
 </div>
 
+
 </div>
 
 
-<!-- MODAL PASSWORD -->
+<!-- ================================================= -->
+<!-- RESET MODAL -->
+<!-- ================================================= -->
 
-<div class="modal" id="passwordModal">
+<div
+class="modal"
+id="passwordModal"
+>
 
 <div class="modal-box">
 
 <div class="modal-title">
-Silahkan Masukan Password
+Password Admin
 </div>
+
 
 <input
 type="password"
@@ -1402,19 +2118,25 @@ class="modal-input"
 placeholder="Masukkan password"
 >
 
+
 <div class="modal-actions">
+
 
 <button
 class="cancel-btn"
-onclick="closePasswordModal()">
+onclick="closePasswordModal()"
+>
 Batal
 </button>
 
+
 <button
 class="confirm-btn"
-onclick="submitReset()">
+onclick="submitReset()"
+>
 Masuk
 </button>
+
 
 </div>
 
@@ -1432,9 +2154,12 @@ Masuk
 const URL_SCRIPT =
 "https://script.google.com/macros/s/AKfycbyYp-CRc2wUKF-OQ8VFb3NApejjOSpIDbdlVxcsvgDtY8YHEwGdysxaHU1ruQATXOIS-w/exec";
 
-const ADMIN_PASSWORD = "0800";
 
 let currentMode = "";
+
+let currentUser = "";
+
+let currentUserName = "";
 
 let barcodeCache = [];
 
@@ -1442,6 +2167,683 @@ let debounceTimer;
 
 let historyData = [];
 
+let signupUsernameTemp = "";
+
+
+/* ================================================= */
+/* ESCAPE HTML */
+/* ================================================= */
+
+function escapeHTML(value){
+
+return String(value ?? "")
+
+.replace(/&/g,"&amp;")
+
+.replace(/</g,"&lt;")
+
+.replace(/>/g,"&gt;")
+
+.replace(/"/g,"&quot;")
+
+.replace(/'/g,"&#039;");
+
+}
+
+
+/* ================================================= */
+/* AUTH VIEW */
+/* ================================================= */
+
+function showLogin(){
+
+document
+.getElementById("loginBox")
+.style.display = "block";
+
+document
+.getElementById("signupBox")
+.style.display = "none";
+
+document
+.getElementById("otpBox")
+.style.display = "none";
+
+
+document
+.getElementById("loginStatus")
+.innerHTML = "";
+
+}
+
+
+function showSignup(){
+
+document
+.getElementById("loginBox")
+.style.display = "none";
+
+document
+.getElementById("signupBox")
+.style.display = "block";
+
+document
+.getElementById("otpBox")
+.style.display = "none";
+
+
+document
+.getElementById("signupStatus")
+.innerHTML = "";
+
+}
+
+
+function showOTP(){
+
+document
+.getElementById("loginBox")
+.style.display = "none";
+
+document
+.getElementById("signupBox")
+.style.display = "none";
+
+document
+.getElementById("otpBox")
+.style.display = "block";
+
+
+document
+.getElementById("otpInput")
+.value = "";
+
+setTimeout(()=>{
+
+document
+.getElementById("otpInput")
+.focus();
+
+},200);
+
+}
+
+
+/* ================================================= */
+/* LOGIN */
+/* ================================================= */
+
+async function loginApp(){
+
+const username =
+document
+.getElementById("loginUsername")
+.value
+.trim()
+.toLowerCase();
+
+
+const password =
+document
+.getElementById("loginPassword")
+.value;
+
+
+const status =
+document
+.getElementById("loginStatus");
+
+
+const btn =
+document
+.getElementById("loginBtn");
+
+
+if(
+username === "" ||
+password === ""
+){
+
+status.innerHTML =
+"⚠️ Username dan password wajib diisi";
+
+status.style.color =
+"#f97316";
+
+return;
+
+}
+
+
+btn.disabled = true;
+
+btn.innerHTML =
+"⏳ MEMERIKSA...";
+
+status.innerHTML = "";
+
+
+try{
+
+const res =
+await fetch(
+URL_SCRIPT,
+{
+
+method:"POST",
+
+headers:{
+"Content-Type":
+"text/plain;charset=utf-8"
+},
+
+body:JSON.stringify({
+
+action:"login",
+
+username:username,
+
+password:password
+
+})
+
+});
+
+
+const result =
+await res.text();
+
+
+if(
+result.startsWith(
+"LOGIN_SUCCESS|"
+)
+){
+
+const parts =
+result.split("|");
+
+
+currentUserName =
+parts[1] || "";
+
+currentUser =
+parts[2] || username;
+
+
+status.innerHTML = "";
+
+document
+.getElementById("authOverlay")
+.style.display =
+"none";
+
+
+document
+.getElementById("modeOverlay")
+.style.display =
+"flex";
+
+
+}else{
+
+throw new Error(
+result
+);
+
+}
+
+
+}catch(err){
+
+let message =
+err.message ||
+"Login gagal";
+
+
+message =
+message.replace(
+"Error: ",
+""
+);
+
+
+status.innerHTML =
+"❌ " +
+escapeHTML(message);
+
+status.style.color =
+"#ff4d4d";
+
+
+}finally{
+
+btn.disabled = false;
+
+btn.innerHTML =
+"MASUK";
+
+}
+
+}
+
+
+/* ================================================= */
+/* SIGN UP */
+/* ================================================= */
+
+async function signupApp(){
+
+const nama =
+document
+.getElementById("signupNama")
+.value
+.trim();
+
+
+const username =
+document
+.getElementById("signupUsername")
+.value
+.trim()
+.toLowerCase();
+
+
+const email =
+document
+.getElementById("signupEmail")
+.value
+.trim();
+
+
+const password =
+document
+.getElementById("signupPassword")
+.value;
+
+
+const password2 =
+document
+.getElementById("signupPassword2")
+.value;
+
+
+const status =
+document
+.getElementById("signupStatus");
+
+
+const btn =
+document
+.getElementById("signupBtn");
+
+
+if(
+nama === "" ||
+username === "" ||
+email === "" ||
+password === "" ||
+password2 === ""
+){
+
+status.innerHTML =
+"⚠️ Semua data wajib diisi";
+
+status.style.color =
+"#f97316";
+
+return;
+
+}
+
+
+if(
+password !== password2
+){
+
+status.innerHTML =
+"❌ Konfirmasi password tidak sama";
+
+status.style.color =
+"#ff4d4d";
+
+return;
+
+}
+
+
+btn.disabled = true;
+
+btn.innerHTML =
+"⏳ MENDAFTAR...";
+
+status.innerHTML = "";
+
+
+try{
+
+const res =
+await fetch(
+URL_SCRIPT,
+{
+
+method:"POST",
+
+headers:{
+"Content-Type":
+"text/plain;charset=utf-8"
+},
+
+body:JSON.stringify({
+
+action:"signup",
+
+nama:nama,
+
+username:username,
+
+email:email,
+
+password:password
+
+})
+
+});
+
+
+const result =
+await res.text();
+
+
+if(
+result ===
+"OTP_SENT"
+){
+
+signupUsernameTemp =
+username;
+
+
+status.innerHTML =
+"✅ OTP berhasil dikirim ke email";
+
+status.style.color =
+"#00f5ff";
+
+
+setTimeout(()=>{
+
+showOTP();
+
+},500);
+
+
+}else{
+
+throw new Error(
+result
+);
+
+}
+
+
+}catch(err){
+
+let message =
+err.message ||
+"Pendaftaran gagal";
+
+
+message =
+message.replace(
+"Error: ",
+""
+);
+
+
+status.innerHTML =
+"❌ " +
+escapeHTML(message);
+
+status.style.color =
+"#ff4d4d";
+
+
+}finally{
+
+btn.disabled = false;
+
+btn.innerHTML =
+"DAFTAR";
+
+}
+
+}
+
+
+/* ================================================= */
+/* VERIFY OTP */
+/* ================================================= */
+
+async function verifyOTP(){
+
+const otp =
+document
+.getElementById("otpInput")
+.value
+.trim();
+
+
+const status =
+document
+.getElementById("otpStatus");
+
+
+const btn =
+document
+.getElementById("otpBtn");
+
+
+if(
+otp.length !== 6
+){
+
+status.innerHTML =
+"⚠️ Masukkan OTP 6 digit";
+
+status.style.color =
+"#f97316";
+
+return;
+
+}
+
+
+btn.disabled = true;
+
+btn.innerHTML =
+"⏳ MEMVERIFIKASI...";
+
+status.innerHTML = "";
+
+
+try{
+
+const res =
+await fetch(
+URL_SCRIPT,
+{
+
+method:"POST",
+
+headers:{
+"Content-Type":
+"text/plain;charset=utf-8"
+},
+
+body:JSON.stringify({
+
+action:"verifyOTP",
+
+username:
+signupUsernameTemp,
+
+otp:otp
+
+})
+
+});
+
+
+const result =
+await res.text();
+
+
+if(
+result ===
+"OTP_VERIFIED"
+){
+
+status.innerHTML =
+"✅ Email berhasil diverifikasi";
+
+status.style.color =
+"#00f5ff";
+
+
+setTimeout(()=>{
+
+alert(
+"Akun berhasil dibuat dan sedang menunggu persetujuan admin."
+);
+
+showLogin();
+
+document
+.getElementById("loginUsername")
+.value =
+signupUsernameTemp;
+
+
+document
+.getElementById("loginPassword")
+.value = "";
+
+},700);
+
+
+}else{
+
+throw new Error(
+result
+);
+
+}
+
+
+}catch(err){
+
+let message =
+err.message ||
+"Verifikasi gagal";
+
+
+message =
+message.replace(
+"Error: ",
+""
+);
+
+
+status.innerHTML =
+"❌ " +
+escapeHTML(message);
+
+status.style.color =
+"#ff4d4d";
+
+
+}finally{
+
+btn.disabled = false;
+
+btn.innerHTML =
+"VERIFIKASI";
+
+}
+
+}
+
+
+/* ================================================= */
+/* ENTER LOGIN USERNAME */
+/* ================================================= */
+
+document
+.getElementById("loginUsername")
+.addEventListener(
+"keypress",
+function(e){
+
+if(
+e.key === "Enter"
+){
+
+e.preventDefault();
+
+document
+.getElementById("loginPassword")
+.focus();
+
+}
+
+});
+
+
+/* ================================================= */
+/* ENTER LOGIN PASSWORD */
+/* ================================================= */
+
+document
+.getElementById("loginPassword")
+.addEventListener(
+"keypress",
+function(e){
+
+if(
+e.key === "Enter"
+){
+
+e.preventDefault();
+
+loginApp();
+
+}
+
+});
+
+
+/* ================================================= */
+/* ENTER OTP */
+/* ================================================= */
+
+document
+.getElementById("otpInput")
+.addEventListener(
+"keypress",
+function(e){
+
+if(
+e.key === "Enter"
+){
+
+e.preventDefault();
+
+verifyOTP();
+
+}
+
+});
 
 
 /* ================================================= */
@@ -1466,16 +2868,19 @@ if(
 historyData.length === 0
 ){
 
-box.style.display = "none";
+box.style.display =
+"none";
 
-list.innerHTML = "";
+list.innerHTML =
+"";
 
 return;
 
 }
 
 
-box.style.display = "block";
+box.style.display =
+"block";
 
 
 let html = "";
@@ -1504,44 +2909,38 @@ ${escapeHTML(item.qty)}
 });
 
 
-list.innerHTML = html;
+list.innerHTML =
+html;
 
 }
 
 
 /* ================================================= */
-/* ESCAPE HTML */
+/* ADD HISTORY */
 /* ================================================= */
 
-function escapeHTML(value){
-
-return String(value ?? "")
-.replace(/&/g,"&amp;")
-.replace(/</g,"&lt;")
-.replace(/>/g,"&gt;")
-.replace(/"/g,"&quot;")
-.replace(/'/g,"&#039;");
-
-}
-
-
-/* ================================================= */
-/* TAMBAH HISTORY LANGSUNG */
-/* ================================================= */
-
-function addHistoryInstant(nama,qty){
+function addHistoryInstant(
+nama,
+qty
+){
 
 historyData.unshift({
 
-nama:nama || "-",
+nama:
+nama || "-",
 
-qty:qty
+qty:
+qty
 
 });
 
 
 historyData =
-historyData.slice(0,50);
+historyData.slice(
+0,
+50
+);
+
 
 renderHistory();
 
@@ -1549,7 +2948,7 @@ renderHistory();
 
 
 /* ================================================= */
-/* LOAD BARCODE DARI MASTER */
+/* LOAD BARCODE */
 /* ================================================= */
 
 async function loadBarcodeData(){
@@ -1557,7 +2956,9 @@ async function loadBarcodeData(){
 try{
 
 const res =
-await fetch(URL_SCRIPT,{
+await fetch(
+URL_SCRIPT,
+{
 
 method:"POST",
 
@@ -1567,18 +2968,24 @@ headers:{
 },
 
 body:JSON.stringify({
-action:"getAllBarcode"
+
+action:
+"getAllBarcode"
+
 })
 
 });
 
+
 barcodeCache =
 await res.json();
+
 
 console.log(
 "Barcode berhasil dimuat:",
 barcodeCache.length
 );
+
 
 }catch(err){
 
@@ -1587,24 +2994,28 @@ console.log(
 err
 );
 
+
 barcodeCache = [];
 
 }
 
 }
 
+
 /* ================================================= */
-/* AUTO FOCUS / INITIAL LOAD */
+/* WINDOW LOAD */
 /* ================================================= */
 
-window.onload = async () => {
+window.onload =
+async function(){
 
 await loadBarcodeData();
+
 
 setTimeout(()=>{
 
 document
-.getElementById("loginPassword")
+.getElementById("loginUsername")
 .focus();
 
 },200);
@@ -1613,68 +3024,39 @@ document
 
 
 /* ================================================= */
-/* ================================================= */
-/* LOGIN */
-/* ================================================= */
-
-function loginApp(){
-
-const password =
-document
-.getElementById("loginPassword")
-.value;
-
-
-if(password !== ADMIN_PASSWORD){
-
-const status = document.getElementById("loginStatus");
-
-status.innerHTML = "❌ Password salah";
-
-status.style.color = "#ff4d4d";
-
-return;
-
-}
-
-
-/* PASSWORD BENAR */
-
-document
-.getElementById("loginOverlay")
-.style.display =
-"none";
-
-
-/* TAMPILKAN PILIH MODE */
-
-document
-.getElementById("modeOverlay")
-.style.display =
-"flex";
-
-}
-
-
-/* ================================================= */
 /* PILIH MODE */
 /* ================================================= */
 
-function pilihMode(mode){
+function pilihMode(
+mode
+){
 
-currentMode = mode;
+currentMode =
+mode;
+
 
 const title =
-document.querySelector("h1");
+document.querySelector(
+"h1"
+);
+
 
 const desc =
-document.querySelector(".desc");
+document.querySelector(
+".desc"
+);
+
 
 const modeOverlay =
-document.getElementById("modeOverlay");
+document.getElementById(
+"modeOverlay"
+);
 
 
-if(mode === "stockloss"){
+if(
+mode ===
+"stockloss"
+){
 
 title.innerText =
 "STOCKLOSS BSD";
@@ -1682,12 +3064,15 @@ title.innerText =
 desc.innerText =
 "Scan / Input Barcode dan Qty";
 
-document.querySelector(".reset-btn").innerText =
+
+document
+.querySelector(".reset-btn")
+.innerText =
 "Reset Data Stockloss";
 
 }
 
-else if(mode === "opname"){
+else{
 
 title.innerText =
 "STOCK OPNAME BSD";
@@ -1695,13 +3080,14 @@ title.innerText =
 desc.innerText =
 "Scan / Input Barcode dan Qty";
 
-document.querySelector(".reset-btn").innerText =
+
+document
+.querySelector(".reset-btn")
+.innerText =
 "Reset Data Stock Opname";
 
 }
 
-
-/* KOSONGKAN HISTORY MODE SEBELUMNYA */
 
 historyData = [];
 
@@ -1711,8 +3097,6 @@ renderHistory();
 modeOverlay.style.display =
 "none";
 
-
-/* LOAD HISTORY SESUAI MODE */
 
 loadHistory();
 
@@ -1729,26 +3113,7 @@ document
 
 
 /* ================================================= */
-/* ENTER LOGIN */
-/* ================================================= */
-
-document
-.getElementById("loginPassword")
-.addEventListener(
-"keypress",
-function(e){
-
-if(e.key === "Enter"){
-
-loginApp();
-
-}
-
-});
-
-
-/* ================================================= */
-/* LOAD History */
+/* LOAD HISTORY */
 /* ================================================= */
 
 async function loadHistory(){
@@ -1756,7 +3121,9 @@ async function loadHistory(){
 try{
 
 const res =
-await fetch(URL_SCRIPT,{
+await fetch(
+URL_SCRIPT,
+{
 
 method:"POST",
 
@@ -1766,16 +3133,24 @@ headers:{
 },
 
 body:JSON.stringify({
-action:"getHistory",
-mode:currentMode
+
+action:
+"getHistory",
+
+mode:
+currentMode
+
 })
 
 });
 
+
 historyData =
 await res.json();
 
+
 renderHistory();
+
 
 }catch(err){
 
@@ -1790,20 +3165,23 @@ err
 
 
 /* ================================================= */
-/* HIDE DROPDOWN */
+/* HIDE SUGGESTIONS */
 /* ================================================= */
 
 function hideSuggestions(){
 
 document
-.getElementById("suggestions")
-.innerHTML = "";
+.getElementById(
+"suggestions"
+)
+.innerHTML =
+"";
 
 }
 
 
 /* ================================================= */
-/* AUTO QTY + NAMA */
+/* BARCODE INPUT */
 /* ================================================= */
 
 document
@@ -1822,16 +3200,23 @@ barcode
 
 
 if(
+
 barcode.startsWith("20") &&
+
 barcode.length === 13 &&
+
 /^\d+$/.test(barcode)
+
 ){
 
 hideSuggestions();
 
 
 const qtyRaw =
-barcode.substring(7,12);
+barcode.substring(
+7,
+12
+);
 
 
 const qtyNumber =
@@ -1844,7 +3229,10 @@ qtyRaw,
 let qtyFormatted =
 qtyNumber
 .toFixed(3)
-.replace(/\.?0+$/,'');
+.replace(
+/\.?0+$/,
+''
+);
 
 
 qtyFormatted =
@@ -1865,10 +3253,12 @@ qtyFormatted;
 
 
 /* ================================================= */
-/* TAMPILKAN NAMA BARANG */
+/* NAMA BARANG */
 /* ================================================= */
 
-function tampilkanNamaBarang(barcode){
+function tampilkanNamaBarang(
+barcode
+){
 
 const namaBox =
 document.getElementById(
@@ -1880,22 +3270,28 @@ let searchBarcode =
 barcode;
 
 
-/* BARCODE TIMBANG */
-
 if(
+
 barcode.startsWith("20") &&
+
 barcode.length === 13 &&
+
 /^\d+$/.test(barcode)
+
 ){
 
 searchBarcode =
-barcode.substring(2,7);
+barcode.substring(
+2,
+7
+);
 
 }
 
 
 const item =
-barcodeCache.find(x =>
+barcodeCache.find(
+x =>
 String(x.barcode) ===
 String(searchBarcode)
 );
@@ -1906,15 +3302,20 @@ if(item){
 namaBox.style.display =
 "block";
 
+
 namaBox.innerHTML =
-escapeHTML(item.nama);
+escapeHTML(
+item.nama
+);
 
 }else{
 
 namaBox.style.display =
 "none";
 
-namaBox.innerHTML = "";
+
+namaBox.innerHTML =
+"";
 
 }
 
@@ -1954,9 +3355,12 @@ document.getElementById(
 );
 
 
-if(keyword.length < 2){
+if(
+keyword.length < 2
+){
 
-suggestions.innerHTML = "";
+suggestions.innerHTML =
+"";
 
 return;
 
@@ -1964,47 +3368,86 @@ return;
 
 
 let filtered =
-barcodeCache.filter(item=>{
+barcodeCache.filter(
+item=>{
 
 const barcode =
-String(item.barcode)
+String(
+item.barcode
+)
 .toLowerCase();
 
+
 const nama =
-String(item.nama)
+String(
+item.nama
+)
 .toLowerCase();
 
 
 return(
-barcode.startsWith(keyword) ||
-barcode.includes(keyword) ||
-nama.includes(keyword)
+
+barcode.startsWith(
+keyword
+) ||
+
+barcode.includes(
+keyword
+) ||
+
+nama.includes(
+keyword
+)
+
 );
 
 });
 
 
 filtered =
-filtered.slice(0,20);
+filtered.slice(
+0,
+20
+);
 
 
 let html = "";
 
 
-filtered.forEach(item=>{
+filtered.forEach(
+item=>{
+
+const safeBarcode =
+String(
+item.barcode
+)
+.replace(
+/'/g,
+"\\'"
+);
+
 
 html += `
 
 <div
 class="suggest-item"
-onclick="pilihBarcode('${String(item.barcode).replace(/'/g,"\\'")}')">
+onclick="pilihBarcode('${safeBarcode}')"
+>
 
 <div class="suggest-barcode">
-${escapeHTML(item.barcode)}
+
+${escapeHTML(
+item.barcode
+)}
+
 </div>
 
 <div class="suggest-name">
-${escapeHTML(item.nama)}
+
+${escapeHTML(
+item.nama
+)}
+
 </div>
 
 </div>
@@ -2024,7 +3467,7 @@ html;
 
 
 /* ================================================= */
-/* HIDE QTY DROPDOWN */
+/* QTY FOCUS */
 /* ================================================= */
 
 document
@@ -2039,7 +3482,7 @@ hideSuggestions();
 
 
 /* ================================================= */
-/* HIDE CLICK LUAR */
+/* CLICK OUTSIDE */
 /* ================================================= */
 
 document.addEventListener(
@@ -2063,7 +3506,9 @@ hideSuggestions();
 /* PILIH BARCODE */
 /* ================================================= */
 
-function pilihBarcode(barcode){
+function pilihBarcode(
+barcode
+){
 
 document
 .getElementById("barcode")
@@ -2096,11 +3541,14 @@ document
 "keypress",
 function(e){
 
-if(e.key === "Enter"){
+if(
+e.key === "Enter"
+){
 
 e.preventDefault();
 
 hideSuggestions();
+
 
 document
 .getElementById("qty")
@@ -2121,7 +3569,9 @@ document
 "keypress",
 function(e){
 
-if(e.key === "Enter"){
+if(
+e.key === "Enter"
+){
 
 e.preventDefault();
 
@@ -2135,27 +3585,33 @@ kirimData();
 
 
 /* ================================================= */
-/* KIRIM DATA - OPTIMIZED */
+/* KIRIM DATA */
 /* ================================================= */
 
 async function kirimData(){
 
 const barcodeInput =
-document
-.getElementById("barcode");
+document.getElementById(
+"barcode"
+);
 
 
 const qtyInput =
-document
-.getElementById("qty");
+document.getElementById(
+"qty"
+);
 
 
 let barcode =
-barcodeInput.value.trim();
+barcodeInput
+.value
+.trim();
 
 
 let qty =
-qtyInput.value.trim();
+qtyInput
+.value
+.trim();
 
 
 if(
@@ -2173,28 +3629,48 @@ return;
 }
 
 
+if(
+currentUser === ""
+){
+
+document
+.getElementById("status")
+.innerHTML =
+"❌ User belum login";
+
+return;
+
+}
+
+
 let namaBarang = "";
 
 let searchBarcode =
 barcode;
 
 
-/* BARCODE TIMBANG */
-
 if(
+
 barcode.startsWith("20") &&
+
 barcode.length === 13 &&
+
 /^\d+$/.test(barcode)
+
 ){
 
 searchBarcode =
-barcode.substring(2,7);
+barcode.substring(
+2,
+7
+);
 
 }
 
 
 const item =
-barcodeCache.find(x =>
+barcodeCache.find(
+x =>
 String(x.barcode) ===
 String(searchBarcode)
 );
@@ -2208,49 +3684,56 @@ item.nama;
 }
 
 
-/* QTY */
-
 qty =
-qty.replace(",", ".");
+qty.replace(
+",",
+"."
+);
 
 
 const btn =
-document
-.getElementById("btnKirim");
+document.getElementById(
+"btnKirim"
+);
 
 
-btn.disabled = true;
+btn.disabled =
+true;
+
 
 btn.innerHTML =
 "⏳ Mengirim...";
 
 
-/* ================================================= */
-/* SIMPAN DATA INPUT */
-/* ================================================= */
+/* CLEAR */
 
-barcodeInput.value = "";
+barcodeInput.value =
+"";
 
-qtyInput.value = "";
+qtyInput.value =
+"";
+
 
 document
 .getElementById("namaBarang")
 .style.display =
 "none";
 
+
 document
 .getElementById("namaBarang")
-.innerHTML = "";
+.innerHTML =
+"";
+
 
 hideSuggestions();
 
 
-/* ================================================= */
-/* UPDATE HISTORY LANGSUNG */
-/* ================================================= */
+/* HISTORY */
 
 addHistoryInstant(
-namaBarang || barcode,
+namaBarang ||
+barcode,
 qty
 );
 
@@ -2263,10 +3746,6 @@ document
 
 barcodeInput.focus();
 
-
-/* ================================================= */
-/* KIRIM KE GOOGLE */
-/* ================================================= */
 
 try{
 
@@ -2284,13 +3763,20 @@ headers:{
 
 body:JSON.stringify({
 
-action:"saveData",
+action:
+"saveData",
 
-barcode:barcode,
+barcode:
+barcode,
 
-qty:qty,
+qty:
+qty,
 
-mode:currentMode
+mode:
+currentMode,
+
+username:
+currentUser
 
 })
 
@@ -2302,7 +3788,9 @@ await res.text();
 
 
 if(
-result.startsWith("Success")
+result.startsWith(
+"Success"
+)
 ){
 
 document
@@ -2312,7 +3800,9 @@ document
 
 }else{
 
-throw new Error(result);
+throw new Error(
+result
+);
 
 }
 
@@ -2325,11 +3815,6 @@ err
 );
 
 
-/*
- * Jika gagal, hapus history
- * yang tadi ditampilkan secara lokal.
- */
-
 historyData.shift();
 
 renderHistory();
@@ -2340,10 +3825,10 @@ document
 .innerHTML =
 "❌ Gagal mengirim data";
 
-
 }finally{
 
-btn.disabled = false;
+btn.disabled =
+false;
 
 btn.innerHTML =
 "Kirim Data";
@@ -2354,7 +3839,7 @@ btn.innerHTML =
 
 
 /* ================================================= */
-/* BUKA MODAL PASSWORD */
+/* RESET MODAL */
 /* ================================================= */
 
 function openPasswordModal(){
@@ -2367,7 +3852,8 @@ document
 
 document
 .getElementById("adminPassword")
-.value = "";
+.value =
+"";
 
 
 setTimeout(()=>{
@@ -2381,10 +3867,6 @@ document
 }
 
 
-/* ================================================= */
-/* TUTUP MODAL */
-/* ================================================= */
-
 function closePasswordModal(){
 
 document
@@ -2395,13 +3877,25 @@ document
 
 document
 .getElementById("adminPassword")
-.value = "";
+.value =
+"";
 
 }
 
 
 /* ================================================= */
-/* ENTER PASSWORD RESET */
+/* RESET */
+/* ================================================= */
+
+function resetData(){
+
+openPasswordModal();
+
+}
+
+
+/* ================================================= */
+/* RESET ENTER / ESC */
 /* ================================================= */
 
 document.addEventListener(
@@ -2419,7 +3913,9 @@ modal.style.display ===
 "flex"
 ){
 
-if(e.key === "Enter"){
+if(
+e.key === "Enter"
+){
 
 e.preventDefault();
 
@@ -2428,7 +3924,9 @@ submitReset();
 }
 
 
-if(e.key === "Escape"){
+if(
+e.key === "Escape"
+){
 
 closePasswordModal();
 
@@ -2440,18 +3938,7 @@ closePasswordModal();
 
 
 /* ================================================= */
-/* RESET */
-/* ================================================= */
-
-function resetData(){
-
-openPasswordModal();
-
-}
-
-
-/* ================================================= */
-/* SUBMIT RESET - OPTIMIZED */
+/* SUBMIT RESET */
 /* ================================================= */
 
 async function submitReset(){
@@ -2462,12 +3949,14 @@ document
 .value;
 
 
-if(password !== ADMIN_PASSWORD){
+if(
+password !== "0800"
+){
 
 document
 .getElementById("status")
 .innerHTML =
-"❌ Password salah";
+"❌ Password admin salah";
 
 return;
 
@@ -2482,22 +3971,21 @@ currentMode === "opname"
 ? "STOCK OPNAME"
 : "STOCKLOSS";
 
+
 const konfirmasi =
 confirm(
 `Yakin ingin menghapus semua data ${namaMode} sebelumnya?`
 );
 
 
-if(!konfirmasi){
+if(
+!konfirmasi
+){
 
 return;
 
 }
 
-
-/* ================================================= */
-/* LANGSUNG KOSONGKAN HISTORY */
-/* ================================================= */
 
 historyData = [];
 
@@ -2506,20 +3994,27 @@ renderHistory();
 
 document
 .getElementById("barcode")
-.value = "";
+.value =
+"";
+
 
 document
 .getElementById("qty")
-.value = "";
+.value =
+"";
+
 
 document
 .getElementById("namaBarang")
 .style.display =
 "none";
 
+
 document
 .getElementById("namaBarang")
-.innerHTML = "";
+.innerHTML =
+"";
+
 
 hideSuggestions();
 
@@ -2556,11 +4051,14 @@ headers:{
 
 body:JSON.stringify({
 
-action:"reset",
+action:
+"reset",
 
-password:password,
+password:
+password,
 
-mode:currentMode
+mode:
+currentMode
 
 })
 
@@ -2581,10 +4079,11 @@ document
 .innerHTML =
 `✅ Semua data ${namaMode} sebelumnya berhasil dihapus`;
 
-
 }else{
 
-throw new Error(result);
+throw new Error(
+result
+);
 
 }
 
@@ -2602,11 +4101,6 @@ document
 .innerHTML =
 "❌ Gagal reset data";
 
-
-/*
- * Jika reset gagal,
- * ambil kembali history asli.
- */
 
 await loadHistory();
 
@@ -2628,4 +4122,5 @@ document
 </script>
 
 </body>
+
 </html>
