@@ -2664,152 +2664,233 @@ async function signupApp(){
 /* VERIFY OTP */
 /* ================================================= */
 
+/* ================================================= */
+/* VERIFY OTP */
+/* ================================================= */
+
 async function verifyOTP(){
 
-const otp =
-document
-.getElementById("otpInput")
-.value
-.trim();
+  const otp =
+    document
+      .getElementById("otpInput")
+      .value
+      .trim();
 
 
-const status =
-document
-.getElementById("otpStatus");
+  const status =
+    document
+      .getElementById("otpStatus");
 
 
-const btn =
-document
-.getElementById("otpBtn");
+  const btn =
+    document
+      .getElementById("otpBtn");
 
 
-if(
-otp.length !== 6
-){
+  /* =========================
+     CEK OTP
+  ========================= */
 
-status.innerHTML =
-"⚠️ Masukkan OTP 6 digit";
+  if(otp.length !== 6){
 
-status.style.color =
-"#f97316";
+    status.textContent =
+      "⚠️ Masukkan OTP 6 digit";
 
-return;
+    status.style.color =
+      "#f97316";
 
-}
+    return;
 
-
-btn.disabled = true;
-
-btn.innerHTML =
-"⏳ MEMVERIFIKASI...";
-
-status.innerHTML = "";
+  }
 
 
-try{
+  /* =========================
+     AMBIL USERNAME
+  ========================= */
 
-const res =
-await fetch(
-URL_SCRIPT,
-{
-
-method:"POST",
-
-headers:{
-"Content-Type":
-"text/plain;charset=utf-8"
-},
-
-body:JSON.stringify({
-
-action:"verifyOTP",
-
-username:
-signupUsernameTemp,
-
-otp:otp
-
-})
-
-});
+  const username =
+    signupUsernameTemp ||
+    localStorage.getItem(
+      "signupUsernameTemp"
+    );
 
 
-const result =
-await res.text();
+  if(!username){
+
+    status.textContent =
+      "❌ Data pendaftaran tidak ditemukan. Silakan daftar kembali.";
+
+    status.style.color =
+      "#ff4d4d";
+
+    return;
+
+  }
 
 
-if(
-result ===
-"OTP_VERIFIED"
-){
+  /* =========================
+     LOADING
+  ========================= */
 
-status.innerHTML =
-"✅ Email berhasil diverifikasi";
+  btn.disabled = true;
 
-status.style.color =
-"#00f5ff";
+  btn.textContent =
+    "⏳ MEMVERIFIKASI...";
 
-
-setTimeout(()=>{
-
-alert(
-"Akun berhasil dibuat dan sedang menunggu persetujuan admin."
-);
-
-showLogin();
-
-document
-.getElementById("loginUsername")
-.value =
-signupUsernameTemp;
+  status.textContent = "";
 
 
-document
-.getElementById("loginPassword")
-.value = "";
+  try{
 
-},700);
+    const res =
+      await fetch(
+        URL_SCRIPT,
+        {
 
+          method:"POST",
 
-}else{
+          headers:{
+            "Content-Type":
+              "text/plain;charset=utf-8"
+          },
 
-throw new Error(
-result
-);
+          body:JSON.stringify({
 
-}
+            action:
+              "verifyOTP",
 
+            username:
+              username,
 
-}catch(err){
+            otp:
+              otp
 
-let message =
-err.message ||
-"Verifikasi gagal";
+          })
 
-
-message =
-message.replace(
-"Error: ",
-""
-);
-
-
-status.innerHTML =
-"❌ " +
-escapeHTML(message);
-
-status.style.color =
-"#ff4d4d";
+        }
+      );
 
 
-}finally{
+    const result =
+      (await res.text()).trim();
 
-btn.disabled = false;
 
-btn.innerHTML =
-"VERIFIKASI";
+    console.log(
+      "USERNAME OTP:",
+      username
+    );
 
-}
+    console.log(
+      "RESPON OTP:",
+      result
+    );
+
+
+    /* =========================
+       BERHASIL
+    ========================= */
+
+    if(
+      result ===
+      "OTP_VERIFIED"
+    ){
+
+      status.textContent =
+        "✅ Email berhasil diverifikasi";
+
+      status.style.color =
+        "#00f5ff";
+
+
+      /*
+       * Hapus username sementara
+       * setelah verifikasi berhasil.
+       */
+
+      localStorage.removeItem(
+        "signupUsernameTemp"
+      );
+
+      signupUsernameTemp =
+        "";
+
+
+      setTimeout(() => {
+
+        alert(
+          "Akun berhasil dibuat dan sedang menunggu persetujuan admin."
+        );
+
+
+        showLogin();
+
+
+        document
+          .getElementById("loginUsername")
+          .value =
+          username;
+
+
+        document
+          .getElementById("loginPassword")
+          .value =
+          "";
+
+      },700);
+
+
+      return;
+
+    }
+
+
+    /* =========================
+       ERROR
+    ========================= */
+
+    let message =
+      result ||
+      "Verifikasi gagal";
+
+
+    message =
+      message.replace(
+        /^Error:\s*/i,
+        ""
+      );
+
+
+    status.textContent =
+      "❌ " + message;
+
+    status.style.color =
+      "#ff4d4d";
+
+
+  }catch(err){
+
+    console.error(
+      "VERIFY OTP ERROR:",
+      err
+    );
+
+
+    status.textContent =
+      "❌ Gagal terhubung ke server";
+
+    status.style.color =
+      "#ff4d4d";
+
+
+  }finally{
+
+    btn.disabled =
+      false;
+
+    btn.textContent =
+      "VERIFIKASI";
+
+  }
 
 }
 
