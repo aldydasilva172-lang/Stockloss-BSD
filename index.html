@@ -3126,11 +3126,7 @@ barcodeCache = [];
 /* WINDOW LOAD */
 /* ================================================= */
 
-window.onload =
-async function(){
-
-await loadBarcodeData();
-
+window.onload = function(){
 
 setTimeout(()=>{
 
@@ -3213,13 +3209,10 @@ historyData = [];
 
 renderHistory();
 
-
 modeOverlay.style.display =
 "none";
 
-
 loadHistory();
-
 
 setTimeout(()=>{
 
@@ -3228,8 +3221,6 @@ document
 .focus();
 
 },100);
-
-}
 
 
 /* ================================================= */
@@ -3376,68 +3367,104 @@ qtyFormatted;
 /* NAMA BARANG */
 /* ================================================= */
 
-function tampilkanNamaBarang(
-barcode
-){
+async function tampilkanNamaBarang(barcode){
 
-const namaBox =
-document.getElementById(
-"namaBarang"
-);
+  const namaBox =
+    document.getElementById(
+      "namaBarang"
+    );
 
+  if(!barcode){
 
-let searchBarcode =
-barcode;
+    namaBox.style.display =
+      "none";
 
+    namaBox.innerHTML =
+      "";
 
-if(
+    return;
 
-barcode.startsWith("20") &&
-
-barcode.length === 13 &&
-
-/^\d+$/.test(barcode)
-
-){
-
-searchBarcode =
-barcode.substring(
-2,
-7
-);
-
-}
+  }
 
 
-const item =
-barcodeCache.find(
-x =>
-String(x.barcode) ===
-String(searchBarcode)
-);
+  let searchBarcode =
+    barcode;
 
 
-if(item){
+  if(
+    barcode.startsWith("20") &&
+    barcode.length === 13 &&
+    /^\d+$/.test(barcode)
+  ){
 
-namaBox.style.display =
-"block";
+    searchBarcode =
+      barcode.substring(
+        2,
+        7
+      );
 
-
-namaBox.innerHTML =
-escapeHTML(
-item.nama
-);
-
-}else{
-
-namaBox.style.display =
-"none";
+  }
 
 
-namaBox.innerHTML =
-"";
+  try{
 
-}
+    const res =
+      await fetch(
+        URL_SCRIPT,
+        {
+
+          method:"POST",
+
+          headers:{
+            "Content-Type":
+              "text/plain;charset=utf-8"
+          },
+
+          body:JSON.stringify({
+
+            action:
+              "findBarcode",
+
+            barcode:
+              searchBarcode
+
+          })
+
+        }
+      );
+
+
+    const item =
+      await res.json();
+
+
+    if(item.nama){
+
+      namaBox.style.display =
+        "block";
+
+      namaBox.textContent =
+        item.nama;
+
+    }else{
+
+      namaBox.style.display =
+        "none";
+
+      namaBox.textContent =
+        "";
+
+    }
+
+
+  }catch(err){
+
+    console.log(
+      "Cari barcode error:",
+      err
+    );
+
+  }
 
 }
 
