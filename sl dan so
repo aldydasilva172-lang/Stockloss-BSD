@@ -1627,10 +1627,11 @@ document
 
 if(password !== ADMIN_PASSWORD){
 
-document
-.getElementById("loginStatus")
-innerHTML =
-"❌ Password salah";
+const status = document.getElementById("loginStatus");
+
+status.innerHTML = "❌ Password salah";
+
+status.style.color = "#ff4d4d";
 
 return;
 
