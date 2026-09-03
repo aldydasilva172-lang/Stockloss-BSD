@@ -405,11 +405,14 @@ text-shadow:
 }
 
 .barcode-box{
-z-index:9999;
+    margin-bottom:0;
+    border-radius:22px 22px 0 0;
+    border-bottom:none;
 }
 
 .qty-box{
-z-index:1;
+    border-radius:0 0 22px 22px;
+    border-top:none;
 }
 
 .input-box label{
@@ -1036,8 +1039,8 @@ rgba(0,0,0,.80)
 url('232c59a2-a76c-4766-8c58-20a6e1b7550a.jpeg')
 center center / cover no-repeat;
 
-backdrop-filter:blur(10px);
--webkit-backdrop-filter:blur(10px);
+backdrop-filter:blur(50px);
+-webkit-backdrop-filter:blur(50px);
 
 padding:20px;
 }
