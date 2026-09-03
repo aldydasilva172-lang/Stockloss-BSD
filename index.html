@@ -2377,6 +2377,317 @@ font-size:15px;
     }
 }
 
+/* =========================================================
+   UPGRADE MARLIN
+   ========================================================= */
+
+.tb-fish-svg{
+    position:absolute;
+
+    width:360px;
+    height:auto;
+
+    left:0;
+    top:0;
+
+    overflow:visible;
+
+    filter:
+        drop-shadow(0 0 7px rgba(0,220,255,.8))
+        drop-shadow(0 0 18px rgba(0,120,255,.45));
+}
+
+
+/* =========================================================
+   UPGRADE GOLOK
+   ========================================================= */
+
+.tb-golok{
+    width:330px;
+    height:120px;
+
+    z-index:30;
+}
+
+.tb-golok-svg{
+    position:absolute;
+
+    width:300px;
+    height:auto;
+
+    left:48px;
+    top:-4px;
+
+    overflow:visible;
+
+    filter:
+        drop-shadow(0 0 6px rgba(255,255,255,.9))
+        drop-shadow(0 0 18px rgba(150,230,255,.5));
+}
+
+.tb-golok-handle{
+    z-index:3;
+
+    width:70px;
+    height:25px;
+
+    left:0;
+    top:47px;
+
+    border-radius:12px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #120906,
+            #63351d,
+            #b46b37,
+            #30160d,
+            #120906
+        );
+
+    border:2px solid #9b6038;
+}
+
+.tb-golok-handle span{
+    position:absolute;
+
+    inset:4px 8px;
+
+    border-top:1px solid rgba(255,210,160,.5);
+    border-bottom:1px solid rgba(255,210,160,.25);
+}
+
+
+/* =========================================================
+   DARAH
+   ========================================================= */
+
+.tb-blood{
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    width:10px;
+    height:10px;
+
+    z-index:35;
+
+    pointer-events:none;
+}
+
+.tb-blood i{
+    position:absolute;
+
+    display:block;
+
+    width:var(--size,8px);
+    height:var(--size,8px);
+
+    border-radius:
+        70% 30% 65% 35%;
+
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            #ff6870,
+            #d40018 45%,
+            #72000b 100%
+        );
+
+    box-shadow:
+        0 0 7px rgba(220,0,20,.7);
+
+    opacity:0;
+
+    animation:
+        tbBloodSplash
+        .85s
+        cubic-bezier(.15,.8,.25,1)
+        1.55s
+        forwards;
+}
+
+
+/* posisi tiap percikan */
+
+.tb-blood i:nth-child(1){
+    --size:13px;
+    --x:-75px;
+    --y:-52px;
+}
+
+.tb-blood i:nth-child(2){
+    --size:8px;
+    --x:-48px;
+    --y:-78px;
+}
+
+.tb-blood i:nth-child(3){
+    --size:6px;
+    --x:-15px;
+    --y:-62px;
+}
+
+.tb-blood i:nth-child(4){
+    --size:11px;
+    --x:38px;
+    --y:-72px;
+}
+
+.tb-blood i:nth-child(5){
+    --size:7px;
+    --x:72px;
+    --y:-48px;
+}
+
+.tb-blood i:nth-child(6){
+    --size:5px;
+    --x:-95px;
+    --y:15px;
+}
+
+.tb-blood i:nth-child(7){
+    --size:10px;
+    --x:-55px;
+    --y:32px;
+}
+
+.tb-blood i:nth-child(8){
+    --size:6px;
+    --x:20px;
+    --y:42px;
+}
+
+.tb-blood i:nth-child(9){
+    --size:12px;
+    --x:67px;
+    --y:28px;
+}
+
+.tb-blood i:nth-child(10){
+    --size:5px;
+    --x:105px;
+    --y:-10px;
+}
+
+.tb-blood i:nth-child(11){
+    --size:4px;
+    --x:-115px;
+    --y:-25px;
+}
+
+.tb-blood i:nth-child(12){
+    --size:5px;
+    --x:120px;
+    --y:20px;
+}
+
+
+@keyframes tbBloodSplash{
+
+    0%{
+        opacity:0;
+        transform:
+            translate(0,0)
+            scale(.1)
+            rotate(0deg);
+    }
+
+    15%{
+        opacity:1;
+    }
+
+    100%{
+        opacity:0;
+        transform:
+            translate(var(--x),var(--y))
+            scale(1)
+            rotate(180deg);
+    }
+}
+
+
+/* =========================================================
+   IMPACT FLASH
+   ========================================================= */
+
+.tb-cut-line{
+    width:5px;
+
+    background:
+        linear-gradient(
+            180deg,
+            transparent,
+            #ffb0b5 15%,
+            #ff182d 35%,
+            #ffffff 50%,
+            #ff182d 65%,
+            #ffb0b5 85%,
+            transparent
+        );
+
+    box-shadow:
+        0 0 10px #ff1028,
+        0 0 25px #ff1028,
+        0 0 55px rgba(255,0,30,.9);
+}
+
+
+/* flash sesaat ketika kena */
+
+.tb-cut-line::after{
+    content:"";
+
+    position:absolute;
+
+    width:100px;
+    height:100px;
+
+    left:50%;
+    top:50%;
+
+    transform:
+        translate(-50%,-50%)
+        scale(0);
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.95),
+            rgba(255,20,40,.45) 25%,
+            transparent 70%
+        );
+
+    animation:
+        tbImpactFlash
+        .35s
+        ease-out
+        1.55s
+        forwards;
+}
+
+
+@keyframes tbImpactFlash{
+
+    0%{
+        opacity:1;
+        transform:
+            translate(-50%,-50%)
+            scale(.1);
+    }
+
+    100%{
+        opacity:0;
+        transform:
+            translate(-50%,-50%)
+            scale(2.2);
+    }
+}
+
 </style>
 </head>
 
@@ -2424,75 +2735,335 @@ STOCK OPNAME
 
         <div class="tb-glow"></div>
 
-        <!-- MARLIN -->
-        <div class="tb-marlin-wrap">
+        <!-- MARLIN + GOLOK -->
+<div class="tb-marlin-wrap">
 
-            <!-- BAGIAN KIRI -->
-            <div class="tb-marlin-half tb-marlin-left">
-                <div class="tb-marlin">
+    <!-- BAGIAN KIRI -->
+    <div class="tb-marlin-half tb-marlin-left">
+        <svg class="tb-fish-svg" viewBox="0 0 700 260"
+             xmlns="http://www.w3.org/2000/svg">
 
-                    <div class="tb-body"></div>
+            <defs>
+                <linearGradient id="fishBody" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#b9f7ff"/>
+                    <stop offset="25%" stop-color="#238eaf"/>
+                    <stop offset="65%" stop-color="#07506d"/>
+                    <stop offset="100%" stop-color="#021d2a"/>
+                </linearGradient>
 
-                    <div class="tb-fin tb-fin-top"></div>
-                    <div class="tb-fin tb-fin-bottom"></div>
+                <linearGradient id="fishFin" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#8befff"/>
+                    <stop offset="100%" stop-color="#07516d"/>
+                </linearGradient>
 
-                    <div class="tb-tail"></div>
+                <linearGradient id="fishHighlight">
+                    <stop offset="0%" stop-color="#ffffff"/>
+                    <stop offset="50%" stop-color="#73e8ff"/>
+                    <stop offset="100%" stop-color="#1689a8"/>
+                </linearGradient>
 
-                    <div class="tb-eye"></div>
+                <filter id="fishGlow">
+                    <feGaussianBlur stdDeviation="5" result="blur"/>
+                    <feMerge>
+                        <feMergeNode in="blur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                </filter>
+            </defs>
 
-                    <div class="tb-spear"></div>
+            <!-- ekor -->
+            <path
+                d="M525 105
+                   C580 60 635 48 680 25
+                   C657 70 652 91 675 128
+                   C630 108 580 105 525 145 Z"
+                fill="url(#fishFin)"
+                stroke="#86efff"
+                stroke-width="3"/>
 
-                </div>
-            </div>
+            <!-- badan -->
+            <path
+                d="M90 105
+                   C145 48 245 38 355 58
+                   C425 70 500 82 545 110
+                   C500 145 425 177 340 188
+                   C235 202 145 175 90 130
+                   C75 120 75 113 90 105 Z"
+                fill="url(#fishBody)"
+                stroke="#9af3ff"
+                stroke-width="4"/>
 
-            <!-- BAGIAN KANAN -->
-            <div class="tb-marlin-half tb-marlin-right">
-                <div class="tb-marlin">
+            <!-- moncong -->
+            <path
+                d="M100 108 L8 117 L100 124"
+                fill="none"
+                stroke="#a8f5ff"
+                stroke-width="5"
+                stroke-linecap="round"/>
 
-                    <div class="tb-body"></div>
+            <!-- sirip atas -->
+            <path
+                d="M275 60
+                   C290 25 330 10 370 8
+                   C350 35 344 55 348 72 Z"
+                fill="url(#fishFin)"
+                stroke="#8cefff"
+                stroke-width="3"/>
 
-                    <div class="tb-fin tb-fin-top"></div>
-                    <div class="tb-fin tb-fin-bottom"></div>
+            <!-- sirip bawah -->
+            <path
+                d="M300 178
+                   C320 205 345 225 375 230
+                   C360 202 355 182 360 172 Z"
+                fill="url(#fishFin)"
+                stroke="#75eaff"
+                stroke-width="3"/>
 
-                    <div class="tb-tail"></div>
+            <!-- garis tubuh -->
+            <path
+                d="M125 128 C245 105 380 112 510 135"
+                fill="none"
+                stroke="url(#fishHighlight)"
+                stroke-width="5"
+                opacity=".75"/>
 
-                    <div class="tb-eye"></div>
+            <path
+                d="M145 148 C260 135 390 145 480 155"
+                fill="none"
+                stroke="#063c54"
+                stroke-width="4"
+                opacity=".7"/>
 
-                    <div class="tb-spear"></div>
+            <!-- mata -->
+            <circle cx="105" cy="105" r="10"
+                    fill="#eaffff"
+                    filter="url(#fishGlow)"/>
+            <circle cx="105" cy="105" r="5" fill="#02090d"/>
+            <circle cx="107" cy="102" r="2" fill="#fff"/>
 
-                </div>
-            </div>
-
-        </div>
-
-        <!-- GARIS POTONG -->
-        <div class="tb-cut-line"></div>
-
-        <!-- GOLOK -->
-        <div class="tb-golok">
-            <div class="tb-golok-handle"></div>
-            <div class="tb-golok-blade"></div>
-        </div>
-
-        <!-- EFEK SABET -->
-        <div class="tb-slash"></div>
-
-        <div class="tb-sparks">
-            <i></i>
-            <i></i>
-            <i></i>
-            <i></i>
-            <i></i>
-            <i></i>
-            <i></i>
-            <i></i>
-        </div>
-
-        <div class="tb-opening-text">
-            THE BUTCHER KEMANG
-        </div>
-
+        </svg>
     </div>
+
+
+    <!-- BAGIAN KANAN -->
+    <div class="tb-marlin-half tb-marlin-right">
+        <svg class="tb-fish-svg" viewBox="0 0 700 260"
+             xmlns="http://www.w3.org/2000/svg">
+
+            <defs>
+                <linearGradient id="fishBody2" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#b9f7ff"/>
+                    <stop offset="25%" stop-color="#238eaf"/>
+                    <stop offset="65%" stop-color="#07506d"/>
+                    <stop offset="100%" stop-color="#021d2a"/>
+                </linearGradient>
+
+                <linearGradient id="fishFin2" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#8befff"/>
+                    <stop offset="100%" stop-color="#07516d"/>
+                </linearGradient>
+            </defs>
+
+            <path
+                d="M525 105
+                   C580 60 635 48 680 25
+                   C657 70 652 91 675 128
+                   C630 108 580 105 525 145 Z"
+                fill="url(#fishFin2)"
+                stroke="#86efff"
+                stroke-width="3"/>
+
+            <path
+                d="M90 105
+                   C145 48 245 38 355 58
+                   C425 70 500 82 545 110
+                   C500 145 425 177 340 188
+                   C235 202 145 175 90 130
+                   C75 120 75 113 90 105 Z"
+                fill="url(#fishBody2)"
+                stroke="#9af3ff"
+                stroke-width="4"/>
+
+            <path
+                d="M100 108 L8 117 L100 124"
+                fill="none"
+                stroke="#a8f5ff"
+                stroke-width="5"
+                stroke-linecap="round"/>
+
+            <path
+                d="M275 60
+                   C290 25 330 10 370 8
+                   C350 35 344 55 348 72 Z"
+                fill="url(#fishFin2)"
+                stroke="#8cefff"
+                stroke-width="3"/>
+
+            <path
+                d="M300 178
+                   C320 205 345 225 375 230
+                   C360 202 355 182 360 172 Z"
+                fill="url(#fishFin2)"
+                stroke="#75eaff"
+                stroke-width="3"/>
+
+            <path
+                d="M125 128 C245 105 380 112 510 135"
+                fill="none"
+                stroke="#73e8ff"
+                stroke-width="5"
+                opacity=".75"/>
+
+            <path
+                d="M145 148 C260 135 390 145 480 155"
+                fill="none"
+                stroke="#063c54"
+                stroke-width="4"
+                opacity=".7"/>
+
+            <circle cx="105" cy="105" r="10"
+                    fill="#eaffff"/>
+            <circle cx="105" cy="105" r="5"
+                    fill="#02090d"/>
+            <circle cx="107" cy="102" r="2"
+                    fill="#fff"/>
+
+        </svg>
+    </div>
+
+</div>
+
+
+<!-- GOLOK -->
+<div class="tb-golok">
+
+    <div class="tb-golok-handle">
+        <span></span>
+    </div>
+
+    <svg class="tb-golok-svg"
+         viewBox="0 0 500 150"
+         xmlns="http://www.w3.org/2000/svg">
+
+        <defs>
+
+            <linearGradient id="bladeMetal"
+                            x1="0" y1="0"
+                            x2="1" y2="1">
+
+                <stop offset="0%"
+                      stop-color="#ffffff"/>
+
+                <stop offset="22%"
+                      stop-color="#dce8ed"/>
+
+                <stop offset="45%"
+                      stop-color="#758891"/>
+
+                <stop offset="70%"
+                      stop-color="#eef7fa"/>
+
+                <stop offset="100%"
+                      stop-color="#3b4b53"/>
+
+            </linearGradient>
+
+            <linearGradient id="bladeEdge"
+                            x1="0" y1="0"
+                            x2="1" y2="0">
+
+                <stop offset="0%"
+                      stop-color="#ffffff"/>
+
+                <stop offset="50%"
+                      stop-color="#dffcff"/>
+
+                <stop offset="100%"
+                      stop-color="#ffffff"/>
+
+            </linearGradient>
+
+            <filter id="bladeGlow">
+                <feGaussianBlur stdDeviation="4"
+                                result="blur"/>
+                <feMerge>
+                    <feMergeNode in="blur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+            </filter>
+
+        </defs>
+
+        <!-- gagang penghubung -->
+        <rect
+            x="15"
+            y="61"
+            width="115"
+            height="28"
+            rx="12"
+            fill="#21120c"
+            stroke="#b87943"
+            stroke-width="4"/>
+
+        <!-- bilah golok -->
+        <path
+            d="M105 57
+               C180 30 290 18 420 35
+               C457 40 480 55 490 72
+               C455 92 415 108 365 118
+               C265 137 170 115 105 91 Z"
+            fill="url(#bladeMetal)"
+            stroke="#f4ffff"
+            stroke-width="4"
+            filter="url(#bladeGlow)"/>
+
+        <!-- sisi tajam -->
+        <path
+            d="M112 91
+               C205 115 315 119 420 86
+               C447 77 470 70 490 72"
+            fill="none"
+            stroke="url(#bladeEdge)"
+            stroke-width="6"
+            stroke-linecap="round"/>
+
+        <!-- pantulan -->
+        <path
+            d="M170 61 C250 42 335 43 405 55"
+            fill="none"
+            stroke="#ffffff"
+            stroke-width="7"
+            opacity=".65"/>
+
+    </svg>
+
+</div>
+
+
+<!-- FLASH POTONG -->
+<div class="tb-cut-line"></div>
+
+<!-- SLASH -->
+<div class="tb-slash"></div>
+
+
+<!-- DARAH / SPLASH -->
+<div class="tb-blood">
+
+    <i></i>
+    <i></i>
+    <i></i>
+    <i></i>
+    <i></i>
+    <i></i>
+    <i></i>
+    <i></i>
+    <i></i>
+    <i></i>
+    <i></i>
+    <i></i>
+
+</div>
 
 
     <!-- LOGIN BOX ASLI -->
