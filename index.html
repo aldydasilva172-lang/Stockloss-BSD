@@ -377,7 +377,7 @@ backdrop-filter:blur(4px);
 box-shadow:
 0 0 14px rgba(0,245,255,.18),
 0 0 28px rgba(124,58,237,.14),
-0 8px 22px rgba(0,0,0,.32);
+0 6px 16px rgba(0,0,0,.25);
 
 overflow:visible;
 }
@@ -1218,6 +1218,36 @@ padding:17px;
 font-size:15px;
 }
 
+}
+
+/* FIX GARIS DI ANTARA BARCODE DAN QTY */
+
+.barcode-box{
+    overflow:visible;
+    box-shadow:
+        0 0 14px rgba(0,245,255,.18),
+        0 0 28px rgba(124,58,237,.14),
+        0 4px 10px rgba(0,0,0,.15);
+}
+
+.qty-box{
+    overflow:visible;
+    box-shadow:
+        0 0 14px rgba(0,245,255,.18),
+        0 0 28px rgba(124,58,237,.14),
+        0 8px 22px rgba(0,0,0,.32);
+}
+.barcode-box{
+z-index:9999;
+
+box-shadow:
+0 0 14px rgba(0,245,255,.18),
+0 0 28px rgba(124,58,237,.14),
+0 4px 10px rgba(0,0,0,.15);
+}
+
+.qty-box{
+z-index:1;
 }
 
 </style>
