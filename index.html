@@ -34,18 +34,35 @@ padding:20px;
 
 position:relative;
 
+overflow-x:hidden;
+overflow-y:auto;
+
+display:block;
+
+background:#000;
+}
+
+/* BACKGROUND UTAMA BLUR */
+
+body::before{
+content:"";
+
+position:fixed;
+inset:-30px;
+
 background:
 linear-gradient(
 rgba(0,0,0,.60),
 rgba(0,0,0,.60)
 ),
 url('232c59a2-a76c-4766-8c58-20a6e1b7550a.jpeg')
-center top / 100% auto repeat-y;
+center top / cover no-repeat;
 
-overflow-x:hidden;
-overflow-y:auto;
+filter:blur(12px);
 
-display:block;
+transform:scale(1.05);
+
+z-index:-2;
 }
 
 /* LOGIN OVERLAY */
@@ -60,6 +77,20 @@ align-items:center;
 
 z-index:9999999999;
 
+background:rgba(0,0,0,.55);
+
+padding:20px;
+overflow:auto;
+}
+
+/* FOTO LOGIN BLUR */
+
+.login-overlay::before{
+content:"";
+
+position:absolute;
+inset:-30px;
+
 background:
 linear-gradient(
 rgba(0,0,0,.80),
@@ -68,11 +99,11 @@ rgba(0,0,0,.80)
 url('232c59a2-a76c-4766-8c58-20a6e1b7550a.jpeg')
 center center / cover no-repeat;
 
-backdrop-filter:blur(10px);
--webkit-backdrop-filter:blur(10px);
+filter:blur(12px);
 
-padding:20px;
-overflow:auto;
+transform:scale(1.05);
+
+z-index:-1;
 }
 
 /* LOGIN BOX */
@@ -95,8 +126,10 @@ center center / cover no-repeat;
 
 border:1px solid rgba(255,255,255,.08);
 
-backdrop-filter:blur(10px);
--webkit-backdrop-filter:blur(10px);
+backdrop-filter:none;
+
+-webkit-backdrop-filter:none;
+
 
 box-shadow:
 0 0 20px rgba(0,245,255,.25),
@@ -1008,6 +1041,19 @@ align-items:center;
 
 z-index:9999999998;
 
+background:rgba(0,0,0,.55);
+
+padding:20px;
+}
+
+/* FOTO MODE BLUR */
+
+.mode-overlay::before{
+content:"";
+
+position:absolute;
+inset:-30px;
+
 background:
 linear-gradient(
 rgba(0,0,0,.80),
@@ -1016,10 +1062,11 @@ rgba(0,0,0,.80)
 url('232c59a2-a76c-4766-8c58-20a6e1b7550a.jpeg')
 center center / cover no-repeat;
 
-backdrop-filter:blur(10px);
--webkit-backdrop-filter:blur(10px);
+filter:blur(12px);
 
-padding:20px;
+transform:scale(1.05);
+
+z-index:-1;
 }
 
 
