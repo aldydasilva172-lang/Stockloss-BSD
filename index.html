@@ -734,6 +734,8 @@ overscroll-behavior:contain;
 
 z-index:9999999;
 
+display:none;
+
 background:
 linear-gradient(
 rgba(0,0,0,.75),
@@ -1249,14 +1251,7 @@ box-shadow:
 .qty-box{
 z-index:1;
 }
-.barcode-box{
 
-    backdrop-filter:none !important;
-
-    -webkit-backdrop-filter:none !important;
-
-    box-shadow:none !important;
-    }
 
 </style>
 </head>
@@ -1833,9 +1828,12 @@ err
 
 function hideSuggestions(){
 
-document
-.getElementById("suggestions")
-.innerHTML = "";
+const suggestions =
+document.getElementById("suggestions");
+
+suggestions.innerHTML = "";
+
+suggestions.style.display = "none";
 
 }
 
@@ -1995,6 +1993,7 @@ document.getElementById(
 if(keyword.length < 2){
 
 suggestions.innerHTML = "";
+suggestions.style.display = "none";
 
 return;
 
@@ -2055,6 +2054,15 @@ ${escapeHTML(item.nama)}
 suggestions.innerHTML =
 html;
 
+if(filtered.length > 0){
+
+suggestions.style.display = "block";
+
+}else{
+
+suggestions.style.display = "none";
+
+}
 
 },120);
 
