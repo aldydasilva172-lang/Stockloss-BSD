@@ -2297,96 +2297,138 @@ document
 
 function startOTPCountdown(){
 
-  // Hentikan timer sebelumnya
   if(otpTimerInterval){
     clearInterval(otpTimerInterval);
   }
 
+
+  // SIMPAN WAKTU EXPIRED
   otpExpireTime =
     Date.now() + (10 * 60 * 1000);
 
+
+  localStorage.setItem(
+    "otpExpireTime",
+    otpExpireTime
+  );
+
+
+  updateOTPCountdown();
+
+  otpTimerInterval =
+    setInterval(
+      updateOTPCountdown,
+      1000
+    );
+
+}
+
+
+/* ================================================= */
+/* UPDATE OTP COUNTDOWN */
+/* ================================================= */
+
+function updateOTPCountdown(){
+
   const timer =
-    document.getElementById("otpTimer");
+    document.getElementById(
+      "otpTimer"
+    );
 
   const resendBtn =
-    document.getElementById("resendOtpBtn");
-
-  resendBtn.disabled = true;
-
-  function updateTimer(){
-
-    const remaining =
-      otpExpireTime - Date.now();
+    document.getElementById(
+      "resendOtpBtn"
+    );
 
 
-    if(remaining <= 0){
+  if(!timer || !resendBtn){
+    return;
+  }
+
+
+  const remaining =
+    otpExpireTime -
+    Date.now();
+
+
+  /* =========================
+     EXPIRED
+  ========================= */
+
+  if(remaining <= 0){
+
+    if(otpTimerInterval){
 
       clearInterval(
         otpTimerInterval
       );
 
-      timer.textContent =
-        "⏰ OTP sudah expired";
+      otpTimerInterval =
+        null;
 
-      timer.style.color =
-        "#ff4d4d";
-
-
-      resendBtn.disabled =
-        false;
-
-      resendBtn.textContent =
-        "KIRIM ULANG OTP";
-
-      return;
     }
-
-
-    const totalSeconds =
-      Math.ceil(
-        remaining / 1000
-      );
-
-
-    const minutes =
-      Math.floor(
-        totalSeconds / 60
-      );
-
-
-    const seconds =
-      totalSeconds % 60;
 
 
     timer.textContent =
-      "OTP berlaku " +
-      String(minutes).padStart(2,"0") +
-      ":" +
-      String(seconds).padStart(2,"0");
-
+      "⏰ OTP sudah expired";
 
     timer.style.color =
-      "#00f5ff";
+      "#ff4d4d";
 
 
-    // Jika tinggal 1 menit
-    if(totalSeconds <= 60){
+    resendBtn.disabled =
+      false;
 
-      timer.style.color =
-        "#f97316";
+    resendBtn.textContent =
+      "KIRIM ULANG OTP";
 
-    }
+    return;
 
   }
 
 
-  updateTimer();
+  /* =========================
+     HITUNG WAKTU
+  ========================= */
 
-  otpTimerInterval =
-    setInterval(
-      updateTimer,
-      1000
+  const totalSeconds =
+    Math.ceil(
+      remaining / 1000
     );
+
+
+  const minutes =
+    Math.floor(
+      totalSeconds / 60
+    );
+
+
+  const seconds =
+    totalSeconds % 60;
+
+
+  timer.textContent =
+    "OTP berlaku " +
+    String(minutes).padStart(2,"0") +
+    ":" +
+    String(seconds).padStart(2,"0");
+
+
+  /* =========================
+     WARNA
+  ========================= */
+
+  if(totalSeconds <= 60){
+
+    timer.style.color =
+      "#f97316";
+
+  }else{
+
+    timer.style.color =
+      "#00f5ff";
+
+  }
 
 }
 
@@ -2798,10 +2840,6 @@ const res = await fetch(
 /* VERIFY OTP */
 /* ================================================= */
 
-/* ================================================= */
-/* VERIFY OTP */
-/* ================================================= */
-
 async function verifyOTP(){
 
   const otp =
@@ -2810,15 +2848,11 @@ async function verifyOTP(){
       .value
       .trim();
 
-
   const status =
-    document
-      .getElementById("otpStatus");
-
+    document.getElementById("otpStatus");
 
   const btn =
-    document
-      .getElementById("otpBtn");
+    document.getElementById("otpBtn");
 
 
   /* =========================
@@ -2837,6 +2871,215 @@ async function verifyOTP(){
 
   }
 
+
+  /* =========================
+     AMBIL USERNAME
+  ========================= */
+
+  const username =
+    signupUsernameTemp ||
+    localStorage.getItem(
+      "signupUsernameTemp"
+    );
+
+
+  if(!username){
+
+    status.textContent =
+      "❌ Data pendaftaran tidak ditemukan. Silakan daftar kembali.";
+
+    status.style.color =
+      "#ff4d4d";
+
+    return;
+
+  }
+
+
+  /* =========================
+     LOADING
+  ========================= */
+
+  btn.disabled = true;
+
+  btn.textContent =
+    "⏳ MEMVERIFIKASI...";
+
+  status.textContent = "";
+
+
+  try{
+
+    const res =
+      await fetch(
+        URL_SCRIPT,
+        {
+
+          method:"POST",
+
+          headers:{
+            "Content-Type":
+              "text/plain;charset=utf-8"
+          },
+
+          body:JSON.stringify({
+
+            action:
+              "verifyOTP",
+
+            username:
+              username,
+
+            otp:
+              otp
+
+          })
+
+        }
+      );
+
+
+    const result =
+      (await res.text()).trim();
+
+
+    console.log(
+      "USERNAME OTP:",
+      username
+    );
+
+    console.log(
+      "RESPON OTP:",
+      result
+    );
+
+
+    /* =========================
+       BERHASIL
+    ========================= */
+
+    if(
+      result ===
+      "OTP_VERIFIED"
+    ){
+
+      status.textContent =
+        "✅ Email berhasil diverifikasi";
+
+      status.style.color =
+        "#00f5ff";
+
+
+      // STOP TIMER
+      if(otpTimerInterval){
+
+        clearInterval(
+          otpTimerInterval
+        );
+
+        otpTimerInterval =
+          null;
+
+      }
+
+
+      // HAPUS DATA OTP SEMENTARA
+      localStorage.removeItem(
+        "signupUsernameTemp"
+      );
+
+      localStorage.removeItem(
+        "otpExpireTime"
+      );
+
+      signupUsernameTemp =
+        "";
+
+
+      setTimeout(()=>{
+
+        alert(
+          "Akun berhasil dibuat dan sedang menunggu persetujuan admin."
+        );
+
+
+        showLogin();
+
+
+        document
+          .getElementById("loginUsername")
+          .value =
+          username;
+
+
+        document
+          .getElementById("loginPassword")
+          .value =
+          "";
+
+      },700);
+
+
+      return;
+
+    }
+
+
+    /* =========================
+       ERROR
+    ========================= */
+
+    let message =
+      result ||
+      "Verifikasi gagal";
+
+
+    message =
+      message.replace(
+        /^Error:\s*/i,
+        ""
+      );
+
+
+    status.textContent =
+      "❌ " + message;
+
+    status.style.color =
+      "#ff4d4d";
+
+
+  }catch(err){
+
+    console.error(
+      "VERIFY OTP ERROR:",
+      err
+    );
+
+
+    status.textContent =
+      "❌ Gagal terhubung ke server";
+
+    status.style.color =
+      "#ff4d4d";
+
+
+  }finally{
+
+    btn.disabled =
+      false;
+
+    btn.textContent =
+      "VERIFIKASI";
+
+  }
+
+}
+
+
+/* ================================================= */
+/* RESEND OTP */
+/* ================================================= */
+
 async function resendOTP(){
 
   const username =
@@ -2844,6 +3087,7 @@ async function resendOTP(){
     localStorage.getItem(
       "signupUsernameTemp"
     );
+
 
   const status =
     document.getElementById(
@@ -2859,7 +3103,7 @@ async function resendOTP(){
   if(!username){
 
     status.textContent =
-      "❌ Data pendaftaran tidak ditemukan.";
+      "❌ Data pendaftaran tidak ditemukan. Silakan daftar kembali.";
 
     status.style.color =
       "#ff4d4d";
@@ -2910,44 +3154,53 @@ async function resendOTP(){
       (await res.text()).trim();
 
 
-    if(result === "OTP_SENT"){
-
-  document
-    .getElementById("otpInput")
-    .value = "";
-
-
-  status.textContent =
-    "✅ OTP baru berhasil dikirim ke email";
-
-  status.style.color =
-    "#00f5ff";
+    console.log(
+      "RESPON RESEND OTP:",
+      result
+    );
 
 
-  // RESTART TIMER 10 MENIT
-  startOTPCountdown();
+    /* =========================
+       BERHASIL
+    ========================= */
+
+    if(
+      result ===
+      "OTP_SENT"
+    ){
+
+      document
+        .getElementById("otpInput")
+        .value = "";
 
 
-  document
-    .getElementById("otpInput")
-    .focus();
+      status.textContent =
+        "✅ OTP baru berhasil dikirim ke email";
 
-}
+      status.style.color =
+        "#00f5ff";
 
 
-    }else{
+      // MULAI LAGI 10 MENIT
+      startOTPCountdown();
 
-      throw new Error(
-        result
-      );
+
+      document
+        .getElementById("otpInput")
+        .focus();
+
+
+      return;
 
     }
 
 
-  }catch(err){
+    /* =========================
+       ERROR
+    ========================= */
 
     let message =
-      err.message ||
+      result ||
       "Gagal mengirim OTP";
 
 
@@ -2960,6 +3213,21 @@ async function resendOTP(){
 
     status.textContent =
       "❌ " + message;
+
+    status.style.color =
+      "#ff4d4d";
+
+
+  }catch(err){
+
+    console.error(
+      "RESEND OTP ERROR:",
+      err
+    );
+
+
+    status.textContent =
+      "❌ Gagal terhubung ke server";
 
     status.style.color =
       "#ff4d4d";
@@ -3410,24 +3678,67 @@ window.onload = function(){
   // Jika ada pendaftaran yang belum selesai OTP
   if(pendingUsername){
 
-    signupUsernameTemp =
-      pendingUsername;
+  signupUsernameTemp =
+    pendingUsername;
 
-    showOTP();
 
-    document
-      .getElementById("otpStatus")
-      .textContent =
-      "⚠️ Silakan masukkan OTP yang dikirim ke email.";
+  showOTP();
 
-    document
-      .getElementById("otpStatus")
-      .style.color =
-      "#f97316";
 
-    return;
+  const savedExpire =
+    localStorage.getItem(
+      "otpExpireTime"
+    );
+
+
+  if(savedExpire){
+
+    otpExpireTime =
+      Number(savedExpire);
+
+
+    if(
+      otpExpireTime >
+      Date.now()
+    ){
+
+      updateOTPCountdown();
+
+      otpTimerInterval =
+        setInterval(
+          updateOTPCountdown,
+          1000
+        );
+
+    }else{
+
+      otpExpireTime =
+        Date.now();
+
+      updateOTPCountdown();
+
+    }
+
+  }else{
+
+    startOTPCountdown();
 
   }
+
+
+  document
+    .getElementById("otpStatus")
+    .textContent =
+    "⚠️ Silakan masukkan OTP yang dikirim ke email.";
+
+  document
+    .getElementById("otpStatus")
+    .style.color =
+    "#f97316";
+
+  return;
+
+}
 
 
   // Tidak ada proses OTP
