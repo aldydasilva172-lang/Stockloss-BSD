@@ -1908,12 +1908,37 @@ onclick="verifyOTP()"
 VERIFIKASI
 </button>
 
+<button
+class="auth-btn"
+id="resendOtpBtn"
+onclick="resendOTP()"
+style="
+margin-top:10px;
+background:rgba(255,255,255,.08);
+border-color:rgba(249,115,22,.45);
+"
+>
+KIRIM ULANG OTP
+</button>
 
 <div
 id="otpStatus"
 class="auth-status"
 ></div>
 
+<div
+id="otpTimer"
+style="
+text-align:center;
+margin-top:8px;
+font-size:13px;
+font-weight:600;
+color:#00f5ff;
+text-shadow:0 0 8px rgba(0,245,255,.45);
+"
+>
+OTP berlaku 10:00
+</div>
 
 <div class="auth-link">
 
@@ -2168,6 +2193,8 @@ let debounceTimer;
 let historyData = [];
 
 let signupUsernameTemp = "";
+let otpTimerInterval = null;
+let otpExpireTime = 0;
 
 
 /* ================================================= */
@@ -2268,6 +2295,100 @@ document
 
 }
 
+function startOTPCountdown(){
+
+  // Hentikan timer sebelumnya
+  if(otpTimerInterval){
+    clearInterval(otpTimerInterval);
+  }
+
+  otpExpireTime =
+    Date.now() + (10 * 60 * 1000);
+
+  const timer =
+    document.getElementById("otpTimer");
+
+  const resendBtn =
+    document.getElementById("resendOtpBtn");
+
+  resendBtn.disabled = true;
+
+  function updateTimer(){
+
+    const remaining =
+      otpExpireTime - Date.now();
+
+
+    if(remaining <= 0){
+
+      clearInterval(
+        otpTimerInterval
+      );
+
+      timer.textContent =
+        "⏰ OTP sudah expired";
+
+      timer.style.color =
+        "#ff4d4d";
+
+
+      resendBtn.disabled =
+        false;
+
+      resendBtn.textContent =
+        "KIRIM ULANG OTP";
+
+      return;
+    }
+
+
+    const totalSeconds =
+      Math.ceil(
+        remaining / 1000
+      );
+
+
+    const minutes =
+      Math.floor(
+        totalSeconds / 60
+      );
+
+
+    const seconds =
+      totalSeconds % 60;
+
+
+    timer.textContent =
+      "OTP berlaku " +
+      String(minutes).padStart(2,"0") +
+      ":" +
+      String(seconds).padStart(2,"0");
+
+
+    timer.style.color =
+      "#00f5ff";
+
+
+    // Jika tinggal 1 menit
+    if(totalSeconds <= 60){
+
+      timer.style.color =
+        "#f97316";
+
+    }
+
+  }
+
+
+  updateTimer();
+
+  otpTimerInterval =
+    setInterval(
+      updateTimer,
+      1000
+    );
+
+}
 
 /* ================================================= */
 /* LOGIN */
@@ -2573,11 +2694,14 @@ const res = await fetch(
   status.style.color =
     "#00f5ff";
 
+
   setTimeout(() => {
 
     showOTP();
 
-  }, 500);
+    startOTPCountdown();
+
+  },500);
 
   return;
 }
@@ -2713,6 +2837,145 @@ async function verifyOTP(){
 
   }
 
+async function resendOTP(){
+
+  const username =
+    signupUsernameTemp ||
+    localStorage.getItem(
+      "signupUsernameTemp"
+    );
+
+  const status =
+    document.getElementById(
+      "otpStatus"
+    );
+
+  const btn =
+    document.getElementById(
+      "resendOtpBtn"
+    );
+
+
+  if(!username){
+
+    status.textContent =
+      "❌ Data pendaftaran tidak ditemukan.";
+
+    status.style.color =
+      "#ff4d4d";
+
+    return;
+
+  }
+
+
+  btn.disabled = true;
+
+  btn.textContent =
+    "⏳ MENGIRIM...";
+
+  status.textContent =
+    "";
+
+
+  try{
+
+    const res =
+      await fetch(
+        URL_SCRIPT,
+        {
+
+          method:"POST",
+
+          headers:{
+            "Content-Type":
+              "text/plain;charset=utf-8"
+          },
+
+          body:JSON.stringify({
+
+            action:
+              "resendOTP",
+
+            username:
+              username
+
+          })
+
+        }
+      );
+
+
+    const result =
+      (await res.text()).trim();
+
+
+    if(result === "OTP_SENT"){
+
+  document
+    .getElementById("otpInput")
+    .value = "";
+
+
+  status.textContent =
+    "✅ OTP baru berhasil dikirim ke email";
+
+  status.style.color =
+    "#00f5ff";
+
+
+  // RESTART TIMER 10 MENIT
+  startOTPCountdown();
+
+
+  document
+    .getElementById("otpInput")
+    .focus();
+
+}
+
+
+    }else{
+
+      throw new Error(
+        result
+      );
+
+    }
+
+
+  }catch(err){
+
+    let message =
+      err.message ||
+      "Gagal mengirim OTP";
+
+
+    message =
+      message.replace(
+        /^Error:\s*/i,
+        ""
+      );
+
+
+    status.textContent =
+      "❌ " + message;
+
+    status.style.color =
+      "#ff4d4d";
+
+
+  }finally{
+
+    btn.disabled =
+      false;
+
+    btn.textContent =
+      "KIRIM ULANG OTP";
+
+  }
+
+}
 
   /* =========================
      AMBIL USERNAME
