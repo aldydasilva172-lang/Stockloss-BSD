@@ -2498,39 +2498,49 @@ async function signupApp(){
 
   btn.disabled = true;
 
-  btn.textContent =
-    "⏳ MENDAFTAR...";
+btn.textContent =
+  "⏳ MENDAFTAR...";
 
-  status.textContent = "";
+status.textContent = "";
 
 
-  try{
+// SIMPAN USERNAME SEBELUM REQUEST
+signupUsernameTemp =
+  username;
 
-    const res = await fetch(
-      URL_SCRIPT,
-      {
-        method: "POST",
+localStorage.setItem(
+  "signupUsernameTemp",
+  username
+);
 
-        headers: {
-          "Content-Type":
-            "text/plain;charset=utf-8"
-        },
 
-        body: JSON.stringify({
+try{
 
-          action: "signup",
+const res = await fetch(
+  URL_SCRIPT,
+  {
+    method: "POST",
 
-          nama: nama,
+    headers: {
+      "Content-Type":
+        "text/plain;charset=utf-8"
+    },
 
-          username: username,
+    body: JSON.stringify({
 
-          email: email,
+      action: "signup",
 
-          password: password
+      nama: nama,
 
-        })
-      }
-    );
+      username: username,
+
+      email: email,
+
+      password: password
+
+    })
+  }
+);
 
 
     const result =
@@ -3128,13 +3138,43 @@ barcodeCache = [];
 
 window.onload = function(){
 
-setTimeout(()=>{
+  const pendingUsername =
+    localStorage.getItem(
+      "signupUsernameTemp"
+    );
 
-document
-.getElementById("loginUsername")
-.focus();
 
-},200);
+  // Jika ada pendaftaran yang belum selesai OTP
+  if(pendingUsername){
+
+    signupUsernameTemp =
+      pendingUsername;
+
+    showOTP();
+
+    document
+      .getElementById("otpStatus")
+      .textContent =
+      "⚠️ Silakan masukkan OTP yang dikirim ke email.";
+
+    document
+      .getElementById("otpStatus")
+      .style.color =
+      "#f97316";
+
+    return;
+
+  }
+
+
+  // Tidak ada proses OTP
+  setTimeout(()=>{
+
+    document
+      .getElementById("loginUsername")
+      .focus();
+
+  },200);
 
 };
 
