@@ -3143,36 +3143,20 @@ document
 /* PILIH MODE */
 /* ================================================= */
 
-function pilihMode(
-mode
-){
+function pilihMode(mode){
 
-currentMode =
-mode;
-
+currentMode = mode;
 
 const title =
-document.querySelector(
-"h1"
-);
-
+document.querySelector("h1");
 
 const desc =
-document.querySelector(
-".desc"
-);
-
+document.querySelector(".desc");
 
 const modeOverlay =
-document.getElementById(
-"modeOverlay"
-);
+document.getElementById("modeOverlay");
 
-
-if(
-mode ===
-"stockloss"
-){
+if(mode === "stockloss"){
 
 title.innerText =
 "STOCKLOSS BSD";
@@ -3180,22 +3164,18 @@ title.innerText =
 desc.innerText =
 "Scan / Input Barcode dan Qty";
 
-
 document
 .querySelector(".reset-btn")
 .innerText =
 "Reset Data Stockloss";
 
-}
-
-else{
+}else{
 
 title.innerText =
 "STOCK OPNAME BSD";
 
 desc.innerText =
 "Scan / Input Barcode dan Qty";
-
 
 document
 .querySelector(".reset-btn")
@@ -3204,7 +3184,6 @@ document
 
 }
 
-
 historyData = [];
 
 renderHistory();
@@ -3212,8 +3191,16 @@ renderHistory();
 modeOverlay.style.display =
 "none";
 
+
+// LOAD BARCODE
+loadBarcodeData();
+
+
+// LOAD HISTORY
 loadHistory();
 
+
+// FOCUS BARCODE
 setTimeout(()=>{
 
 document
@@ -3221,8 +3208,8 @@ document
 .focus();
 
 },100);
-}
 
+}
 
 /* ================================================= */
 /* LOAD HISTORY */
